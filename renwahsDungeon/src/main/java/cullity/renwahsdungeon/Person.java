@@ -15,7 +15,7 @@ import java.util.Comparator;
 public class Person {
 
     public static Comparator<Person> lNameCompare = new Comparator<Person>() {
-@Override
+        @Override
         public int compare(Person p1, Person p2) {
             String StudentName1 = p1.getFName().toUpperCase();
             String StudentName2 = p2.getFName().toUpperCase();
@@ -23,8 +23,6 @@ public class Person {
             return StudentName1.compareTo(StudentName2);
         }
     };
-    
-    
 
     private int age;
     private double height;//cm

@@ -1,3 +1,7 @@
+//made by: Shawn and Conner
+//made on: 12/4/18
+//made to: be a dungeon style rpg
+
 package cullity.renwahsdungeon;
 
 import java.net.URL;
