@@ -1,0 +1,25 @@
+/*
+Made By: Conner Cullity
+Date: 
+Description: 
+*/
+/* 
+    Created on : Dec 4, 2018, 1:35:19 PM
+    Author     : Conner
+*/
+@font-face {
+    font-family: ArcadeClassic;
+    src: url(ARCADECLASSIC.TTF);
+}
+
+.label {
+    -fx-font-family: "ArcadeClassic";
+}
+
+.button {
+    -fx-font-family: "ArcadeClassic";
+}
+
+.menueButton {
+    -fx-font-size: 32;
+}
