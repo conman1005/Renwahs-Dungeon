@@ -9,7 +9,7 @@ package cullity.renwahsdungeon;
  *
  * @author shawnb58
  */
-public class Item {
+public class Item {//maybe make symbol letters for items and numbers for weapons
 
     private String itemName;
     private boolean weapon;//if it is a weapon or not

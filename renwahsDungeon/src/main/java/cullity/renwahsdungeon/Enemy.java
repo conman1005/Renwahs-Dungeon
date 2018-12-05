@@ -12,6 +12,7 @@ package cullity.renwahsdungeon;
 public class Enemy {
      private double strength;
     private double health;
+    //maybe add in a string ability for like slowing down the character
     //private boolean employed;
     private String type;//class
     private double defense;
