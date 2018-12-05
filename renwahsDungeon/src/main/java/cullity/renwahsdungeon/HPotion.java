@@ -4,7 +4,7 @@
  * Made to
  */
 package cullity.renwahsdungeon;
-//hpotion not done yet//make datat class just part of person and delete data class
+//make datat class just part of person and delete data class
 
 import javafx.scene.image.Image;
 
