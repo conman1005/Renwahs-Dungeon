@@ -123,9 +123,14 @@ public class Person {
     
 //person stuff
     public Person() {
-        name="bob";
+        StringBuffer tempN = new StringBuffer("bob");
+        tempN.setLength(15);
+        name = tempN.toString();
+        
+        StringBuffer tempI = new StringBuffer("!!!!!!");
+        tempI.setLength(6);
+        inventory = tempI.toString();//! is nothing
         level=1;
-        inventory="!!!!!!";//! is nothing
         bStrength = 10;
         bHealth = 100;
         bDefense = 10;
@@ -135,7 +140,11 @@ public class Person {
     }
 
     public Person(String n, int l,double s,double h, double d, String t,String i) {
-        name=n;
+        StringBuffer buff = new StringBuffer(n);
+        buff.setLength(15);
+        name = buff.toString();
+        
+        
         level=l;
         bStrength = s;
         bHealth = h;
