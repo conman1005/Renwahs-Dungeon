@@ -1,7 +1,6 @@
 //made by: Shawn and Conner
 //made on: 12/4/18
 //made to: be a dungeon style rpg
-
 package cullity.renwahsdungeon;
 
 import java.net.URL;
@@ -10,21 +9,16 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 
 public class FXMLController implements Initializable {
 
-    @FXML
-    private Button btnPlay;
+    Alert alert = new Alert(AlertType.INFORMATION);
 
     @FXML
     private void btnPlay(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void btnSlot(ActionEvent event) {
 
     }
 
@@ -37,7 +31,16 @@ public class FXMLController implements Initializable {
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            System.out.println("Your name: " + result.get());
+            if (result.toString().length() > 15) {
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Please use 15 characters or less");
+
+                alert.showAndWait();
+                result = dialog.showAndWait();
+            } else {
+                
+            }
         }
     }
 
