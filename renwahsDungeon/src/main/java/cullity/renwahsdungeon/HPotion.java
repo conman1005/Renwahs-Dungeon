@@ -28,7 +28,7 @@ public class HPotion extends Item {
     }
 
     public HPotion(String it, int h, char s, Image im, double p) {
-        super(it, true);//true because sword is weapoon
+        super(it, false);//true because sword is weapoon
         extraHealth = s;
         symbol = s;
         image = new Image(getClass().getResource("/" + im + ".png").toString());
