@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    public int coins;
     public ArrayList<Item> inv = new ArrayList();
 
     @Override
