@@ -1,7 +1,7 @@
 /*
  * Made By: Shawn Benedict
  * Date: Dec 5, 2018
- * Made to
+ * Made to be a heath potion item
  */
 package cullity.renwahsdungeon;
 //make datat class just part of person and delete data class
@@ -15,22 +15,21 @@ import javafx.scene.image.Image;
 public class HPotion extends Item {
 
     private double extraHealth;//damage multiplier
-    private char symbol;//in inventory string
+
     private Image image;
     private double price;
 
     public HPotion() {
-        super("hPotion", false);
+        super("hPotion", false, "h".charAt(0));
         extraHealth = 10;
-        symbol = "h".charAt(0);
+
         image = new Image(getClass().getResource("/hPotion.png").toString());
         price = 5;
     }
 
     public HPotion(String it, int h, char s, Image im, double p) {
-        super(it, false);//true because sword is weapoon
-        extraHealth = s;
-        symbol = s;
+        super(it, false, s);//true because sword is weapoon
+        extraHealth = h;
         image = new Image(getClass().getResource("/" + im + ".png").toString());
         price = p;
 
@@ -48,10 +47,6 @@ public class HPotion extends Item {
         return price;
     }
 
-    public char getSymbol() {
-        return symbol;
-    }
-
     public void setExtraHealth(double h) {
         extraHealth = h;
 
@@ -65,7 +60,4 @@ public class HPotion extends Item {
         price = p;
     }
 
-    public void setSymbol(char s) {
-        symbol = s;
-    }
 }
