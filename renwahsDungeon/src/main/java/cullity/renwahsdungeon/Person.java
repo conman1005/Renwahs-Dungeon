@@ -115,9 +115,9 @@ public class Person {
     }
 
     public void setName(String fn) {
-        StringBuffer buff = new StringBuffer(fn);
-        buff.setLength(15);
-        name = buff.toString();
+        StringBuffer n = new StringBuffer(fn);
+        n.setLength(15);
+        name = n.toString();
     }
 
     public String getName() {
@@ -137,7 +137,7 @@ public class Person {
     }
 
     public int getCoins() {
-        return level;
+        return coins;
     }
 
     public void setInventory(String i) {
@@ -169,11 +169,11 @@ public class Person {
         try {
             RandomAccessFile open = new RandomAccessFile(file, "r");
             open.seek(record * SIZE);
-            char first[] = new char[15];
-            for (int i = 0; i < first.length; i++) {
-                first[i] = open.readChar();
+            char n[] = new char[15];
+            for (int i = 0; i < n.length; i++) {
+                n[i] = open.readChar();
             }
-            name = new String(first);
+            name = new String(n);
             type = open.readChar();
             char inve[] = new char[6];
             for (int i = 0; i < inve.length; i++) {
