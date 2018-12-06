@@ -49,7 +49,8 @@ public class FXMLController implements Initializable {
             } else {
                 dbs.setName(result.get());
                 dbs.setLevel(0);
-                dbs.save(file, lstSaves.getItems().size());
+                dbs.save(file, lstSaves.getItems().size()
+                );
                 
                 lstSaves.getItems().add(result.get());
             }
