@@ -8,6 +8,7 @@ package cullity.renwahsdungeon;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -31,7 +32,7 @@ public class Person {
     //private boolean employed;
     private char type;//class
     private double bDefense;
-
+    private Image img;
     //data stuff
     //name = 30
     //level = 4
@@ -60,10 +61,11 @@ public class Person {
         tempT.setLength(1);
         type = tempT.toString().charAt(0);
         coins = 0;
+        img = null;//image of the person
 
     }
 
-    public Person(String n, int l, double s, double h, double d, char t, String i, int c) {
+    public Person(String n, int l, double s, double h, double d, char t, String i, int c, String im) {
         StringBuffer tempN = new StringBuffer(n);
         tempN.setLength(15);
         name = tempN.toString();
@@ -78,6 +80,16 @@ public class Person {
 
         inventory = i;
         coins = c;
+        img = new Image(getClass().getResource("/" + im + ".png").toString());
+
+    }
+
+    public Image getImage() {
+        return img;
+    }
+
+    public void setImage(String im) {
+        img = new Image(getClass().getResource("/" + im + ".png").toString());
     }
 
     public double getBStrength() {

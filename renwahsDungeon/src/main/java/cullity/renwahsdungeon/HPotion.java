@@ -20,17 +20,14 @@ public class HPotion extends Item {
     private double price;
 
     public HPotion() {
-        super("hPotion", false, "h".charAt(0));
+        super("hPotion", false, "h".charAt(0), "hPotion");
         extraHealth = 10;
-
-        image = new Image(getClass().getResource("/hPotion.png").toString());
         price = 5;
     }
 
     public HPotion(String it, int h, char s, Image im, double p) {
-        super(it, false, s);//true because sword is weapoon
+        super(it, false, s, "hPotion");//true because sword is weapoon
         extraHealth = h;
-        image = new Image(getClass().getResource("/" + im + ".png").toString());
         price = p;
 
     }
@@ -39,9 +36,7 @@ public class HPotion extends Item {
         return extraHealth;
     }
 
-    public Image getImage() {
-        return image;
-    }
+   
 
     public double getPrice() {
         return price;
@@ -52,12 +47,13 @@ public class HPotion extends Item {
 
     }
 
-    public void setImage(String im) {
-        image = new Image(getClass().getResource("/" + im + ".png").toString());
-    }
+    
 
     public void setPrice(double p) {
         price = p;
     }
 
 }
+
+
+

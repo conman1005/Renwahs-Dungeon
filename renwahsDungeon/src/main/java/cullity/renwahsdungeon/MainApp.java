@@ -7,10 +7,35 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+//
 
 public class MainApp extends Application {
 
     public ArrayList<Item> inv = new ArrayList();
+    public Item currentI;//current item selected
+    public Person currentP; //current user/save file
+
+    public void deleteItem() {
+        inv.remove(currentI);
+
+        String newI = "";//new inventory
+        for (int i = 0; i < inv.size(); i++) {
+            newI += inv.get(i);
+        }
+        currentP.setInventory(newI);
+        if (inv.size() > 0) {
+            currentI = inv.get(0);//change to spot if that gets put in
+        } else {
+            currentI = null;
+        }
+
+        showItems();
+        //if there is a spot variable for item then change it here
+    }
+
+    public void showItems() {
+        //show items in the boxes
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
