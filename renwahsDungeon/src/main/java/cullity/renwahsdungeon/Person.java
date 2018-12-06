@@ -115,9 +115,9 @@ public class Person {
     }
 
     public void setName(String fn) {
-        StringBuffer buff = new StringBuffer(fn);
-        buff.setLength(15);
-        name = buff.toString();
+        StringBuffer n = new StringBuffer(fn);
+        n.setLength(15);
+        name = n.toString();
     }
 
     public String getName() {
@@ -137,7 +137,7 @@ public class Person {
     }
 
     public int getCoins() {
-        return level;
+        return coins;
     }
 
     public void setInventory(String i) {
