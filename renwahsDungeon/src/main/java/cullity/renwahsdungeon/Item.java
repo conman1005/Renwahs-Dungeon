@@ -17,19 +17,22 @@ public class Item {//maybe make symbol letters for items and numbers for weapons
     private boolean weapon;//if it is a weapon or not
     private char symbol;//in inventory string set and gets
     private Image img;
+    private double price;
 
     public Item() {
         itemName = "";
         img = null;
         weapon = false;
         symbol = "".charAt(0);
+        price = 0;
     }
 
-    public Item(String i, boolean w, char s, String im) {
+    public Item(String i, boolean w, char s, String im, double p) {
         itemName = i;
         weapon = w;
         symbol = s;
         img = new Image(getClass().getResource("/" + im + ".png").toString());
+        price = p;
     }
 
     public Image getImage() {
@@ -64,7 +67,11 @@ public class Item {//maybe make symbol letters for items and numbers for weapons
         symbol = s;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double p) {
+        price = p;
+    }
 }
-
-
-
