@@ -35,6 +35,8 @@ public class MainApp extends Application {
 
     public void showItems() {
         //show items in the boxes
+        
+                
     }
 
     @Override

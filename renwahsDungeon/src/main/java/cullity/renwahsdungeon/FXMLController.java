@@ -4,6 +4,8 @@
 package cullity.renwahsdungeon;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -11,17 +13,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 
 public class FXMLController implements Initializable {
-    
-    Person dbs = new Person();
-    
+
+    ArrayList<Person> dbs = new ArrayList();
+    Person psn = new Person();
+
     String file = "database.raf";
+    int recNum = psn.numRecord("database.raf");
 
     Alert alert = new Alert(AlertType.INFORMATION);
-    
+
     @FXML
     private ListView lstSaves;
 
@@ -47,25 +52,42 @@ public class FXMLController implements Initializable {
                 alert.showAndWait();
                 result = dialog.showAndWait();
             } else {
-                dbs.setName(result.get());
-                dbs.setLevel(0);
-                dbs.save(file, lstSaves.getItems().size());
-                
                 lstSaves.getItems().add(result.get());
+                
+                //dbs.add(lstSaves.getItems().size() - 1, new Person(result.get()));
+                psn.setName(result.get());
+                psn.save(file, recNum);
             }
         }
     }
 
     @FXML
     private void btnDelete(ActionEvent event) {
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Are you sure you want to delete " + lstSaves.getSelectionModel().getSelectedItem() + "?");
+        alert.setContentText("Press OK to delete " + lstSaves.getSelectionModel().getSelectedItem() + ".");
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            psn.delete(file, lstSaves.getSelectionModel().getSelectedIndex());
+
+            lstSaves.getItems().clear();
+
+            psn.open(file, psn.numRecord(file));
+            for (int i = 0; i < psn.numRecord(file); i++) {
+                psn.open(file, i);
+                lstSaves.getItems().add(psn.getName());
+            }
+            //dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() - 1);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (int i = 0; i < dbs.numRecord(file); i++) {
-            dbs.open(file, i);
-            lstSaves.getItems().add(dbs.getName());
+        for (int i = 0; i < psn.numRecord(file); i++) {
+            psn.open(file, i);
+            lstSaves.getItems().add(psn.getName());
         }
     }
 }
