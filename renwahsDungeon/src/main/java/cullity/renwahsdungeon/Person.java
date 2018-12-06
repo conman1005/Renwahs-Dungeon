@@ -169,11 +169,11 @@ public class Person {
         try {
             RandomAccessFile open = new RandomAccessFile(file, "r");
             open.seek(record * SIZE);
-            char first[] = new char[15];
-            for (int i = 0; i < first.length; i++) {
-                first[i] = open.readChar();
+            char n[] = new char[15];
+            for (int i = 0; i < n.length; i++) {
+                n[i] = open.readChar();
             }
-            name = new String(first);
+            name = new String(n);
             type = open.readChar();
             char inve[] = new char[6];
             for (int i = 0; i < inve.length; i++) {
