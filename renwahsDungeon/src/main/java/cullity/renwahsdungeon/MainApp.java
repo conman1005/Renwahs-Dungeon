@@ -19,6 +19,7 @@ public class MainApp extends Application {
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(e -> System.exit(0));
     }
 
     /**
