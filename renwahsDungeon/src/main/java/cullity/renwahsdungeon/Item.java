@@ -65,3 +65,6 @@ public class Item {//maybe make symbol letters for items and numbers for weapons
     }
 
 }
+
+
+

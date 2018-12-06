@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
  */
 public class Person {
 
-    public static Comparator<Person> nameCompare = new Comparator<Person>() {
+    public static Comparator<Person> sorter = new Comparator<Person>() {
 
         @Override
         public int compare(Person p1, Person p2) {
@@ -225,5 +225,10 @@ public class Person {
         }
         return numR;
     }
-
+    
+    public Person(String usr) {
+        setName(usr);
+        setLevel(0);
+    }
+    
 }
