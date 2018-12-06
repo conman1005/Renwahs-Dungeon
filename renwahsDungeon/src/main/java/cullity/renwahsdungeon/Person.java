@@ -29,7 +29,7 @@ public class Person {
     private double bStrength;
     private double bHealth;
     //private boolean employed;
-    private String type;//class
+    private char type;//class
     private double bDefense;
 
     //data stuff
@@ -56,21 +56,26 @@ public class Person {
         bStrength = 10;
         bHealth = 100;
         bDefense = 10;
-        type = "warrior";
+        StringBuffer tempT = new StringBuffer("w");
+        tempT.setLength(1);
+        type = tempT.toString().charAt(0);
         coins = 0;
 
     }
 
-    public Person(String n, int l, double s, double h, double d, String t, String i, int c) {
-        StringBuffer buff = new StringBuffer(n);
-        buff.setLength(15);
-        name = buff.toString();
+    public Person(String n, int l, double s, double h, double d, char t, String i, int c) {
+        StringBuffer tempN = new StringBuffer(n);
+        tempN.setLength(15);
+        name = tempN.toString();
+        StringBuffer tempT = new StringBuffer(t);
+        tempT.setLength(1);
+        type = tempT.toString().charAt(0);
 
         level = l;
         bStrength = s;
         bHealth = h;
         bDefense = d;
-        type = t;
+
         inventory = i;
         coins = c;
     }
@@ -87,7 +92,7 @@ public class Person {
         return bDefense;
     }
 
-    public String getType() {
+    public char getType() {
         return type;
     }
 
@@ -104,7 +109,9 @@ public class Person {
     }
 
     public void setType(String t) {
-        type = t;
+        StringBuffer tempT = new StringBuffer("w");
+        tempT.setLength(1);
+        type = tempT.toString().charAt(0);
     }
 
     public void setName(String fn) {
@@ -148,7 +155,7 @@ public class Person {
             RandomAccessFile save = new RandomAccessFile(file, "rw");
             save.seek(record * SIZE);
             save.writeChars(name);
-
+            save.writeChar(type);
             save.writeChars(inventory);
             save.writeInt(level);
             save.writeInt(coins);
@@ -167,7 +174,7 @@ public class Person {
                 first[i] = open.readChar();
             }
             name = new String(first);
-
+            type = open.readChar();
             char inve[] = new char[6];
             for (int i = 0; i < inve.length; i++) {
                 inve[i] = open.readChar();
