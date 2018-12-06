@@ -14,22 +14,19 @@ import javafx.scene.image.Image;
 public class Sword extends Item {
 
     private double dMultiplier;//damage multiplier
-    private char symbol;//in inventory string
     private Image image;
     private double price;
 
     public Sword() {
-        super("sword", true);
+        super("sword", true, "s".charAt(0));
         dMultiplier = 2;
-        symbol = "s".charAt(0);
         image = new Image(getClass().getResource("/baseSword.png").toString());
         price = 10;
     }
 
     public Sword(String it, int m, char s, Image im, double p) {
-        super(it, true);//true because sword is weapoon
+        super(it, true, s);//true because sword is weapoon
         dMultiplier = m;
-        symbol = s;
         image = new Image(getClass().getResource("/" + im + ".png").toString());
         price = p;
 
@@ -47,10 +44,6 @@ public class Sword extends Item {
         return price;
     }
 
-    public char getSymbol() {
-        return symbol;
-    }
-
     public void setDMultiplier(double m) {
         dMultiplier = m;
 
@@ -64,7 +57,4 @@ public class Sword extends Item {
         price = p;
     }
 
-    public void setSymbol(char s) {
-        symbol = s;
-    }
 }
