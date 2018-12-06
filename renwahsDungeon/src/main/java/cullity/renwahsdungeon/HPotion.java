@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
  */
 public class HPotion extends Item {
 
-    private double extraHealth;//damage multiplier
+    private double extraHealth;//health added when used
 
     private Image image;
     private double price;
