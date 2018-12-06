@@ -18,16 +18,14 @@ public class Sword extends Item {
     private double price;
 
     public Sword() {
-        super("sword", true, "s".charAt(0));
+        super("sword", true, "s".charAt(0),"baseSword");
         dMultiplier = 2;
-        image = new Image(getClass().getResource("/baseSword.png").toString());
         price = 10;
     }
 
     public Sword(String it, int m, char s, Image im, double p) {
-        super(it, true, s);//true because sword is weapoon
+        super(it, true, s,"baseSword");//true because sword is weapoon
         dMultiplier = m;
-        image = new Image(getClass().getResource("/" + im + ".png").toString());
         price = p;
 
     }
