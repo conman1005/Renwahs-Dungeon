@@ -6,16 +6,21 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-//
+//make inv when they push play//put delete items and show items in all scenes
 
 public class MainApp extends Application {
 
     public ArrayList<Item> inv = new ArrayList();
+    public ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
     public Item currentI;//current item selected
     public Person currentP; //current user/save file
+    public int itSpot;//spot in item arraylist
 
-    public void deleteItem() {
+    public void deleteItem() {//put in 
         inv.remove(currentI);
 
         String newI = "";//new inventory
@@ -25,18 +30,31 @@ public class MainApp extends Application {
         currentP.setInventory(newI);
         if (inv.size() > 0) {
             currentI = inv.get(0);//change to spot if that gets put in
+
         } else {
             currentI = null;
         }
-
+        itSpot = 0;//change later to not make it always go to the beginning again
         showItems();
         //if there is a spot variable for item then change it here
     }
 
-    public void showItems() {
+    public void showItems() {//put in all scenes
         //show items in the boxes
-        
-                
+        ImagePattern im;
+        ColorAdjust colorAdjust = new ColorAdjust();//shows it was selected
+        colorAdjust.setBrightness(-0.5);
+        for (int r = 0; r < slot.size(); r++) {//clear slots
+            slot.get(r).setFill(null);
+            slot.get(r).setEffect(null);
+
+        }
+        for (int i = 0; i < currentP.getInventory().length(); i++) {
+            im = new ImagePattern(inv.get(i).getImage());
+            slot.get(i).setFill(im);
+        }
+        slot.get(itSpot).setEffect(colorAdjust);
+
     }
 
     @Override

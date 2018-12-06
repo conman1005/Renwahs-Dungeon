@@ -18,15 +18,15 @@ public class Sword extends Item {
     private double price;
 
     public Sword() {
-        super("sword", true, "s".charAt(0),"baseSword");
+        super("sword", true, "s".charAt(0),"baseSword",10);
         dMultiplier = 2;
-        price = 10;
+        
     }
 
     public Sword(String it, int m, char s, Image im, double p) {
-        super(it, true, s,"baseSword");//true because sword is weapoon
+        super(it, true, s,"baseSword",p);//true because sword is weapoon
         dMultiplier = m;
-        price = p;
+        
 
     }
 
@@ -38,9 +38,7 @@ public class Sword extends Item {
         return image;
     }
 
-    public double getPrice() {
-        return price;
-    }
+   
 
     public void setDMultiplier(double m) {
         dMultiplier = m;
@@ -51,9 +49,7 @@ public class Sword extends Item {
         image = new Image(getClass().getResource("/" + im + ".png").toString());
     }
 
-    public void setPrice(double p) {
-        price = p;
-    }
+    
 
 }
 
