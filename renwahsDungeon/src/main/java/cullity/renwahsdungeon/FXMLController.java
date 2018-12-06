@@ -54,7 +54,8 @@ public class FXMLController implements Initializable {
             } else {
                 lstSaves.getItems().add(result.get());
                 
-                dbs.add(lstSaves.getItems().size(), new Person(result.get()));
+                //dbs.add(lstSaves.getItems().size() - 1, new Person(result.get()));
+                psn.setName(result.get());
                 psn.save(file, recNum);
             }
         }
@@ -78,6 +79,7 @@ public class FXMLController implements Initializable {
                 psn.open(file, i);
                 lstSaves.getItems().add(psn.getName());
             }
+            //dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() - 1);
         }
     }
 
