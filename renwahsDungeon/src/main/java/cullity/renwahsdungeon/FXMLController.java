@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.shape.Rectangle;
 
 public class FXMLController implements Initializable {
 
@@ -29,6 +30,18 @@ public class FXMLController implements Initializable {
 
     @FXML
     private ListView lstSaves;
+    @FXML
+    private Rectangle recs1;//rec slot 1
+    @FXML
+    private Rectangle recs2;
+    @FXML
+    private Rectangle recs3;
+    @FXML
+    private Rectangle recs4;
+    @FXML
+    private Rectangle recs5;
+    @FXML
+    private Rectangle recs6;
 
     @FXML
     private void btnPlay(ActionEvent event) {
@@ -53,7 +66,7 @@ public class FXMLController implements Initializable {
                 result = dialog.showAndWait();
             } else {
                 lstSaves.getItems().add(result.get());
-                
+
                 //dbs.add(lstSaves.getItems().size() - 1, new Person(result.get()));
                 psn.setName(result.get());
                 psn.save(file, recNum);
@@ -89,5 +102,11 @@ public class FXMLController implements Initializable {
             psn.open(file, i);
             lstSaves.getItems().add(psn.getName());
         }
+//        MainApp.clearSlots();
+//        MainApp.slot.get(0)=recs1;
+        
     }
+   
+            
+    
 }
