@@ -1,7 +1,7 @@
 /*
  * Made By: Shawn Benedict
  * Date: Dec 5, 2018
- * Made to
+ * Made to be an enemy class
  */
 package cullity.renwahsdungeon;
 
