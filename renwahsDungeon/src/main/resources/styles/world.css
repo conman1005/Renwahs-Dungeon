@@ -10,4 +10,5 @@ Description:
 
 .townBG {
     -fx-background-image: url(../town.png);
+    -fx-background-size: cover;
 }
