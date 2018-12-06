@@ -53,6 +53,7 @@ public class FXMLController implements Initializable {
                 result = dialog.showAndWait();
             } else {
                 lstSaves.getItems().add(result.get());
+                recNum = lstSaves.getItems().size() - 1;
                 
                 //dbs.add(lstSaves.getItems().size() - 1, new Person(result.get()));
                 psn.setName(result.get());
