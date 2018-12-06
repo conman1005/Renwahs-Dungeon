@@ -1,7 +1,7 @@
 /*
  * Made By: Shawn Benedict
  * Date: Dec 5, 2018
- * Made to
+ * Made to be a heath potion item
  */
 package cullity.renwahsdungeon;
 //make datat class just part of person and delete data class
