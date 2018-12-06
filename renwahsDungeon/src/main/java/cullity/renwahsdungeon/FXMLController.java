@@ -16,7 +16,7 @@ import javafx.scene.control.TextInputDialog;
 
 public class FXMLController implements Initializable {
     
-    data dbs = new data();
+    Person dbs = new Person();
     
     String file = "database.raf";
 
