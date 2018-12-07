@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -36,8 +37,8 @@ public class TownController implements Initializable {
     private Rectangle recT6;
 
     @FXML
-    private void nItem(KeyEvent k) {//nextItem
-        MainApp.nextItem();
+    private void scrollItem(ScrollEvent k) {//nextItem
+        MainApp.scrollI(k);
     }
 
     @Override

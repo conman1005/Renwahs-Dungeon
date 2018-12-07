@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -39,14 +40,26 @@ public class MainApp extends Application {
         //if there is a spot variable for item then change it here
     }
 
-    public static void nextItem() {
-        if (itSpot < 5) {
-            itSpot++;
-        } else {
-            itSpot = 0;
+    public static void prevItem() {
 
+    }
+
+    public static void scrollI(ScrollEvent m) {//scroll through Items on screen
+        if (m.getDeltaY() > 0) {
+            if (itSpot < 5) {
+                itSpot++;
+            } else {
+                itSpot = 0;
+            }
+        } else if (m.getDeltaY() < 0) {
+            if (itSpot > 0) {
+                itSpot--;
+            } else {
+                itSpot = 5;
+            }
         }
-        showItems();
+//        showItems();
+
     }
 
     public static void showItems() {//put in all scenes
