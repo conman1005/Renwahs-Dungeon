@@ -28,6 +28,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private ListView lstSaves;
+    
 
     @FXML
     private void btnPlay(ActionEvent event) {
@@ -89,5 +90,11 @@ public class FXMLController implements Initializable {
             psn.open(file, i);
             lstSaves.getItems().add(psn.getName());
         }
+//        MainApp.clearSlots();
+//        MainApp.slot.get(0)=recs1;
+        
     }
+   
+            
+    
 }
