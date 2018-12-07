@@ -1,15 +1,14 @@
-package cullity.renwahsdungeon;
-
 /*
  * Made By: Shawn Benedict
- * Date: Dec 4, 2018
+ * Date: Dec 7, 2018
  * Made to
  */
+package cullity.renwahsdungeon;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.shape.Rectangle;
 
@@ -18,38 +17,38 @@ import javafx.scene.shape.Rectangle;
  *
  * @author shawnb58
  */
-public class TownController implements Initializable {
+public class CaveController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
     @FXML
-    private Rectangle recT1;//rec slots in town controller (T)
+    private Rectangle recC1;//rec slots in cave controller (C)
     @FXML
-    private Rectangle recT2;
+    private Rectangle recC2;
     @FXML
-    private Rectangle recT3;
+    private Rectangle recC3;
     @FXML
-    private Rectangle recT4;
+    private Rectangle recC4;
     @FXML
-    private Rectangle recT5;
+    private Rectangle recC5;
     @FXML
-    private Rectangle recT6;
+    private Rectangle recC6;
 
     @FXML
-    private void scrollItem(ScrollEvent k) {//nextItem
+    private void scrollItem(ScrollEvent k) {//nextItem //put in anchorpane !!!!!!!!!!!!!!!!!!
         MainApp.scrollI(k);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         MainApp.slot.clear();
-        MainApp.slot.add(recT1);
-        MainApp.slot.add(recT2);
-        MainApp.slot.add(recT3);
-        MainApp.slot.add(recT4);
-        MainApp.slot.add(recT5);
-        MainApp.slot.add(recT6);
+        MainApp.slot.add(recC1);
+        MainApp.slot.add(recC2);
+        MainApp.slot.add(recC3);
+        MainApp.slot.add(recC4);
+        MainApp.slot.add(recC5);
+        MainApp.slot.add(recC6);
         MainApp.showItems();
     }
 
