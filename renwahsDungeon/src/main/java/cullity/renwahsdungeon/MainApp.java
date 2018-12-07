@@ -14,11 +14,11 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    public ArrayList<Item> inv = new ArrayList();
+    public static ArrayList<Item> inv = new ArrayList();
     public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
-    public Item currentI;//current item selected
-    public Person currentP; //current user/save file
-    public int itSpot;//spot in item arraylist
+    public static Item currentI;//current item selected
+    public static Person currentP; //current user/save file
+    public static int itSpot;//spot in item arraylist
 
     public void deleteItem() {//put in 
         inv.remove(currentI);
@@ -39,26 +39,39 @@ public class MainApp extends Application {
         //if there is a spot variable for item then change it here
     }
 
-    public void showItems() {//put in all scenes
+    public static void nextItem() {
+        if (itSpot < 5) {
+            itSpot++;
+        } else {
+            itSpot = 0;
+
+        }
+        showItems();
+    }
+
+    public static void showItems() {//put in all scenes
         //show items in the boxes
         ImagePattern im;
-        ColorAdjust colorAdjust = new ColorAdjust();//shows it was selected
-        colorAdjust.setBrightness(-0.5);
+        ColorAdjust colorAdjust1 = new ColorAdjust();//shows it was selected
+        colorAdjust1.setBrightness(-0.5);
         for (int r = 0; r < slot.size(); r++) {//clear slots
-            slot.get(r).setFill(null);
-            slot.get(r).setEffect(null);
+            try {
+
+                slot.get(r).setFill(null);
+                slot.get(r).setEffect(null);
+            } catch (IndexOutOfBoundsException e) {
+            }
 
         }
         for (int i = 0; i < currentP.getInventory().length(); i++) {
-            im = new ImagePattern(inv.get(i).getImage());
-            slot.get(i).setFill(im);
+            try {
+                im = new ImagePattern(inv.get(i).getImage());
+                slot.get(i).setFill(im);
+            } catch (IndexOutOfBoundsException e) {
+            }
         }
-        slot.get(itSpot).setEffect(colorAdjust);
+        slot.get(itSpot).setEffect(colorAdjust1);
 
-    }
-
-    public void clearSlots() {
-        slot.clear();
     }
 
     @Override
