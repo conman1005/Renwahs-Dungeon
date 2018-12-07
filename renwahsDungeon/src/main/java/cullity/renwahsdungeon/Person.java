@@ -37,8 +37,9 @@ public class Person {
     //name = 30
     //level = 4
     //inventory = 12
+    //type = 2
     //coins = 4
-    private final int SIZE = 50;
+    private final int SIZE = 52;
     private String inventory;
     private String name;
     private int level;
@@ -228,7 +229,6 @@ public class Person {
     
     public Person(String usr) {
         setName(usr);
-        setLevel(0);
     }
     
 }
