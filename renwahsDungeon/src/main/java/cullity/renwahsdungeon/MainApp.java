@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -18,7 +19,7 @@ public class MainApp extends Application {
     public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
     public static Item currentI;//current item selected
     public static Person currentP; //current user/save file
-    public static int itSpot;//spot in item arraylist
+    public static int itSpot = 0;//spot in item arraylist
 
     public void deleteItem() {//put in 
         inv.remove(currentI);
@@ -39,14 +40,37 @@ public class MainApp extends Application {
         //if there is a spot variable for item then change it here
     }
 
-    public static void nextItem() {
-        if (itSpot < 5) {
-            itSpot++;
-        } else {
-            itSpot = 0;
+    public static void getItemsFromData(String inven) {//database
+        inv.clear();
+
+        //add all items
+        for (int i = 0; i < inven.length(); i++) {
+//put items in arraylist inv
+            if (inven.substring(i, 1).equals("s")) {
+                inv.add(new Sword());
+            } else if (inven.substring(i, 1).equals("h")) {
+                inv.add(new HPotion());
+            }
 
         }
+    }
+
+    public static void scrollI(ScrollEvent m) {//scroll through Items on screen
+        if (m.getDeltaY() > 0) {
+            if (itSpot < 5) {
+                itSpot++;
+            } else {
+                itSpot = 0;
+            }
+        } else if (m.getDeltaY() < 0) {
+            if (itSpot > 0) {
+                itSpot--;
+            } else {
+                itSpot = 5;
+            }
+        }
         showItems();
+
     }
 
     public static void showItems() {//put in all scenes
