@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     public ArrayList<Item> inv = new ArrayList();
-    public ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
+    public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
     public Item currentI;//current item selected
     public Person currentP; //current user/save file
     public int itSpot;//spot in item arraylist
@@ -55,6 +55,10 @@ public class MainApp extends Application {
         }
         slot.get(itSpot).setEffect(colorAdjust);
 
+    }
+
+    public void clearSlots() {
+        slot.clear();
     }
 
     @Override
