@@ -10,4 +10,8 @@ Description:
 
 .townBG {
     -fx-background-image: url(../town.png);
+    -fx-background-size: cover;
+}
+.background {
+    -fx-background-color: #000000;
 }
