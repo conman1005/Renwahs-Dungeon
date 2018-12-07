@@ -67,6 +67,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
+        scene.getRoot().requestFocus();
         stage.show();
         stage.setOnCloseRequest(e -> System.exit(0));
     }
