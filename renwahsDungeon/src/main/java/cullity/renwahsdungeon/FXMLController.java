@@ -32,7 +32,17 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void btnPlay(ActionEvent event) {
+        //after stuff happens
         
+        
+        
+        
+        //currentP=selected person
+        //get inventory
+        String invent="!!!!!!";
+        //if new then inv="!!!!!!", if old then use currentP.getInventory()
+        MainApp.getItemsFromData(invent);//from database
+        MainApp.showItems();
     }
     
     @FXML
