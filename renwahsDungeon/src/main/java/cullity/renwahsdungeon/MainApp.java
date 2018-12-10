@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -14,11 +15,11 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    public ArrayList<Item> inv = new ArrayList();
+    public static ArrayList<Item> inv = new ArrayList();
     public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
-    public Item currentI;//current item selected
-    public Person currentP; //current user/save file
-    public int itSpot;//spot in item arraylist
+    public static Item currentI;//current item selected
+    public static Person currentP; //current user/save file
+    public static int itSpot = 0;//spot in item arraylist
 
     public void deleteItem() {//put in 
         inv.remove(currentI);
@@ -39,26 +40,62 @@ public class MainApp extends Application {
         //if there is a spot variable for item then change it here
     }
 
-    public void showItems() {//put in all scenes
-        //show items in the boxes
-        ImagePattern im;
-        ColorAdjust colorAdjust = new ColorAdjust();//shows it was selected
-        colorAdjust.setBrightness(-0.5);
-        for (int r = 0; r < slot.size(); r++) {//clear slots
-            slot.get(r).setFill(null);
-            slot.get(r).setEffect(null);
+    public static void getItemsFromData(String inven) {//database
+        inv.clear();
+
+        //add all items
+        for (int i = 0; i < inven.length(); i++) {
+//put items in arraylist inv
+            if (inven.substring(i, 1).equals("s")) {
+                inv.add(new Sword());
+            } else if (inven.substring(i, 1).equals("h")) {
+                inv.add(new HPotion());
+            }
 
         }
-        for (int i = 0; i < currentP.getInventory().length(); i++) {
-            im = new ImagePattern(inv.get(i).getImage());
-            slot.get(i).setFill(im);
+    }
+
+    public static void scrollI(ScrollEvent m) {//scroll through Items on screen
+        if (m.getDeltaY() > 0) {
+            if (itSpot < 5) {
+                itSpot++;
+            } else {
+                itSpot = 0;
+            }
+        } else if (m.getDeltaY() < 0) {
+            if (itSpot > 0) {
+                itSpot--;
+            } else {
+                itSpot = 5;
+            }
         }
-        slot.get(itSpot).setEffect(colorAdjust);
+        showItems();
 
     }
 
-    public void clearSlots() {
-        slot.clear();
+    public static void showItems() {//put in all scenes
+        //show items in the boxes
+        ImagePattern im;
+        ColorAdjust colorAdjust1 = new ColorAdjust();//shows it was selected
+        colorAdjust1.setBrightness(-0.5);
+        for (int r = 0; r < slot.size(); r++) {//clear slots
+            try {
+
+                slot.get(r).setFill(null);
+                slot.get(r).setEffect(null);
+            } catch (IndexOutOfBoundsException e) {
+            }
+
+        }
+        for (int i = 0; i < currentP.getInventory().length(); i++) {
+            try {
+                im = new ImagePattern(inv.get(i).getImage());
+                slot.get(i).setFill(im);
+            } catch (IndexOutOfBoundsException e) {
+            }
+        }
+        slot.get(itSpot).setEffect(colorAdjust1);
+
     }
 
     @Override

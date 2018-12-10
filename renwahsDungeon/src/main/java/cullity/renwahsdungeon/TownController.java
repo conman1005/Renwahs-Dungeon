@@ -5,7 +5,6 @@ package cullity.renwahsdungeon;
  * Date: Dec 4, 2018
  * Made to
  */
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
@@ -15,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 /**
@@ -24,6 +25,18 @@ import javafx.util.Duration;
  * @author shawnb58
  */
 public class TownController implements Initializable {
+    @FXML
+    private Rectangle recT1;//rec slots in town controller (T)
+    @FXML
+    private Rectangle recT2;
+    @FXML
+    private Rectangle recT3;
+    @FXML
+    private Rectangle recT4;
+    @FXML
+    private Rectangle recT5;
+    @FXML
+    private Rectangle recT6;
     
     @FXML
     private Pane pneTown;
@@ -77,10 +90,23 @@ public class TownController implements Initializable {
         }
     }
     
+    @FXML
+    private void scrollItem(ScrollEvent k) {//nextItem
+        MainApp.scrollI(k);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         move.setCycleCount(INDEFINITE);
         move.play();
+        
+        MainApp.slot.clear();
+        MainApp.slot.add(recT1);
+        MainApp.slot.add(recT2);
+        MainApp.slot.add(recT3);
+        MainApp.slot.add(recT4);
+        MainApp.slot.add(recT5);
+        MainApp.slot.add(recT6);
+        MainApp.showItems();
     }    
-    
 }
