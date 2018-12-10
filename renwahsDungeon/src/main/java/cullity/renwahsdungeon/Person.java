@@ -223,7 +223,7 @@ public class Person {
             numR = (int) (recordFile.length() / SIZE);
 
         } catch (Exception ex) {
-        }
+        } 
         return numR;
     }
     
