@@ -46,6 +46,7 @@ public class FXMLController implements Initializable {
         if (MainApp.currentP != null) {
             invent = MainApp.currentP.getInventory();
         } else {
+            MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
             invent = "!!!!!!";
         }
 
@@ -90,8 +91,8 @@ public class FXMLController implements Initializable {
                 lstSaves.getItems().add(result.get());
                 recNum = lstSaves.getItems().size() - 1;
 
-                //dbs.add(lstSaves.getItems().size() - 1, new Person(result.get()));
-                psn.setName(result.get());
+                dbs.add(new Person(result.get()));
+                //psn.setName(result.get());
                 psn.save(file, recNum);
             }
         }
@@ -115,7 +116,7 @@ public class FXMLController implements Initializable {
                 psn.open(file, i);
                 lstSaves.getItems().add(psn.getName());
             }
-            //dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() - 1);
+            dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() - 1);
         }
     }
 
