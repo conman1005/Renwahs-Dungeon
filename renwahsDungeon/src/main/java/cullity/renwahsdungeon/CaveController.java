@@ -36,8 +36,8 @@ public class CaveController implements Initializable {
     private Rectangle recC6;
 
     @FXML
-    private void scrollItem(ScrollEvent k) {//nextItem //put in anchorpane !!!!!!!!!!!!!!!!!!
-        MainApp.scrollI(k);
+    private void scrollItem(ScrollEvent s) {//nextItem //put in anchorpane !!!!!!!!!!!!!!!!!!
+        MainApp.scrollI(s);
     }
 
     @Override
