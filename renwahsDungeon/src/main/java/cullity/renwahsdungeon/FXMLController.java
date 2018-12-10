@@ -30,7 +30,7 @@ public class FXMLController implements Initializable {
     @FXML
     private ListView lstSaves;
     
-    @FXML
+    /*@FXML
     private void btnPlay(ActionEvent event) {
         //after stuff happens
         
@@ -43,7 +43,7 @@ public class FXMLController implements Initializable {
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
         MainApp.showItems();
-    }
+    }*/
     
     @FXML
     private void btnNew(ActionEvent event) {

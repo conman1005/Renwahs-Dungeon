@@ -15,3 +15,51 @@ Description:
 .background {
     -fx-background-color: #000000;
 }
+.heroFront {
+    -fx-background-image: url(../sprites/heroFront.png);
+    -fx-background-size: contain;
+}
+.heroFrontLeft {
+    -fx-background-image: url(../sprites/heroFrontLeft.png);
+    -fx-background-size: contain;
+}
+.heroFrontRight {
+    -fx-background-image: url(../sprites/heroFrontRight.png);
+    -fx-background-size: contain;
+}
+.heroBack {
+    -fx-background-image: url(../sprites/heroBack.png);
+    -fx-background-size: contain;
+}
+.heroBackLeft {
+    -fx-background-image: url(../sprites/heroBackLeft.png);
+    -fx-background-size: contain;
+}
+.heroBackRight {
+    -fx-background-image: url(../sprites/heroBackRight.png);
+    -fx-background-size: contain;
+}
+.heroLeft {
+    -fx-background-image: url(../sprites/heroLeft.png);
+    -fx-background-size: contain;
+}
+.heroLeftLeft {
+    -fx-background-image: url(../sprites/heroLeftLeft.png);
+    -fx-background-size: contain;
+}
+.heroLeftRight {
+    -fx-background-image: url(../sprites/heroLeftRight.png);
+    -fx-background-size: contain;
+}
+.heroRight {
+    -fx-background-image: url(../sprites/heroRight.png);
+    -fx-background-size: contain;
+}
+.heroRightLeft {
+    -fx-background-image: url(../sprites/heroRightLeft.png);
+    -fx-background-size: contain;
+}
+.heroRightRight {
+    -fx-background-image: url(../sprites/heroRightRight.png);
+    -fx-background-size: contain;
+}

@@ -100,7 +100,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/town.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);

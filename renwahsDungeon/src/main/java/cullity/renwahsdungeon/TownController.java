@@ -91,8 +91,8 @@ public class TownController implements Initializable {
     }
     
     @FXML
-    private void scrollItem(ScrollEvent k) {//nextItem
-        MainApp.scrollI(k);
+    private void scrollItem(ScrollEvent s) {//nextItem
+        MainApp.scrollI(s);
     }
     
     @Override
@@ -107,6 +107,6 @@ public class TownController implements Initializable {
         MainApp.slot.add(recT4);
         MainApp.slot.add(recT5);
         MainApp.slot.add(recT6);
-        MainApp.showItems();
+        //MainApp.showItems();
     }    
 }
