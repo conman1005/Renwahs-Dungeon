@@ -223,12 +223,27 @@ public class Person {
             numR = (int) (recordFile.length() / SIZE);
 
         } catch (Exception ex) {
-        }
+        } 
         return numR;
     }
     
     public Person(String usr) {
-        setName(usr);
+        StringBuffer tempN = new StringBuffer(usr);
+        tempN.setLength(15);
+        name = tempN.toString();
+
+        StringBuffer tempI = new StringBuffer("!!!!!!");
+        tempI.setLength(6);
+        inventory = tempI.toString();//! is nothing
+        level = 1;
+        bStrength = 10;
+        bHealth = 100;
+        bDefense = 10;
+        StringBuffer tempT = new StringBuffer("w");
+        tempT.setLength(1);
+        type = tempT.toString().charAt(0);
+        coins = 0;
+        img = null;//image of the person
     }
     
 }
