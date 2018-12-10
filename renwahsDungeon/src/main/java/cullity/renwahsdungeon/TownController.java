@@ -8,6 +8,7 @@ package cullity.renwahsdungeon;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -66,10 +67,10 @@ public class TownController implements Initializable {
                 pneTown.setTranslateY(pneTown.getTranslateY() - 1);
                 break;
             case "left":
-                pneTown.setTranslateY(pneTown.getTranslateX() + 1);
+                pneTown.setTranslateX(pneTown.getTranslateX() + 1);
                 break;
             case "right":
-                pneTown.setTranslateY(pneTown.getTranslateX() - 1);
+                pneTown.setTranslateX(pneTown.getTranslateX() - 1);
                 break;
             default:
                 break;
@@ -78,6 +79,7 @@ public class TownController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        move.setCycleCount(INDEFINITE);
         move.play();
     }    
     
