@@ -10,6 +10,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ public class MainApp extends Application {
     public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
     public static Item currentI;//current item selected
     public static Person currentP; //current user/save file
+    public static Enemy currentE;//current enemy fighting the user
     public static int itSpot = 0;//spot in item arraylist
 
     public static void deleteItem() {//put in 
@@ -101,7 +103,7 @@ public class MainApp extends Application {
         for (int r = 0; r < slot.size(); r++) {//clear slots
             try {
                 
-                slot.get(r).setFill(null);
+                slot.get(r).setFill(Color.web("#393b53"));
                 slot.get(r).setEffect(null);
             } catch (IndexOutOfBoundsException e) {
             }
