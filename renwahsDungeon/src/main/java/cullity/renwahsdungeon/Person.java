@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -225,6 +226,26 @@ public class Person {
         } catch (Exception ex) {
         } 
         return numR;
+    }
+    
+    public void move(Pane pne, String direction) {
+        
+        switch (direction) {
+            case "up":
+                pne.setTranslateY(pne.getTranslateY() + 1);
+                break;
+            case "down":
+                pne.setTranslateY(pne.getTranslateY() - 1);
+                break;
+            case "left":
+                pne.setTranslateX(pne.getTranslateX() + 1);
+                break;
+            case "right":
+                pne.setTranslateX(pne.getTranslateX() - 1);
+                break;
+            default:
+                break;
+        }
     }
     
     public Person(String usr) {
