@@ -49,7 +49,6 @@ public class FXMLController implements Initializable {
             MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
             invent = "!!!!!!";
         }
-
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
         MainApp.showItems();

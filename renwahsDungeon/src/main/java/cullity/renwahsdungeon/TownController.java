@@ -41,6 +41,8 @@ public class TownController implements Initializable {
     @FXML
     private Pane pneTown;
     
+    Person psn = new Person();
+    
     String direction = "";
     
     Timeline move = new Timeline(new KeyFrame(Duration.millis(5), ae -> movement()));
@@ -72,22 +74,7 @@ public class TownController implements Initializable {
     }
     
     private void movement() {
-        switch (direction) {
-            case "up":
-                pneTown.setTranslateY(pneTown.getTranslateY() + 1);
-                break;
-            case "down":
-                pneTown.setTranslateY(pneTown.getTranslateY() - 1);
-                break;
-            case "left":
-                pneTown.setTranslateX(pneTown.getTranslateX() + 1);
-                break;
-            case "right":
-                pneTown.setTranslateX(pneTown.getTranslateX() - 1);
-                break;
-            default:
-                break;
-        }
+        psn.move(pneTown, direction);
     }
     
     @FXML
@@ -99,7 +86,7 @@ public class TownController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         move.setCycleCount(INDEFINITE);
         move.play();
-        
+                
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
         MainApp.slot.add(recT2);
@@ -107,6 +94,6 @@ public class TownController implements Initializable {
         MainApp.slot.add(recT4);
         MainApp.slot.add(recT5);
         MainApp.slot.add(recT6);
-        //MainApp.showItems();
+        MainApp.showItems();
     }    
 }
