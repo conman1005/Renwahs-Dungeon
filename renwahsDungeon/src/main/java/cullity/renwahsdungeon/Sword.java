@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 public class Sword extends Item {
 
     private double dMultiplier;//damage multiplier
-    private Image image;
+   
     private double price;
 
     public Sword() {
@@ -34,21 +34,14 @@ public class Sword extends Item {
         return dMultiplier;
     }
 
-    public Image getImage() {
-        return image;
-    }
-
-   
+    
 
     public void setDMultiplier(double m) {
         dMultiplier = m;
 
     }
 
-    public void setImage(String im) {
-        image = new Image(getClass().getResource("/" + im + ".png").toString());
-    }
-
+   
     
 
 }
