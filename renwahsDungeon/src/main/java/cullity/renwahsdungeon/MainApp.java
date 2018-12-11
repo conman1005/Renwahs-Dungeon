@@ -48,11 +48,14 @@ public class MainApp extends Application {
 
         //add all items
         for (int i = 0; i < inven.length(); i++) {
-//put items in arraylist inv
-            if (inven.substring(i, 1).equals("s")) {
-                inv.add(new Sword());
-            } else if (inven.substring(i, 1).equals("h")) {
-                inv.add(new HPotion());
+            //put items in arraylist inv
+            try {
+                if (inven.substring(i, 1).equals("s")) {
+                    inv.add(new Sword());
+                } else if (inven.substring(i, 1).equals("h")) {
+                    inv.add(new HPotion());
+                }
+            } catch (IndexOutOfBoundsException e) {
             }
             
         }

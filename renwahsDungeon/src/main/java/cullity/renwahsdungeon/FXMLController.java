@@ -46,19 +46,23 @@ public class FXMLController implements Initializable {
         if (MainApp.currentP != null) {
             invent = MainApp.currentP.getInventory();
         } else {
+            MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
             invent = "!!!!!!";
         }
 
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
+        MainApp.showItems();
+
         try {
-            Parent town_parent = FXMLLoader.load(getClass().getResource("town.fxml")); //where FXMLPage2 is the name of the scene
+            Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
             Scene town_scene = new Scene(town_parent);
-//get reference to the stage
+            //get reference to the stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             stage.hide(); //optional
+            town_scene.getRoot().requestFocus();
             stage.setScene(town_scene); //puts the new scence in the stage
 
             //     stage.setTitle("Town"); //changes the title
@@ -66,7 +70,6 @@ public class FXMLController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
 
     @FXML
@@ -89,8 +92,10 @@ public class FXMLController implements Initializable {
                 lstSaves.getItems().add(result.get());
                 recNum = lstSaves.getItems().size() - 1;
 
-                //dbs.add(lstSaves.getItems().size() - 1, new Person(result.get()));
-                psn.setName(result.get());
+                dbs.add(new Person(result.get()));
+                //dbs.get(dbs.size() - 1).setName(result.get());
+                //psn.setName(result.get());
+                psn = dbs.get(dbs.size() - 1);
                 psn.save(file, recNum);
             }
         }
@@ -114,7 +119,7 @@ public class FXMLController implements Initializable {
                 psn.open(file, i);
                 lstSaves.getItems().add(psn.getName());
             }
-            //dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() - 1);
+            dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() + 1);
         }
     }
 
@@ -123,6 +128,7 @@ public class FXMLController implements Initializable {
         for (int i = 0; i < psn.numRecord(file); i++) {
             psn.open(file, i);
             lstSaves.getItems().add(psn.getName());
+            dbs.add(psn);
         }
 //        MainApp.clearSlots();
 //        MainApp.slot.get(0)=recs1;
