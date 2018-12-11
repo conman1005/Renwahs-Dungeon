@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -223,12 +224,47 @@ public class Person {
             numR = (int) (recordFile.length() / SIZE);
 
         } catch (Exception ex) {
-        }
+        } 
         return numR;
     }
     
+    public void move(Pane pne, String direction) {
+        
+        switch (direction) {
+            case "up":
+                pne.setTranslateY(pne.getTranslateY() + 1);
+                break;
+            case "down":
+                pne.setTranslateY(pne.getTranslateY() - 1);
+                break;
+            case "left":
+                pne.setTranslateX(pne.getTranslateX() + 1);
+                break;
+            case "right":
+                pne.setTranslateX(pne.getTranslateX() - 1);
+                break;
+            default:
+                break;
+        }
+    }
+    
     public Person(String usr) {
-        setName(usr);
+        StringBuffer tempN = new StringBuffer(usr);
+        tempN.setLength(15);
+        name = tempN.toString();
+
+        StringBuffer tempI = new StringBuffer("!!!!!!");
+        tempI.setLength(6);
+        inventory = tempI.toString();//! is nothing
+        level = 1;
+        bStrength = 10;
+        bHealth = 100;
+        bDefense = 10;
+        StringBuffer tempT = new StringBuffer("w");
+        tempT.setLength(1);
+        type = tempT.toString().charAt(0);
+        coins = 0;
+        img = null;//image of the person
     }
     
 }

@@ -1,3 +1,4 @@
+
 /*
  * Made By: Shawn Benedict
  * Date: Dec 7, 2018
@@ -9,7 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -36,8 +39,14 @@ public class CaveController implements Initializable {
     private Rectangle recC6;
 
     @FXML
-    private void scrollItem(ScrollEvent k) {//nextItem //put in anchorpane !!!!!!!!!!!!!!!!!!
-        MainApp.scrollI(k);
+    private Rectangle recUser;
+    @FXML
+    private Rectangle recEnemy;
+//set currentE before coming to this screen when attacked by an enemy
+    
+    @FXML
+    private void scrollItem(ScrollEvent s) {//nextItem //put in anchorpane !!!!!!!!!!!!!!!!!!
+        MainApp.scrollI(s);
     }
 
     @Override
@@ -50,6 +59,9 @@ public class CaveController implements Initializable {
         MainApp.slot.add(recC5);
         MainApp.slot.add(recC6);
         MainApp.showItems();
+        recUser.setFill(new ImagePattern(MainApp.currentP.getImage()));
+        recEnemy.setFill(new ImagePattern(MainApp.currentE.getImage()));
+        
     }
 
 }

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.CaveController">
-    
+<AnchorPane id="AnchorPane" prefHeight="476.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.CaveController">
+   <children>
+      <Rectangle fx:id="recC1" arcHeight="5.0" arcWidth="5.0" fill="#393b53f7" height="50.0" layoutX="51.0" layoutY="333.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="132.0" layoutY="333.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="207.0" layoutY="333.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="282.0" layoutY="333.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="370.0" layoutY="333.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="442.0" layoutY="333.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recUser" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="175.0" layoutX="68.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="175.0" />
+      <Rectangle fx:id="recEnemy" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="175.0" layoutX="415.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="175.0" />
+   </children>
 </AnchorPane>
