@@ -16,7 +16,7 @@ public class HPotion extends Item {
 
     private double extraHealth;//health added when used
 
-    private Image image;
+    
 
     public HPotion() {
         super("hPotion", false, "h".charAt(0), "hPotion", 10);
