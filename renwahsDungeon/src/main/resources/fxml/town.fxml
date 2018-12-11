@@ -4,10 +4,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane id="AnchorPane" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="600.0" prefWidth="840.0" styleClass="background" stylesheets="@../styles/world.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.TownController">
    <children>
-      <Pane fx:id="pneTown" prefHeight="602.0" prefWidth="841.0">
+      <Pane fx:id="pneTown" layoutX="6.0" layoutY="-100.0" prefHeight="602.0" prefWidth="841.0">
          <children>
             <Label layoutX="188.0" layoutY="194.0" prefHeight="1064.0" prefWidth="1525.0" styleClass="townBG" />
             <Polygon fill="#1f93ff8b" layoutX="460.0" layoutY="412.0" points="894.0, 846.0, 894.0, 668.0, 860.0, 668.0, 860.0, 602.0, 822.0, 602.0, 822.0, 668.0, -248.0, 668.0, -248.0, -192.0, -188.0, -192.0, -188.0, -46.0, 68.0, -46.0, 68.0, -192.0, 1230.0, -192.0, 1230.0, 668.0, 1070.0, 668.0, 1070.0, 602.0, 1042.0, 602.0, 1042.0, 668.0, 1028.0, 668.0, 1028.0, 698.0, 1246.0, 698.0, 1246.0, -218.0, -272.0, -218.0, -272.0, 846.0" stroke="BLACK" strokeType="INSIDE" />
@@ -15,5 +16,12 @@
             <Polygon fill="#1f93ff98" layoutX="1138.0" layoutY="783.0" points="-124.0, 53.0, 114.0, 53.0, 114.0, -129.0, -124.0, -129.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </Pane>
+      <Label layoutX="400.0" layoutY="275.0" prefHeight="69.0" prefWidth="52.0" styleClass="heroFront" />
+      <Rectangle fx:id="recT1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle fx:id="recT2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle fx:id="recT3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle fx:id="recT4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle fx:id="recT5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle fx:id="recT6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
    </children>
 </AnchorPane>
