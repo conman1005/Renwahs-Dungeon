@@ -6,11 +6,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="cullity.renwahsdungeon.CaveController">
    <children>
-      <Rectangle fx:id="recC1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="82.0" layoutY="289.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="recC2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="132.0" layoutY="298.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="recC3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="216.0" layoutY="307.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="recC4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="313.0" layoutY="298.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="recC5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="414.0" layoutY="298.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="recC6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="503.0" layoutY="307.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="51.0" layoutY="336.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="132.0" layoutY="336.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="207.0" layoutY="336.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="282.0" layoutY="327.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="370.0" layoutY="327.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recC6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="484.0" layoutY="327.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
    </children>
 </AnchorPane>
