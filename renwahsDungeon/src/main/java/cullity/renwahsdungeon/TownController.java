@@ -12,10 +12,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -41,11 +43,17 @@ public class TownController implements Initializable {
     @FXML
     private Pane pneTown;
     
+    @FXML
+    private Rectangle recHero;
+    
+    ImagePattern img = new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString()));
+    
     Person psn = new Person();
     
     String direction = "";
     
     Timeline move = new Timeline(new KeyFrame(Duration.millis(5), ae -> movement()));
+    
 
     @FXML
     private void keyPressed (KeyEvent event) {
@@ -74,7 +82,7 @@ public class TownController implements Initializable {
     }
     
     private void movement() {
-        psn.move(pneTown, direction);
+        psn.move(pneTown, direction, recHero);
     }
     
     @FXML
@@ -86,6 +94,8 @@ public class TownController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         move.setCycleCount(INDEFINITE);
         move.play();
+        
+        recHero.setFill(img);
                 
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
