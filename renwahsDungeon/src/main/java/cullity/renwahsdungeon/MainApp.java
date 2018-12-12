@@ -25,6 +25,7 @@ public class MainApp extends Application {
     public static Person currentP; //current user/save file
     public static Enemy currentE;//current enemy fighting the user
     public static int itSpot = 0;//spot in item arraylist
+    public static Scene currentS;
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -118,15 +119,15 @@ public class MainApp extends Application {
 
             } catch (IndexOutOfBoundsException e) {
             }
-        }
-        if (inv.isEmpty()) {
+        }slot.get(itSpot).setEffect(colorAdjust1);
+        if (inv.size()<=itSpot) {
             currentI = null;
         } else {
-            slot.get(itSpot).setEffect(colorAdjust1);
-            try {//if they scrolled to an empty slot then it will error
+            
+          //  try {//if they scrolled to an empty slot then it will error
                 currentI = inv.get(itSpot);
-            } catch (IndexOutOfBoundsException e) {
-            }
+//            } catch (IndexOutOfBoundsException e) {
+//            }
         }
 
     }
@@ -138,6 +139,7 @@ public class MainApp extends Application {
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
         scene.getRoot().requestFocus();
+        currentS = scene;
         stage.show();
         stage.setOnCloseRequest(e -> System.exit(0));
     }

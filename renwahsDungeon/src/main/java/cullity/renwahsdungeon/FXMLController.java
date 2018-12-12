@@ -57,6 +57,7 @@ public class FXMLController implements Initializable {
             Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
             Scene town_scene = new Scene(town_parent);
+            MainApp.currentS=town_scene;
             //get reference to the stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
