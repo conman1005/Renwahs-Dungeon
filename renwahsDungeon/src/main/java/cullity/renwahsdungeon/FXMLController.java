@@ -51,7 +51,7 @@ public class FXMLController implements Initializable {
         }
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
-        MainApp.showItems();
+        //MainApp.showItems();
 
         try {
             Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
