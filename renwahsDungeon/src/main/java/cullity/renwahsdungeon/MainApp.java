@@ -26,7 +26,6 @@ public class MainApp extends Application {
     public static Enemy currentE;//current enemy fighting the user
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
-
     public static boolean fighting;//if in combat
 
     public static void deleteItem() {//put in 
@@ -103,7 +102,7 @@ public class MainApp extends Application {
         ImagePattern im;
         ColorAdjust colorAdjust1 = new ColorAdjust();//shows it was selected
         colorAdjust1.setBrightness(-0.5);
-        for (int r = 0; r < slot.size(); r++) {//clear slots
+        for (int r = 0; r < slot.size(); r++) {//reset slots
             try {
 
                 slot.get(r).setFill(Color.web("#393b53"));

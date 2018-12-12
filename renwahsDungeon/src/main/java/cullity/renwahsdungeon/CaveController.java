@@ -49,7 +49,7 @@ public class CaveController implements Initializable {
 //set currentE before coming to this screen when attacked by an enemy
     Timeline cool = new Timeline(new KeyFrame(Duration.millis(1000), ae -> cooldown()));//cooldown between user attack
     Timeline eAttack = new Timeline(new KeyFrame(Duration.millis(100), ae -> enemyAtt()));//enemy attacking 
-
+@FXML
     private void cooldown() {
 //cooldown boolean
 
