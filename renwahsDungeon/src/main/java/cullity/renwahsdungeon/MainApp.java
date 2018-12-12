@@ -28,7 +28,7 @@ public class MainApp extends Application {
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
-        
+
         String newI = "";//new inventory
         for (int i = 0; i < inv.size(); i++) {
             newI += inv.get(i);
@@ -44,7 +44,7 @@ public class MainApp extends Application {
         showItems();
         //if there is a spot variable for item then change it here
     }
-    
+
     public static void getItemsFromData(String inven) {//database
         inv.clear();
 
@@ -59,10 +59,10 @@ public class MainApp extends Application {
                 }
             } catch (IndexOutOfBoundsException e) {
             }
-            
+
         }
     }
-    
+
     public static void keys(KeyEvent k) {
         if (k.getSource() == KeyCode.E && currentI.isWeapon()) {
             //attack
@@ -76,7 +76,7 @@ public class MainApp extends Application {
 
         }
     }
-    
+
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
         if (m.getDeltaY() > 0) {
             if (itSpot < 5) {
@@ -92,9 +92,9 @@ public class MainApp extends Application {
             }
         }
         showItems();
-        
+
     }
-    
+
     public static void showItems() {//put in all scenes
         //show items in the boxes
         ImagePattern im;
@@ -102,12 +102,12 @@ public class MainApp extends Application {
         colorAdjust1.setBrightness(-0.5);
         for (int r = 0; r < slot.size(); r++) {//clear slots
             try {
-                
+
                 slot.get(r).setFill(Color.web("#393b53"));
                 slot.get(r).setEffect(null);
             } catch (IndexOutOfBoundsException e) {
             }
-            
+
         }
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
@@ -115,7 +115,7 @@ public class MainApp extends Application {
                     im = new ImagePattern(inv.get(i).getImage());
                     slot.get(i).setFill(im);
                 }
-                
+
             } catch (IndexOutOfBoundsException e) {
             }
         }
@@ -123,11 +123,14 @@ public class MainApp extends Application {
             currentI = null;
         } else {
             slot.get(itSpot).setEffect(colorAdjust1);
-            currentI = inv.get(itSpot);
+            try {//if they scrolled to an empty slot then it will error
+                currentI = inv.get(itSpot);
+            } catch (IndexOutOfBoundsException e) {
+            }
         }
-        
+
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
@@ -150,5 +153,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
