@@ -25,7 +25,9 @@ public class MainApp extends Application {
     public static Person currentP; //current user/save file
     public static Enemy currentE;//current enemy fighting the user
     public static int itSpot = 0;//spot in item arraylist
-    public static Scene currentS;
+    public static Scene currentS;//current scene//probably not needed
+
+    public static boolean fighting;//if in combat
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -65,7 +67,7 @@ public class MainApp extends Application {
     }
 
     public static void keys(KeyEvent k) {
-        if (k.getSource() == KeyCode.E && currentI.isWeapon()) {
+        if (k.getSource() == KeyCode.E && currentI.isWeapon() && fighting) {
             //attack
 
         } else if (k.getSource() == KeyCode.Q) {
@@ -119,15 +121,14 @@ public class MainApp extends Application {
 
             } catch (IndexOutOfBoundsException e) {
             }
-        }slot.get(itSpot).setEffect(colorAdjust1);
-        if (inv.size()<=itSpot) {
+        }
+        slot.get(itSpot).setEffect(colorAdjust1);
+        if (inv.size() <= itSpot) {
             currentI = null;
         } else {
-            
-          //  try {//if they scrolled to an empty slot then it will error
-                currentI = inv.get(itSpot);
-//            } catch (IndexOutOfBoundsException e) {
-//            }
+
+            currentI = inv.get(itSpot);
+
         }
 
     }
