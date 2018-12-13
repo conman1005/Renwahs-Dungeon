@@ -20,6 +20,7 @@ import javafx.animation.Timeline;
 import java.util.concurrent.ThreadLocalRandom;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -48,6 +49,8 @@ public class CaveController implements Initializable {
     private Rectangle recUser;
     @FXML
     private Rectangle recEnemy;
+    @FXML
+    private AnchorPane ancCave;
 //set currentE before coming to this screen when attacked by an enemy
     Timeline cool = new Timeline(new KeyFrame(Duration.millis(1000), ae -> cooldown()));//cooldown between user attack
     Timeline eAttack = new Timeline(new KeyFrame(Duration.millis(100), ae -> enemyAtt()));//enemy attacking 
@@ -63,6 +66,8 @@ public class CaveController implements Initializable {
 
     @FXML
     private void keypress(KeyEvent ke) {
+        MainApp.keys(ke);// this is because the pause button is in the global method
+
         if (ke.getSource() == KeyCode.E && MainApp.currentI.isWeapon() && MainApp.fighting && canAttack) {
             //attack
             if (MainApp.currentI.getItemName().equals("s")) {//if sword
@@ -93,7 +98,7 @@ public class CaveController implements Initializable {
                     MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
                 } else {//current health + health potion is higher than full health so just make it full health
                     MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1);
-                    
+
                 }
             }
             //set user progress bar
@@ -102,11 +107,32 @@ public class CaveController implements Initializable {
     }
 
     private void enemyAtt() {
+        if (MainApp.paused) {//dont need if can disable the current root
+            return;
+        }
         rand = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+        double eDamage;//enemy damage
         if (rand == 7) {
             //enemy crit attacks
+            eDamage = MainApp.currentE.getStrength() * 1.5;
+
         } else if (8 < rand && rand < 13) {
             //enemy normal attack
+            eDamage = MainApp.currentE.getStrength();
+
+        } else {//not attacking
+            return;
+        }
+        if (MainApp.currentHealth < eDamage) {
+//user is dead
+
+//ends with
+            MainApp.fighting = false;
+            MainApp.currentE = null;
+        } else {
+            //still alive
+            MainApp.currentHealth -= eDamage;
+//change progress bar
         }
 
     }
@@ -130,7 +156,7 @@ public class CaveController implements Initializable {
         recEnemy.setFill(new ImagePattern(MainApp.currentE.getImage()));
         MainApp.fighting = true;
         cool.setCycleCount(1);
-
+        MainApp.currentA = ancCave;
     }
 
 }

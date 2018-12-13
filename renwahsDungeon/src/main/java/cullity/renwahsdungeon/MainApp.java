@@ -10,6 +10,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -28,6 +29,8 @@ public class MainApp extends Application {
     public static Scene currentS;//current scene//probably not needed
     public static boolean fighting;//if in combat
     public static double currentHealth;
+    public static boolean paused = false;
+    public static AnchorPane currentA;
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -101,6 +104,22 @@ public class MainApp extends Application {
             //drop item
             itSpot = 5;
             showItems();
+        }
+        if (k.getSource() == KeyCode.ESCAPE) {
+            //pause or play
+            
+            if (paused) {
+                paused = false;
+
+                //get rid of menu
+            } else {
+                paused = true;
+                //show menu
+            }
+            if (currentA!=null){//make sure it doesnt error on menu
+                currentA.setDisable(paused);
+
+            }
         }
     }
 
