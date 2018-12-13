@@ -80,13 +80,15 @@ public class MainApp extends Application {
     }
 
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
-        if (m.getDeltaY() > 0) {
+        if (m.getDeltaY() > 0) {      
+
             if (itSpot < 5) {
                 itSpot++;
             } else {
                 itSpot = 0;
             }
-        } else if (m.getDeltaY() < 0) {
+        } else if (m.getDeltaY() < 0) {        
+
             if (itSpot > 0) {
                 itSpot--;
             } else {
