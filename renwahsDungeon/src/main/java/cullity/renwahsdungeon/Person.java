@@ -11,7 +11,9 @@ import java.util.Comparator;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -230,6 +232,8 @@ public class Person {
         }
         return numR;
     }
+
+
     int wAnimation = -1;
 
     public void move(Pane pne, String direction, Rectangle recHero) {
@@ -325,6 +329,18 @@ public class Person {
                     default:
                         break;
                 }
+                break;
+            case "u":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
+                break;
+            case "d":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
+                break;
+            case "l":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
+                break;
+            case "r":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
                 break;
             default:
                 break;
