@@ -27,6 +27,7 @@ public class MainApp extends Application {
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
     public static boolean fighting;//if in combat
+    public static double currentHealth;
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -66,28 +67,52 @@ public class MainApp extends Application {
     }
 
     public static void keys(KeyEvent k) {
-        if (k.getSource() == KeyCode.E && currentI.isWeapon() && fighting) {
-            //attack
-
-        } else if (k.getSource() == KeyCode.Q) {
-            //use item like a potion
-
-        } else if (k.getSource() == KeyCode.G && currentI != null) {
+        if (k.getSource() == KeyCode.G && currentI != null) {
             //drop item
             deleteItem();
 
         }
+        if (k.getSource() == KeyCode.DIGIT1) {
+            //drop item
+            itSpot = 0;
+            showItems();
+        }
+        if (k.getSource() == KeyCode.DIGIT2) {
+            //drop item
+            itSpot = 1;
+            showItems();
+        }
+        if (k.getSource() == KeyCode.DIGIT3) {
+            //drop item
+            itSpot = 2;
+            showItems();
+        }
+        if (k.getSource() == KeyCode.DIGIT4) {
+            //drop item
+            itSpot = 3;
+            showItems();
+        }
+        if (k.getSource() == KeyCode.DIGIT5) {
+            //drop item
+            itSpot = 4;
+            showItems();
+        }
+        if (k.getSource() == KeyCode.DIGIT6) {
+            //drop item
+            itSpot = 5;
+            showItems();
+        }
     }
 
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
-        if (m.getDeltaY() > 0) {      
+        if (m.getDeltaY() > 0) {
 
             if (itSpot < 5) {
                 itSpot++;
             } else {
                 itSpot = 0;
             }
-        } else if (m.getDeltaY() < 0) {        
+        } else if (m.getDeltaY() < 0) {
 
             if (itSpot > 0) {
                 itSpot--;
