@@ -227,12 +227,11 @@ public class Person {
             numR = (int) (recordFile.length() / SIZE);
 
         } catch (Exception ex) {
-        } 
+        }
         return numR;
     }
     int wAnimation = 0;
     public void move(Pane pne, String direction, Rectangle recHero) {
-        
         switch (direction) {
             case "up":
                 pne.setTranslateY(pne.getTranslateY() + 1);
@@ -272,7 +271,7 @@ public class Person {
                 break;
         }
     }
-    
+
     public Person(String usr) {
         StringBuffer tempN = new StringBuffer(usr);
         tempN.setLength(15);
@@ -291,5 +290,5 @@ public class Person {
         coins = 0;
         img = null;//image of the person
     }
-    
+
 }
