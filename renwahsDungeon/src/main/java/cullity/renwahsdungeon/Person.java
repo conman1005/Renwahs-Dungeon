@@ -8,8 +8,11 @@ package cullity.renwahsdungeon;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -224,30 +227,51 @@ public class Person {
             numR = (int) (recordFile.length() / SIZE);
 
         } catch (Exception ex) {
-        } 
+        }
         return numR;
     }
-    
-    public void move(Pane pne, String direction) {
-        
+    int wAnimation = 0;
+    public void move(Pane pne, String direction, Rectangle recHero) {
         switch (direction) {
             case "up":
                 pne.setTranslateY(pne.getTranslateY() + 1);
+                switch (wAnimation) {
+                    case 0:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString())));
+                        break;
+                    case 5:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
+                        break;
+                    case 10:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackRight.png").toString())));
+                        break;
+                    case 15:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
+                        wAnimation = 0;
+                        break;
+                    default:
+                        //wAnimation = 0;
+                        break;
+                }
+                wAnimation++;
                 break;
             case "down":
                 pne.setTranslateY(pne.getTranslateY() - 1);
+                wAnimation++;
                 break;
             case "left":
                 pne.setTranslateX(pne.getTranslateX() + 1);
+                wAnimation++;
                 break;
             case "right":
                 pne.setTranslateX(pne.getTranslateX() - 1);
+                wAnimation++;
                 break;
             default:
                 break;
         }
     }
-    
+
     public Person(String usr) {
         StringBuffer tempN = new StringBuffer(usr);
         tempN.setLength(15);
@@ -266,5 +290,5 @@ public class Person {
         coins = 0;
         img = null;//image of the person
     }
-    
+
 }
