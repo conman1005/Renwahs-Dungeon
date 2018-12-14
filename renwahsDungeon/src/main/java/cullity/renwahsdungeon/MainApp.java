@@ -38,7 +38,7 @@ public class MainApp extends Application {
     public static double currentHealth;
     public static boolean paused = false;
     public static AnchorPane currentA = null;
-    public static Alert alert = new Alert(AlertType.CONFIRMATION);
+    public Alert alert = new Alert(AlertType.CONFIRMATION);
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -125,14 +125,14 @@ public class MainApp extends Application {
                 //show menu
                 alert.setTitle("Paused");
                 alert.setHeaderText("Warning");
-                alert.setContentText("Changing screens will result in the loss of any unsaved data" + "\n ");
+                alert.setContentText("Changing screens will result in the loss of any unsaved data" + "\n ");*/
 
                 ButtonType buttonTypeOne = new ButtonType("Main Menu");
                 ButtonType buttonTypeTwo = new ButtonType("Back To Town");
                 // ButtonType buttonTypeThree = new ButtonType("Three");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
-                alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, /*buttonTypeThree,*/ buttonTypeCancel);
+                //alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, /*buttonTypeThree,*/ buttonTypeCancel);
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeOne) {
