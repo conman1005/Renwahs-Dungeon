@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -68,6 +69,7 @@ public class TownController implements Initializable {
     private Polygon plyPath;
 
     Polygon ply[] = new Polygon[3];
+    
 
     @FXML
     private AnchorPane ancTown;
@@ -82,8 +84,10 @@ public class TownController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
-        temp.keys();
         
+        keyStuff temp = new keyStuff();
+        temp.keys(event);// this is because the pause button is in the global method
+
         if (null != event.getCode()) {
             switch (event.getCode()) {
                 case W:
@@ -147,7 +151,7 @@ public class TownController implements Initializable {
                     Scene town_scene = new Scene(town_parent);
                     MainApp.currentS = town_scene;
                     //get reference to the stage
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
 
                     stage.hide(); //optional
                     town_scene.getRoot().requestFocus();
