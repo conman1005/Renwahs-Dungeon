@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-
+//after killing creature, update stats and then save
 /**
  * FXML Controller class
  *

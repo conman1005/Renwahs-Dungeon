@@ -130,6 +130,7 @@ public class FXMLController implements Initializable {
             lstSaves.getItems().add(psn.getName());
             dbs.add(psn);
         }
+        MainApp.currentA=null;
 //        MainApp.clearSlots();
 //        MainApp.slot.get(0)=recs1;
 
