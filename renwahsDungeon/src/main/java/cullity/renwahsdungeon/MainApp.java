@@ -1,11 +1,18 @@
 package cullity.renwahsdungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -30,7 +37,8 @@ public class MainApp extends Application {
     public static boolean fighting;//if in combat
     public static double currentHealth;
     public static boolean paused = false;
-    public static AnchorPane currentA;
+    public static AnchorPane currentA = null;
+    public static Alert alert = new Alert(AlertType.CONFIRMATION);
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -105,9 +113,9 @@ public class MainApp extends Application {
             itSpot = 5;
             showItems();
         }
-        if (k.getSource() == KeyCode.ESCAPE) {
+        if (k.getSource() == KeyCode.ESCAPE && currentA != null) {//if null then they are in main menu
             //pause or play
-            
+
             if (paused) {
                 paused = false;
 
@@ -115,8 +123,49 @@ public class MainApp extends Application {
             } else {
                 paused = true;
                 //show menu
+                alert.setTitle("Paused");
+                alert.setHeaderText("Warning");
+                alert.setContentText("Changing screens will result in the loss of any unsaved data" + "\n ");
+
+                ButtonType buttonTypeOne = new ButtonType("Main Menu");
+                ButtonType buttonTypeTwo = new ButtonType("Back To Town");
+                // ButtonType buttonTypeThree = new ButtonType("Three");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+                alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, /*buttonTypeThree,*/ buttonTypeCancel);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == buttonTypeOne) {
+                    // ... user chose "main menu"
+                } else if (result.get() == buttonTypeTwo) {
+                    // ... user chose "town" 
+
+//                    try {
+////                      //  Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml")); //where FXMLPage2 is the name of the scene
+////
+////                        Scene town_scene = new Scene(town_parent);
+////                        MainApp.currentS = town_scene;
+////                        //get reference to the stage
+////                        Stage stage = (Stage) ((Node) slot.get(0)).getScene().getWindow();
+////
+////                        stage.hide(); //optional
+////                        town_scene.getRoot().requestFocus();
+////                        stage.setScene(town_scene); //puts the new scence in the stage
+//
+//                        //     stage.setTitle("Town"); //changes the title
+//                        stage.show(); //shows the new page
+//                    } catch (IOException iOException) {
+//                    }
+                } //                else if (result.get() == buttonTypeThree) {
+                //                    // ... user chose "Three"
+                //                } 
+                else {
+                    // ... user chose CANCEL or closed the dialog
+                    paused = false;
+                    currentA.setDisable(paused);
+                }
             }
-            if (currentA!=null){//make sure it doesnt error on menu
+            if (currentA != null) {//make sure it doesnt error on menu
                 currentA.setDisable(paused);
 
             }
