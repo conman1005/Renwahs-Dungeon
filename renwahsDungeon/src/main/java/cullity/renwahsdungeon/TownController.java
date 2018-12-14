@@ -56,6 +56,10 @@ public class TownController implements Initializable {
     private Polygon plyTavern;
     @FXML
     private Polygon plyBlacksmith;
+    @FXML
+    private Polygon plyHero;
+    
+    Polygon ply[] = new Polygon[3];
     
     @FXML
     private AnchorPane ancTown;
@@ -114,6 +118,20 @@ public class TownController implements Initializable {
 
     private void movement() {
         psn.move(pneTown, direction, recHero);
+        for (Polygon i : ply) {
+            if (checkCol(plyHero, i)) {
+                if ((direction.equals("up")) || (direction.equals("u"))) {
+                    pneTown.setTranslateY(pneTown.getTranslateY() - 1);
+                } else if ((direction.equals("down")) || (direction.equals("d"))) {
+                    pneTown.setTranslateY(pneTown.getTranslateY() + 1);
+                } else if ((direction.equals("left")) || (direction.equals("l"))) {
+                    pneTown.setTranslateX(pneTown.getTranslateX() - 1);
+                } else if ((direction.equals("right")) || (direction.equals("r"))) {
+                    pneTown.setTranslateX(pneTown.getTranslateX() + 1);
+                }
+                
+            }
+        }
     }
 
     private Polygon createBoundsPolygon(Polygon poly) {
@@ -148,6 +166,10 @@ public class TownController implements Initializable {
         MainApp.slot.add(recT5);
         MainApp.slot.add(recT6);
         MainApp.showItems();
+        
+        ply[0] = plyWall;
+        ply[1] = plyTavern;
+        ply[2] = plyBlacksmith;
         
         MainApp.currentA = ancTown;
     }

@@ -11,9 +11,9 @@
       <Pane fx:id="pneTown" layoutX="6.0" layoutY="-107.0" prefHeight="602.0" prefWidth="841.0">
          <children>
             <Label layoutX="188.0" layoutY="194.0" prefHeight="1064.0" prefWidth="1525.0" styleClass="townBG" />
-            <Polygon fx:id="plyWall" fill="#1f93ff8b" layoutX="460.0" layoutY="412.0" points="894.0, 846.0, 894.0, 668.0, 860.0, 668.0, 860.0, 602.0, 822.0, 602.0, 822.0, 668.0, -248.0, 668.0, -248.0, -192.0, -188.0, -192.0, -188.0, -46.0, 68.0, -46.0, 68.0, -192.0, 1230.0, -192.0, 1230.0, 668.0, 1070.0, 668.0, 1070.0, 602.0, 1042.0, 602.0, 1042.0, 668.0, 1028.0, 668.0, 1028.0, 698.0, 1246.0, 698.0, 1246.0, -218.0, -272.0, -218.0, -272.0, 846.0" stroke="BLACK" strokeType="INSIDE" />
-            <Polygon fx:id="plyTavern" fill="#1f93ffa0" layoutX="421.0" layoutY="756.0" points="-111.0, 70.0, 113.0, 70.0, 113.0, -86.0, -111.0, -86.0" stroke="BLACK" strokeType="INSIDE" />
-            <Polygon fx:id="plyBlacksmith" fill="#1f93ff98" layoutX="1138.0" layoutY="783.0" points="-124.0, 53.0, 114.0, 53.0, 114.0, -129.0, -124.0, -129.0" stroke="BLACK" strokeType="INSIDE" />
+            <Polygon fx:id="plyWall" fill="#1f93ff8b" layoutX="460.0" layoutY="412.0" points="1253.0, 846.0, 1253.0, 832.0, 894.0, 832.0, 894.0, 668.0, 860.0, 668.0, 860.0, 602.0, 822.0, 602.0, 822.0, 668.0, -248.0, 668.0, -248.0, -192.0, -188.0, -192.0, -188.0, -46.0, 68.0, -46.0, 68.0, -192.0, 1230.0, -192.0, 1230.0, 668.0, 1070.0, 668.0, 1070.0, 602.0, 1042.0, 602.0, 1042.0, 668.0, 1028.0, 668.0, 1028.0, 698.0, 1246.0, 698.0, 1246.0, -218.0, -272.0, -218.0, -272.0, 846.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+            <Polygon fx:id="plyTavern" fill="#1f93ffa0" layoutX="421.0" layoutY="756.0" points="-111.0, 70.0, 113.0, 70.0, 113.0, -86.0, -111.0, -86.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+            <Polygon fx:id="plyBlacksmith" fill="#1f93ff98" layoutX="1138.0" layoutY="783.0" points="-124.0, 53.0, 114.0, 53.0, 114.0, -129.0, -124.0, -129.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
          </children>
       </Pane>
       <Rectangle fx:id="recT1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="20.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
@@ -21,7 +21,7 @@
       <Rectangle fx:id="recT4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="305.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recT5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="400.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recT6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="495.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
-      <Polygon fill="#1f93ff23" layoutX="400.0" layoutY="275.0" points="0.0, 2.0, 0.0, 70.66665649414062, 51.333343505859375, 70.66665649414062, 51.333343505859375, 2.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="plyHero" fill="#1f93ff23" layoutX="400.0" layoutY="275.0" points="0.0, 2.0, 0.0, 70.66665649414062, 51.333343505859375, 70.66665649414062, 51.333343505859375, 2.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
       <Rectangle fx:id="recT3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="210.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recHero" arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="69.0" layoutX="400.0" layoutY="275.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="heroFront" width="52.0" />
    </children>
