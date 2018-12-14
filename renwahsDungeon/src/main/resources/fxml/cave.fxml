@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane id="AnchorPane" onScroll="#scrollItem" prefHeight="476.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.CaveController">
+<AnchorPane id="AnchorPane" fx:id="ancCave" onKeyPressed="#keypress" onScroll="#scrollItem" prefHeight="476.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.CaveController">
    <children>
       <Rectangle fx:id="recC1" arcHeight="5.0" arcWidth="5.0" fill="#383a52" height="50.0" layoutX="15.0" layoutY="412.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recC2" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="95.0" layoutY="412.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
