@@ -128,8 +128,9 @@ public class TownController implements Initializable {
                     break;
             }
         }
+        kEvent = event;
     }
-
+    KeyEvent kEvent;
     private void movement() {
         psn.move(pneTown, direction, recHero);
         for (Polygon i : ply) {
@@ -145,13 +146,14 @@ public class TownController implements Initializable {
                 }
             }
             if (checkCol(plyHero, plyPath)) {
-                /*try {
-                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
+                move.stop();
+                try {
+                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
 
                     Scene town_scene = new Scene(town_parent);
                     MainApp.currentS = town_scene;
                     //get reference to the stage
-                    Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+                    Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
 
                     stage.hide(); //optional
                     town_scene.getRoot().requestFocus();
@@ -161,7 +163,7 @@ public class TownController implements Initializable {
                     stage.show(); //shows the new page
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                }*/
+                }
                 System.out.println("Path");
                 pneTown.setTranslateX(pneTown.getTranslateX() + 1);
             }
