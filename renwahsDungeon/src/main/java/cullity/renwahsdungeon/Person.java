@@ -11,7 +11,9 @@ import java.util.Comparator;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -230,42 +232,115 @@ public class Person {
         }
         return numR;
     }
-    int wAnimation = 0;
+
+
+    int wAnimation = -1;
+
     public void move(Pane pne, String direction, Rectangle recHero) {
         switch (direction) {
             case "up":
                 pne.setTranslateY(pne.getTranslateY() + 1);
+                wAnimation++;
                 switch (wAnimation) {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString())));
                         break;
-                    case 5:
+                    case 30:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
                         break;
-                    case 10:
+                    case 60:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackRight.png").toString())));
                         break;
-                    case 15:
+                    case 90:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
-                        wAnimation = 0;
+                        break;
+                    case 120:
+                        wAnimation = -1;
                         break;
                     default:
-                        //wAnimation = 0;
                         break;
                 }
-                wAnimation++;
                 break;
             case "down":
                 pne.setTranslateY(pne.getTranslateY() - 1);
                 wAnimation++;
+                switch (wAnimation) {
+                    case 0:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFrontLeft.png").toString())));
+                        break;
+                    case 30:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
+                        break;
+                    case 60:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFrontRight.png").toString())));
+                        break;
+                    case 90:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
+                        break;
+                    case 120:
+                        wAnimation = -1;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case "left":
                 pne.setTranslateX(pne.getTranslateX() + 1);
                 wAnimation++;
+                switch (wAnimation) {
+                    case 0:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeftLeft.png").toString())));
+                        break;
+                    case 30:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
+                        break;
+                    case 60:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeftRight.png").toString())));
+                        break;
+                    case 90:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
+                        break;
+                    case 120:
+                        wAnimation = -1;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case "right":
                 pne.setTranslateX(pne.getTranslateX() - 1);
                 wAnimation++;
+                switch (wAnimation) {
+                    case 0:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRightLeft.png").toString())));
+                        break;
+                    case 30:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
+                        break;
+                    case 60:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRightRight.png").toString())));
+                        break;
+                    case 90:
+                        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
+                        break;
+                    case 120:
+                        wAnimation = -1;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "u":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
+                break;
+            case "d":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
+                break;
+            case "l":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
+                break;
+            case "r":
+                recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
                 break;
             default:
                 break;
