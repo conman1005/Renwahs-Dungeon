@@ -74,7 +74,7 @@ public class TownController implements Initializable {
     @FXML
     private AnchorPane ancTown;
 
-    ImagePattern img = new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString()));
+    
 
     Person psn = new Person();
 
@@ -84,7 +84,6 @@ public class TownController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
-        
         keyStuff temp = new keyStuff();
         temp.keys(event);// this is because the pause button is in the global method
 
@@ -132,7 +131,7 @@ public class TownController implements Initializable {
     }
     KeyEvent kEvent;
     private void movement() {
-        psn.move(pneTown, direction, recHero);
+        psn.moveTown(pneTown, direction, recHero);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
@@ -148,7 +147,7 @@ public class TownController implements Initializable {
             if (checkCol(plyHero, plyPath)) {
                 move.stop();
                 try {
-                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
+                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
 
                     Scene town_scene = new Scene(town_parent);
                     MainApp.currentS = town_scene;
@@ -164,17 +163,9 @@ public class TownController implements Initializable {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                System.out.println("Path");
                 pneTown.setTranslateX(pneTown.getTranslateX() + 1);
             }
         }
-    }
-
-    private Polygon createBoundsPolygon(Polygon poly) {
-        Polygon pol = new Polygon();
-        pol.setFill(Color.TRANSPARENT);
-        pol.getPoints().addAll(poly.getPoints());
-        return pol;
     }
 
     private boolean checkCol(Shape obj1, Shape obj2) {
@@ -192,7 +183,7 @@ public class TownController implements Initializable {
         move.setCycleCount(INDEFINITE);
         move.play();
 
-        recHero.setFill(img);
+        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
 
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
