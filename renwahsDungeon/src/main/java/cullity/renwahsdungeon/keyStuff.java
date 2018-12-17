@@ -34,7 +34,7 @@ public class keyStuff {
 
     }
 
-    public void keys(KeyEvent k) {
+    public void keys(KeyEvent k, boolean inTown) {//if in town scene, inTown=true
         if (k.getSource() == KeyCode.G && MainApp.currentI != null) {
             //drop item
             MainApp.deleteItem();
@@ -88,8 +88,11 @@ public class keyStuff {
                 ButtonType buttonTypeTwo = new ButtonType("Back To Town");
                 ButtonType buttonTypeThree = new ButtonType("Quit");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+                if (!inTown) {
+                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+                } else {
+                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeThree, buttonTypeCancel);
+                }
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeOne) {

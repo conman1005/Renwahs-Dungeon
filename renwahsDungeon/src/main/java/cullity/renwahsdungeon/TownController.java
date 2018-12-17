@@ -86,7 +86,7 @@ public class TownController implements Initializable {
     private void keyPressed(KeyEvent event) {
         
         keyStuff temp = new keyStuff();
-        temp.keys(event);// this is because the pause button is in the global method
+        temp.keys(event,true);// this is because the pause button is in the global method
 
         if (null != event.getCode()) {
             switch (event.getCode()) {
