@@ -5,13 +5,19 @@ package cullity.renwahsdungeon;
  * Date: Dec 4, 2018
  * Made to
  */
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
@@ -22,6 +28,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -58,9 +65,12 @@ public class TownController implements Initializable {
     private Polygon plyBlacksmith;
     @FXML
     private Polygon plyHero;
-    
+    @FXML
+    private Polygon plyPath;
+
     Polygon ply[] = new Polygon[3];
     
+
     @FXML
     private AnchorPane ancTown;
 
@@ -74,6 +84,10 @@ public class TownController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
+        
+        keyStuff temp = new keyStuff();
+        temp.keys(event);// this is because the pause button is in the global method
+
         if (null != event.getCode()) {
             switch (event.getCode()) {
                 case W:
@@ -114,8 +128,9 @@ public class TownController implements Initializable {
                     break;
             }
         }
+        kEvent = event;
     }
-
+    KeyEvent kEvent;
     private void movement() {
         psn.move(pneTown, direction, recHero);
         for (Polygon i : ply) {
@@ -129,7 +144,28 @@ public class TownController implements Initializable {
                 } else if ((direction.equals("right")) || (direction.equals("r"))) {
                     pneTown.setTranslateX(pneTown.getTranslateX() + 1);
                 }
-                
+            }
+            if (checkCol(plyHero, plyPath)) {
+                move.stop();
+                try {
+                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
+
+                    Scene town_scene = new Scene(town_parent);
+                    MainApp.currentS = town_scene;
+                    //get reference to the stage
+                    Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+
+                    stage.hide(); //optional
+                    town_scene.getRoot().requestFocus();
+                    stage.setScene(town_scene); //puts the new scence in the stage
+
+                    //     stage.setTitle("Town"); //changes the title
+                    stage.show(); //shows the new page
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                System.out.println("Path");
+                pneTown.setTranslateX(pneTown.getTranslateX() + 1);
             }
         }
     }
@@ -166,11 +202,11 @@ public class TownController implements Initializable {
         MainApp.slot.add(recT5);
         MainApp.slot.add(recT6);
         MainApp.showItems();
-        
+
         ply[0] = plyWall;
         ply[1] = plyTavern;
         ply[2] = plyBlacksmith;
-        
+
         MainApp.currentA = ancTown;
     }
 }

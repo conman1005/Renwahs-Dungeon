@@ -67,7 +67,7 @@ public class CaveController implements Initializable {
     @FXML
     private void keypress(KeyEvent ke) {
        keyStuff temp = new keyStuff();
-        temp.keys(ke);// this is because the pause button is in the global method
+       temp.keys(ke);// this is because the pause button is in the global method
 
         if (ke.getSource() == KeyCode.E && MainApp.currentI.isWeapon() && MainApp.fighting && canAttack) {
             //attack
