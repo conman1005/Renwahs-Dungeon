@@ -95,7 +95,7 @@ public class keyStuff {
                 if (result.get() == buttonTypeOne) {
                     // ... user chose "main menu"
                 } else if (result.get() == buttonTypeTwo) {
-                    // ... user chose "town" 
+                    // ... user chose "town"
 
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml"));

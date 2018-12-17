@@ -38,7 +38,7 @@ public class MainApp extends Application {
     public static double currentHealth;
     public static boolean paused = false;
     public static AnchorPane currentA = null;
-        public Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    public Alert alert = new Alert(AlertType.CONFIRMATION);
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -76,8 +76,6 @@ public class MainApp extends Application {
 
         }
     }
-
-  
 
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
         if (m.getDeltaY() > 0) {
