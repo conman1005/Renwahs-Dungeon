@@ -88,6 +88,7 @@ public class CaveController implements Initializable {
                     //  ends with destroying enemy
                     MainApp.fighting = false;
                     MainApp.currentE = null;
+                    
                 } else {//still alive
                     //set enemy progress bar
                 }
