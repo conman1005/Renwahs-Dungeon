@@ -5,21 +5,21 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane id="AnchorPane" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="625.0" prefWidth="919.0" styleClass="caveBG" stylesheets="@../styles/world.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.CavePathController">
+<AnchorPane id="AnchorPane" fx:id="ancCavePath" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" prefHeight="625.0" prefWidth="919.0" styleClass="caveBG" stylesheets="@../styles/world.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.CavePathController">
    <children>
       <Polygon fx:id="plyWall1" fill="#1f93ff86" layoutX="95.0" layoutY="106.0" points="-95.0, 519.0, 199.0, 519.0, 199.0, 481.0, -57.0, 481.0, -57.0, -64.0, 787.0, -64.0, 787.0, 481.0, 495.0, 481.0, 495.0, 519.0, 824.0, 519.0, 824.0, -64.0, 824.0, -106.0, -95.0, -106.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="plyWall2" fill="#1f93ff84" layoutX="292.0" layoutY="373.0" points="-29.0, 10.0, 6.0, 10.0, 6.0, -75.0, -29.0, -75.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="plyWall3" fill="#1f93ff84" layoutX="658.0" layoutY="373.0" points="-29.0, 11.0, 6.0, 11.0, 6.0, -75.0, -29.0, -75.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="plyWall4" fill="#1f93ff7d" layoutX="391.0" layoutY="547.0" points="-16.0, -82.0, 164.0, -82.0, 164.0, -106.0, -16.0, -106.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="plyWall5" fill="#1f93ff98" layoutX="438.0" layoutY="373.0" points="-31.0, -27.0, 71.0, -27.0, 71.0, -43.0, -31.0, -43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="plyWall6" fill="#1f93ff9c" layoutX="348.0" layoutY="258.0" points="-14.0, -2.0, 23.0, -2.0, 2.0, -41.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="plyWall7" fill="#1f93ff9c" layoutX="569.0" layoutY="258.0" points="-14.0, -2.0, 23.0, -2.0, -1.0, -43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="plyWall6" fill="#1f93ff9c" layoutX="348.0" layoutY="258.0" points="-10.0, -17.0, 21.0, -17.0, 2.0, -41.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="plyWall7" fill="#1f93ff9c" layoutX="569.0" layoutY="258.0" points="-13.0, -19.0, 24.0, -19.0, -1.0, -43.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="plyExit" fill="#1f93ff91" layoutX="384.0" layoutY="565.0" points="-94.0, 60.0, 205.0, 60.0, 205.0, 41.0, -94.0, 41.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="plyStairs" fill="#1f93ff7d" layoutX="451.0" layoutY="258.0" points="-9.0, 34.0, 25.0, 34.0, 25.0, 2.0, -9.0, 2.0" stroke="BLACK" strokeType="INSIDE" />
       <Pane fx:id="pneHero" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Rectangle fx:id="recHero" arcHeight="5.0" arcWidth="5.0" fill="#0000005e" height="69.0" layoutX="432.0" layoutY="518.0" stroke="TRANSPARENT" strokeType="INSIDE" width="52.0" />
-            <Polygon fx:id="plyHero" fill="#1f93ff66" layoutX="451.0" layoutY="556.0" points="-16.0, 35.0, 31.0, 35.0, 31.0, -25.0, 17.0, -35.0, -1.0, -35.0, -16.0, -25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Rectangle fx:id="recHero" arcHeight="5.0" arcWidth="5.0" fill="#0000005e" height="43.125" layoutX="442.0" layoutY="534.0" stroke="TRANSPARENT" strokeType="INSIDE" width="32.5" />
+            <Polygon fx:id="plyHero" fill="#1f93ff66" layoutX="451.0" layoutY="556.0" points="-8.5, 21.5, 23.5, 21.125, 23.5, -6.0, 13.0, -20.5, -1.5, -20.5, -8.5, -6.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </Pane>
    </children>

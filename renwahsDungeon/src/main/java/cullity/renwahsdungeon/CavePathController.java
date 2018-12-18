@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
@@ -33,7 +34,7 @@ import javafx.util.Duration;
  * @author Conner
  */
 public class CavePathController implements Initializable {
-    
+
     @FXML
     private Polygon plyWall1;
 
@@ -60,28 +61,31 @@ public class CavePathController implements Initializable {
 
     @FXML
     private Polygon plyStairs;
-    
+
     @FXML
     private Polygon plyHero;
-    
+
     @FXML
     private Rectangle recHero;
-    
+
     @FXML
     private Pane pneHero;
     
-    Polygon ply[] = new Polygon[8];
-    
+    @FXML
+    private AnchorPane ancCavePath;
+
+    Polygon ply[] = new Polygon[7];
+
     String direction = "";
-    
+
     Person psn = new Person();
-    
-    Timeline move = new Timeline(new KeyFrame(Duration.millis(5), ae -> movement()));
-    
+
+    Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
+
     @FXML
     private void keyPressed(KeyEvent event) {
         keyStuff temp = new keyStuff();
-        temp.keys(event);// this is because the pause button is in the global method
+        temp.keys(event, false);// this is because the pause button is in the global method
 
         if (null != event.getCode()) {
             switch (event.getCode()) {
@@ -126,61 +130,61 @@ public class CavePathController implements Initializable {
         kEvent = event;
     }
     KeyEvent kEvent;
+
     private void movement() {
         psn.moveCave(pneHero, direction, recHero);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
-                    pneHero.setTranslateY(pneHero.getTranslateY() - 1);
-                } else if ((direction.equals("down")) || (direction.equals("d"))) {
                     pneHero.setTranslateY(pneHero.getTranslateY() + 1);
+                } else if ((direction.equals("down")) || (direction.equals("d"))) {
+                    pneHero.setTranslateY(pneHero.getTranslateY() - 1);
                 } else if ((direction.equals("left")) || (direction.equals("l"))) {
-                    pneHero.setTranslateX(pneHero.getTranslateX() - 1);
-                } else if ((direction.equals("right")) || (direction.equals("r"))) {
                     pneHero.setTranslateX(pneHero.getTranslateX() + 1);
-                }
-            }
-            
-            
-            if (checkCol(plyHero, plyExit)) {
-                move.stop();
-                try {
-                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
-
-                    Scene cave_scene = new Scene(town_parent);
-                    MainApp.currentS = cave_scene;
-                    //get reference to the stage
-                    Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
-
-                    stage.hide(); //optional
-                    cave_scene.getRoot().requestFocus();
-                    stage.setScene(cave_scene); //puts the new scence in the stage
-
-                    //     stage.setTitle("Town"); //changes the title
-                    stage.show(); //shows the new page
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                } else if ((direction.equals("right")) || (direction.equals("r"))) {
+                    pneHero.setTranslateX(pneHero.getTranslateX() - 1);
                 }
             }
         }
+        if (checkCol(plyHero, plyExit)) {
+            move.stop();
+            try {
+                Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
+
+                Scene cave_scene = new Scene(town_parent);
+                MainApp.currentS = cave_scene;
+                //get reference to the stage
+                Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+
+                stage.hide(); //optional
+                cave_scene.getRoot().requestFocus();
+                stage.setScene(cave_scene); //puts the new scence in the stage
+
+                //     stage.setTitle("Town"); //changes the title
+                stage.show(); //shows the new page
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
-    
+
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
     }
-    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        psn.wAnimation = -1;
+        
         move.setCycleCount(INDEFINITE);
         move.play();
-        
+
         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
-        
+
         ply[0] = plyWall1;
         ply[1] = plyWall2;
         ply[2] = plyWall3;
@@ -188,6 +192,8 @@ public class CavePathController implements Initializable {
         ply[4] = plyWall5;
         ply[5] = plyWall6;
         ply[6] = plyWall7;
-    }    
-    
+        
+        MainApp.currentA = ancCavePath;
+    }
+
 }
