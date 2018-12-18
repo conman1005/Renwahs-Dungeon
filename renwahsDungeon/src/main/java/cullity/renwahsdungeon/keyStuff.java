@@ -34,7 +34,7 @@ public class keyStuff {
 
     }
 
-    public void keys(KeyEvent k) {
+    public void keys(KeyEvent k, boolean inTown) {//if in town scene, inTown=true
         if (k.getSource() == KeyCode.G && MainApp.currentI != null) {
             //drop item
             MainApp.deleteItem();
@@ -73,11 +73,19 @@ public class keyStuff {
         if (k.getSource() == KeyCode.ESCAPE && MainApp.currentA != null) {//if null then they are in main menu
             //pause or play
 
-            if (MainApp.paused) {
+            if (MainApp.paused) {//true when game is paused
+                try {//tried in case there is no alert open 
+                    alert.close();//closes the alert
+                } catch (Exception e) {
+                }
                 MainApp.paused = false;
+                MainApp.currentA.setDisable(MainApp.paused);
 
-                //get rid of menu
             } else {
+                if (MainApp.currentA != null) {//make sure it doesnt error on menu
+                    MainApp.currentA.setDisable(MainApp.paused);
+
+                }
                 MainApp.paused = true;
                 //show menu
                 alert.setTitle("Paused");
@@ -88,12 +96,31 @@ public class keyStuff {
                 ButtonType buttonTypeTwo = new ButtonType("Back To Town");
                 ButtonType buttonTypeThree = new ButtonType("Quit");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+                if (!inTown) {
+                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+                } else {
+                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeThree, buttonTypeCancel);
+                }
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeOne) {
                     // ... user chose "main menu"
+                    try {
+                        Parent menu_parent = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+
+                        Scene menu_scene = new Scene(menu_parent);
+                        MainApp.currentS = menu_scene;
+                        // get reference to the stage
+                        Stage stage = (Stage) ((Node) MainApp.slot.get(0)).getScene().getWindow();
+
+                        stage.hide(); //optional
+                        menu_scene.getRoot().requestFocus();
+                        stage.setScene(menu_scene); //puts the new scence in the stage
+
+                        //stage.setTitle("Main Menu"); //changes the title
+                        stage.show(); //shows the new page
+                    } catch (IOException iOException) {
+                    }
                 } else if (result.get() == buttonTypeTwo) {
                     // ... user chose "town"
 
@@ -109,12 +136,14 @@ public class keyStuff {
                         town_scene.getRoot().requestFocus();
                         stage.setScene(town_scene); //puts the new scence in the stage
 
-                        stage.setTitle("Town"); //changes the title
+                        //   stage.setTitle("Town"); //changes the title
                         stage.show(); //shows the new page
                     } catch (IOException iOException) {
                     }
                 } else if (result.get() == buttonTypeThree) {
-                    // ... user chose "Three"
+                    // ... user chose "Quit"
+
+                    //add an "are you sure" alert 
                     System.exit(0);
                 } else {
                     // ... user chose CANCEL or closed the dialog
@@ -122,10 +151,7 @@ public class keyStuff {
                     MainApp.currentA.setDisable(MainApp.paused);
                 }
             }
-            if (MainApp.currentA != null) {//make sure it doesnt error on menu
-                MainApp.currentA.setDisable(MainApp.paused);
 
-            }
         }
     }
 

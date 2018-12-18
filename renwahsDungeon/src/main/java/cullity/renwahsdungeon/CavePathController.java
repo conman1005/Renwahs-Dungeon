@@ -121,7 +121,7 @@ public class CavePathController implements Initializable {
         kEvent = event;
     }
     KeyEvent kEvent;
-    private void movement() {
+    /*private void movement() {
         psn.move(pneTown, direction, recHero);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
@@ -156,7 +156,7 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-    }
+    }*/
     
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);

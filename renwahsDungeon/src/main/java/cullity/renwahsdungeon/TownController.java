@@ -69,12 +69,12 @@ public class TownController implements Initializable {
     private Polygon plyPath;
 
     Polygon ply[] = new Polygon[3];
-    
+
 
     @FXML
     private AnchorPane ancTown;
 
-    
+
 
     Person psn = new Person();
 
@@ -84,8 +84,9 @@ public class TownController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
-        keyStuff temp = new keyStuff();
-        temp.keys(event);// this is because the pause button is in the global method
+
+        keyStuff temp = new keyStuff();// this is because the pause button is in the global method
+        temp.keys(event,true);//true because it is in town scene (pausing button)
 
         if (null != event.getCode()) {
             switch (event.getCode()) {
@@ -144,7 +145,7 @@ public class TownController implements Initializable {
                     pneTown.setTranslateX(pneTown.getTranslateX() + 1);
                 }
             }
-            if (checkCol(plyHero, plyPath)) {
+            if (checkCol(plyHero, plyPath)) {//stop move timer and go to
                 move.stop();
                 try {
                     Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
