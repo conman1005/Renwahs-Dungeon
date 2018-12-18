@@ -350,7 +350,7 @@ public class Person {
     public void moveCave(Pane pne, String direction, Rectangle recHero) {
         switch (direction) {
             case "up":
-                pne.setTranslateY(pne.getTranslateY() + 1);
+                pne.setTranslateY(pne.getTranslateY() - 1);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
@@ -373,7 +373,7 @@ public class Person {
                 }
                 break;
             case "down":
-                pne.setTranslateY(pne.getTranslateY() - 1);
+                pne.setTranslateY(pne.getTranslateY() + 1);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
@@ -396,7 +396,7 @@ public class Person {
                 }
                 break;
             case "left":
-                pne.setTranslateX(pne.getTranslateX() + 1);
+                pne.setTranslateX(pne.getTranslateX() - 1);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
@@ -419,7 +419,7 @@ public class Person {
                 }
                 break;
             case "right":
-                pne.setTranslateX(pne.getTranslateX() - 1);
+                pne.setTranslateX(pne.getTranslateX() + 1);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:

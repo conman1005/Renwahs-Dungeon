@@ -8,6 +8,7 @@ package cullity.renwahsdungeon;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -64,6 +66,9 @@ public class CavePathController implements Initializable {
     
     @FXML
     private Rectangle recHero;
+    
+    @FXML
+    private Pane pneHero;
     
     Polygon ply[] = new Polygon[8];
     
@@ -121,33 +126,35 @@ public class CavePathController implements Initializable {
         kEvent = event;
     }
     KeyEvent kEvent;
-    /*private void movement() {
-        psn.move(pneTown, direction, recHero);
+    private void movement() {
+        psn.moveCave(pneHero, direction, recHero);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
-                    pneTown.setTranslateY(pneTown.getTranslateY() - 1);
+                    pneHero.setTranslateY(pneHero.getTranslateY() - 1);
                 } else if ((direction.equals("down")) || (direction.equals("d"))) {
-                    pneTown.setTranslateY(pneTown.getTranslateY() + 1);
+                    pneHero.setTranslateY(pneHero.getTranslateY() + 1);
                 } else if ((direction.equals("left")) || (direction.equals("l"))) {
-                    pneTown.setTranslateX(pneTown.getTranslateX() - 1);
+                    pneHero.setTranslateX(pneHero.getTranslateX() - 1);
                 } else if ((direction.equals("right")) || (direction.equals("r"))) {
-                    pneTown.setTranslateX(pneTown.getTranslateX() + 1);
+                    pneHero.setTranslateX(pneHero.getTranslateX() + 1);
                 }
             }
-            if (checkCol(plyHero, plyPath)) {
+            
+            
+            if (checkCol(plyHero, plyExit)) {
                 move.stop();
                 try {
-                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
+                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
-                    Scene town_scene = new Scene(town_parent);
-                    MainApp.currentS = town_scene;
+                    Scene cave_scene = new Scene(town_parent);
+                    MainApp.currentS = cave_scene;
                     //get reference to the stage
                     Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
 
                     stage.hide(); //optional
-                    town_scene.getRoot().requestFocus();
-                    stage.setScene(town_scene); //puts the new scence in the stage
+                    cave_scene.getRoot().requestFocus();
+                    stage.setScene(cave_scene); //puts the new scence in the stage
 
                     //     stage.setTitle("Town"); //changes the title
                     stage.show(); //shows the new page
@@ -156,7 +163,7 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-    }*/
+    }
     
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
@@ -169,6 +176,9 @@ public class CavePathController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        move.setCycleCount(INDEFINITE);
+        move.play();
+        
         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
         
         ply[0] = plyWall1;
