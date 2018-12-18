@@ -6,6 +6,8 @@
 package cullity.renwahsdungeon;
 
 import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -20,14 +22,17 @@ public class Enemy {
     private String type;//class
     private double defense;
     private Image img;
+    private Rectangle recEnemy;
 
     public Enemy() {
         strength = 10;
         health = 100;
         defense = 10;
         type = "slime";
-        img = null;//change to enemy image
-
+        img = new Image(getClass().getResource("/sprites/heroBackLeft.png").toString());
+        recEnemy.setWidth(35);
+        recEnemy.setHeight(30);
+        recEnemy.setFill(new ImagePattern(img));
     }
 
     public Enemy(double s, double h, double d, String t, String im) {
@@ -36,8 +41,8 @@ public class Enemy {
         defense = d;
         type = t;
         img = new Image(getClass().getResource("/" + im + ".png").toString());
-
     }
+    
 
     public double getStrength() {
         return strength;
