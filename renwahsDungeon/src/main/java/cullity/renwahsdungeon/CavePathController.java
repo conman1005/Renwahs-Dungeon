@@ -196,7 +196,15 @@ public class CavePathController implements Initializable {
         
         MainApp.currentA = ancCavePath;
         
-        //ancCavePath.getChildren().add(enm.)
+        //Rectangle enemy;
+        
+        ancCavePath.getChildren().add(new Enemy(0, 0, 0, "", "/sprites/heroBackLeft.png", 35, 30, 50, 50));
+        
+        /*enemy.setFill(enm.getImageP());
+        enemy.setWidth(enm.getWidth());
+        enemy.setHeight(enm.getWidth());
+        enemy.setLayoutX(50);
+        enemy.setLayoutY(50);*/
     }
 
 }

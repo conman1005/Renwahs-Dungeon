@@ -6,6 +6,7 @@
 package cullity.renwahsdungeon;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
@@ -13,7 +14,7 @@ import javafx.scene.shape.Rectangle;
  *
  * @author shawnb58
  */
-public class Enemy {
+public class Enemy extends Pane{
 
     private double strength;
     private double health;
@@ -21,28 +22,29 @@ public class Enemy {
     //private boolean employed;
     private String type;//class
     private double defense;
-    private Image img;
+    private ImagePattern imgP;
     private Rectangle recEnemy;
 
     public Enemy() {
+        super();
         strength = 10;
         health = 100;
         defense = 10;
         type = "slime";
-        img = new Image(getClass().getResource("/sprites/heroBackLeft.png").toString());
-        recEnemy.setWidth(35);
-        recEnemy.setHeight(30);
-        recEnemy.setFill(new ImagePattern(img));
+        imgP = new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString()));
+        recEnemy.setFill(imgP);
     }
 
-    public Enemy(double s, double h, double d, String t, String im) {
+    public Enemy(double s, double h, double d, String t, String im, double l, double w, double ex, double ey) {
+        super();
+        recEnemy = new Rectangle(l, w, ex, ey);
         strength = s;
         health = h;
         defense = d;
         type = t;
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+        imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
+        recEnemy.setFill(imgP);
     }
-    
 
     public double getStrength() {
         return strength;
@@ -76,14 +78,18 @@ public class Enemy {
         type = t;
     }
 
-    public Image getImage() {
-        return img;
+    public ImagePattern getImageP() {
+        return imgP;
     }
 
-    public void setImage(String im) {
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+    public void setImageP(String im) {
+        imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
 
+    public Rectangle getEnemy() {
+        recEnemy.setWidth(35);
+        recEnemy.setHeight(30);
+        recEnemy.setFill(imgP);
+        return recEnemy;
+    }
 }
-
-
