@@ -6,7 +6,9 @@
 package cullity.renwahsdungeon;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 
 /**
@@ -44,7 +46,7 @@ public class Chest {
         img = img = new Image(getClass().getResource("/" + "chest" + ".png").toString());;
     }
 
-    public Chest(int s, int c, String im) {//size, coins, image 
+    public Chest(int s, int c, String im) {//size, coins, image
         rand = s;//size of gains arraylist
         for (int i = 0; i < rand; i++) {
             rand = ThreadLocalRandom.current().nextInt(0, 2 + 1);//max is the amount of items we have
@@ -63,6 +65,55 @@ public class Chest {
         }
         extraCoins = c;//extra coins
         img = img = new Image(getClass().getResource("/" + im + ".png").toString());;
+    }
+
+    public void changeItems() {//to choose which items they will keep
+        ArrayList choices = new ArrayList();
+        for (int i = 0; i < MainApp.inv.size(); i++) {
+            choices.addAll(MainApp.inv);
+            choices.addAll(gains);
+        }
+        String choiceString = "";
+        for (int i = 0; i < choices.size(); i++) {
+            choiceString += "\n" + (i + 1) + choices.get(i).getClass().getSimpleName();
+
+        }
+        TextInputDialog dialog = new TextInputDialog("123456");
+        dialog.setTitle("Choose Which Items to Keep");
+        dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six) \n *No spaces ");//might need to make easier to understand
+        dialog.setContentText(choiceString);
+
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        String chosen = "";
+        if (!result.isPresent()) {
+            chosen = "123456";
+        } else {
+            if (result.get().length() > 6) {//too many items chosen
+                //stuff
+            } else {
+                chosen = result.get();
+
+            }
+        }
+        MainApp.inv.clear();
+        for (int i = 0; i < chosen.length(); i++) {//try for number format
+            //put next line in presentation
+            char c;
+            try {
+                c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, 1))) - 1)).getSymbol();//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
+
+                if ("s".charAt(0) == c) {
+                    MainApp.inv.add(new Sword());
+                } else if ("h".charAt(0) == c) {
+                    MainApp.inv.add(new HPotion());
+                }
+            } catch (NumberFormatException numberFormatException) {
+            }
+        }
+
+// The Java 8 way to get the response value (with lambda expression).
+        result.ifPresent(name -> System.out.println("Your name: " + name));
     }
 
     public Image getImage() {
