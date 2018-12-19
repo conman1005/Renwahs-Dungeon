@@ -79,6 +79,7 @@ public class CavePathController implements Initializable {
     String direction = "";
 
     Person psn = new Person();
+    Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
 
@@ -194,6 +195,8 @@ public class CavePathController implements Initializable {
         ply[6] = plyWall7;
         
         MainApp.currentA = ancCavePath;
+        
+        //ancCavePath.getChildren().add(enm.)
     }
 
 }
