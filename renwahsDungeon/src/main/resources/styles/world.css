@@ -12,6 +12,10 @@ Description:
     -fx-background-image: url(../town.png);
     -fx-background-size: cover;
 }
+.caveBG {
+    -fx-background-image: url(../cave.png);
+    -fx-background-size: cover;
+}
 .background {
     -fx-background-color: #000000;
 }
