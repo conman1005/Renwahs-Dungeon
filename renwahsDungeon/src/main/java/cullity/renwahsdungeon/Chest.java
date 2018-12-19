@@ -46,7 +46,7 @@ public class Chest {
         img = img = new Image(getClass().getResource("/" + "chest" + ".png").toString());;
     }
 
-    public Chest(int s, int c, String im) {//size, coins, image 
+    public Chest(int s, int c, String im) {//size, coins, image
         rand = s;//size of gains arraylist
         for (int i = 0; i < rand; i++) {
             rand = ThreadLocalRandom.current().nextInt(0, 2 + 1);//max is the amount of items we have
