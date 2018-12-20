@@ -197,8 +197,8 @@ public class CavePathController implements Initializable {
         
         MainApp.currentA = ancCavePath;
         
-        Enemy e=new Enemy();
-        ancCavePath.getChildren().add(e.getEnemy(50, 50));
+        
+        ancCavePath.getChildren().add(enm);
     }
 
 }

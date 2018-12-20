@@ -14,7 +14,9 @@ import javafx.scene.shape.Rectangle;
  *
  * @author shawnb58
  */
-public class Enemy extends Rectangle{
+
+//change to pane later
+public class Enemy extends Rectangle {
 
     private double strength;
     private double health;
@@ -26,20 +28,20 @@ public class Enemy extends Rectangle{
     //private Rectangle recEnemy;
 
     public Enemy() {
-        super();
+        super(50, 50, 35, 30);
         strength = 10;
         health = 100;
         defense = 10;
         type = "slime";
         imgP = new ImagePattern(new Image(getClass().getResource("/sprites/slimeGreen.png").toString()));
-        /*recEnemy.setFill(imgP);
-        recEnemy.setWidth(35);
-        recEnemy.setHeight(30);*/
+        //recEnemy = new Rectangle();
+        //recEnemy.setFill(imgP);
+        this.setFill(imgP);
     }
 
     public Enemy(double s, double h, double d, String t, String im, double l, double w, double ex, double ey) {
-        super();
-        //recEnemy = new Rectangle(l, w, ex, ey);
+        super(ex, ey, l, w);
+        //recEnemy = new Rectangle();
         strength = s;
         health = h;
         defense = d;
@@ -86,12 +88,5 @@ public class Enemy extends Rectangle{
 
     public void setImageP(String im) {
         imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
-    }
-
-    public Rectangle getEnemy(int x,int y) {
-        Rectangle rec = new Rectangle(35,30,x,y);
-        
-        rec.setFill(imgP);
-        return rec;
     }
 }
