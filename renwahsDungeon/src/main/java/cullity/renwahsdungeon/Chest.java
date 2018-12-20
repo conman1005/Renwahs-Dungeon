@@ -28,9 +28,9 @@ public class Chest {
     ImagePattern imageP;//picture of chest
 
     public Chest() {
-        rand = ThreadLocalRandom.current().nextInt(1, 3 + 1);//size of gains arraylist
-        for (int i = 0; i < rand; i++) {
-            rand = ThreadLocalRandom.current().nextInt(0, 2 + 1);//max is the amount of items we have
+        int sizeofGains = ThreadLocalRandom.current().nextInt(1, 3 + 1);//size of gains arraylist
+        for (int i = 0; i < sizeofGains; i++) {
+            rand = ThreadLocalRandom.current().nextInt(0, 1 + 1);//max is the amount of items we have
             if (rand == 0) {
                 gains.add(new Sword());
             } else if (rand == 1) {
@@ -69,25 +69,28 @@ public class Chest {
         imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
 
-    public void changeItems() {//to choose which items they will keep
+    public void open() {//to choose which items they will keep by opening the chest
         ArrayList choices = new ArrayList();//items in the chest
 //        for (int i = 0; i < MainApp.inv.size(); i++) {
         choices.addAll(MainApp.inv);
         choices.addAll(gains);
 //        }
         String choiceString = "Current Inventory Includes:";//will be the choices they have for items//includes inventory and chest stuff
+        int nextNum = 1;//starts at 1 so that the i9frst choice for the user is 1
         for (int i = 0; i < MainApp.inv.size(); i++) {//this loop will add the names of the items in the current inventory to the choices string
-            choiceString += "\n" + (i + 1) + MainApp.inv.get(i).getClass().getSimpleName();//first spot for user to choose from will be one so I added 1 to the index
 
+            choiceString += "\n" + (i + 1) + " " + MainApp.inv.get(i).getClass().getSimpleName();//first spot for user to choose from will be one so I added 1 to the index
+            nextNum++;
         }
         choiceString += "\n Items in chest includes:";
         for (int i = MainApp.inv.size(); i < choices.size(); i++) {//this loop adds the items in the chest to the choices string
-            choiceString += "\n" + (i + 1) + choices.get(i).getClass().getSimpleName();
 
+            choiceString += "\n" + nextNum + " " + choices.get(i).getClass().getSimpleName();
+            nextNum++;
         }
         TextInputDialog dialog = new TextInputDialog("123456");
-        dialog.setTitle("Choose Which Items to Keep (Be sure to put in the correct values or you might not get the items you wanted)");
-        dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six) \n *No spaces ");//might need to make easier to understand
+        dialog.setTitle("Choose Which Items to Keep ");
+        dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces ");//might need to make easier to understand
         dialog.setContentText(choiceString);
 
         Optional<String> result = dialog.showAndWait();
@@ -96,9 +99,9 @@ public class Chest {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("Error");
             a.setHeaderText("Must input a valid answer to continue");
-            a.setContentText("Please try again");
+            a.setContentText("Please exit this message to try again");
             a.showAndWait();
-            changeItems();
+            open();
             return;
         } else {
             if (result.get().length() > 6) {//too many items chosen
@@ -106,12 +109,32 @@ public class Chest {
                 Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                 al.setTitle("Error");
                 al.setHeaderText("Maximum of 6 items can be inputed");
-                al.setContentText("Please try again");
+                al.setContentText("Please exit this message to try again");
                 al.showAndWait();
-                changeItems();
+                open();
                 return;
 
+            } else if (result.get().isBlank()) {
+                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+
+                al.setTitle("Error");
+                al.setHeaderText("Must enter in at least one corresponding number");
+                al.setContentText("Please exit this message to try again");
+                al.showAndWait();
+                open();
+                return;
             } else {
+                try {
+                    Integer.parseInt(result.get());
+                } catch (NumberFormatException numberFormatException) {
+                    Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                    al.setTitle("Error");
+                    al.setHeaderText("Must be all numbers with no spaces");
+                    al.setContentText("Please exit this message to try again");
+                    al.showAndWait();
+                    open();
+                    return;
+                }
                 chosen = result.get();
 
             }
@@ -120,29 +143,27 @@ public class Chest {
         String newIn = "";
         for (int i = 0; i < chosen.length(); i++) {//try for number format
 
-            char c;
             try {
 //put next line in presentation
-                newIn += ((Item) choices.get((Integer.parseInt(chosen.substring(i, 1))) - 1)).getSymbol();//putting together all the new items they chose
+                newIn += ((Item) choices.get((Integer.parseInt(chosen.substring(i, i + 1))) - 1)).getSymbol();//putting together all the new items they chose
 
-//                c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, 1))) - 1)).getSymbol();//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
+//                c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, i+1))) - 1)).getSymbol();//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
 //
 //                if ("s".charAt(0) == c) {
 //                    MainApp.inv.add(new Sword());
 //                } else if ("h".charAt(0) == c) {
 //                    MainApp.inv.add(new HPotion());
 //                }
-            } catch (NumberFormatException numberFormatException) {
+            } catch (IndexOutOfBoundsException numberFormatException) {
 
             }
         }
-        MainApp.getItemsFromData(newIn);
+        MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
         MainApp.currentP.setInventory(newIn);
-
+        MainApp.itSpot = 0;
         MainApp.showItems();
+//MainApp.currentP.save("database.raf", );//find correct numbers
 
-// The Java 8 way to get the response value (with lambda expression).
-        //  result.ifPresent(name -> System.out.println("Your name: " + name));
     }
 
     public ImagePattern getImageP() {
