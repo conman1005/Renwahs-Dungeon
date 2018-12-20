@@ -161,7 +161,14 @@ public class Chest {
         MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
         MainApp.currentP.setInventory(newIn);
         MainApp.itSpot = 0;
+        MainApp.currentP.setCoins(MainApp.currentP.getCoins()+extraCoins);
         MainApp.showItems();
+         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                    al.setTitle("Coins");
+                    al.setHeaderText("You received "+ extraCoins+" coins");
+                    al.setContentText(null);
+                    al.showAndWait();
+                    //show money
 //MainApp.currentP.save("database.raf", );//find correct numbers
 
     }
