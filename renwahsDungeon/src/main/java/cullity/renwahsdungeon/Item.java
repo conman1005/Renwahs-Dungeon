@@ -6,6 +6,7 @@
 package cullity.renwahsdungeon;
 
 import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 
 /**
  *
@@ -16,12 +17,12 @@ public class Item {//maybe make symbol letters for items and numbers for weapons
     private String itemName;
     private boolean weapon;//if it is a weapon or not
     private char symbol;//in inventory string set and gets
-    private Image img;
+    private ImagePattern imageP;
     private double price;
 
     public Item() {
         itemName = "";
-        img = null;
+        imageP = null;
         weapon = false;
         symbol = "".charAt(0);
         price = 0;
@@ -31,16 +32,16 @@ public class Item {//maybe make symbol letters for items and numbers for weapons
         itemName = i;
         weapon = w;
         symbol = s;
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+        imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
         price = p;
     }
 
-    public Image getImage() {
-        return img;
+    public ImagePattern getImageP() {
+        return imageP;
     }
 
-    public void setImage(String im) {
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+    public void setImageP(String im) {
+        imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
 
     public String getItemName() {

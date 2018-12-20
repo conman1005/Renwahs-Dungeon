@@ -1,15 +1,23 @@
 package cullity.renwahsdungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +35,10 @@ public class MainApp extends Application {
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
     public static boolean fighting;//if in combat
+    public static double currentHealth;
+    public static boolean paused = false;
+    public static AnchorPane currentA = null;
+    public Alert alert = new Alert(AlertType.CONFIRMATION);
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -65,29 +77,15 @@ public class MainApp extends Application {
         }
     }
 
-    public static void keys(KeyEvent k) {
-        if (k.getSource() == KeyCode.E && currentI.isWeapon() && fighting) {
-            //attack
-
-        } else if (k.getSource() == KeyCode.Q) {
-            //use item like a potion
-
-        } else if (k.getSource() == KeyCode.G && currentI != null) {
-            //drop item
-            deleteItem();
-
-        }
-    }
-
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
-        if (m.getDeltaY() > 0) {      
+        if (m.getDeltaY() > 0) {
 
             if (itSpot < 5) {
                 itSpot++;
             } else {
                 itSpot = 0;
             }
-        } else if (m.getDeltaY() < 0) {        
+        } else if (m.getDeltaY() < 0) {
 
             if (itSpot > 0) {
                 itSpot--;
@@ -116,8 +114,8 @@ public class MainApp extends Application {
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
                 if (!currentP.getInventory().substring(i, 1).equals("!")) {
-                    im = new ImagePattern(inv.get(i).getImage());
-                    slot.get(i).setFill(im);
+
+                    slot.get(i).setFill(inv.get(i).getImageP());
                 }
 
             } catch (IndexOutOfBoundsException e) {
@@ -138,6 +136,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
         Scene scene = new Scene(root);
+
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
         scene.getRoot().requestFocus();
