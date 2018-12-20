@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
  *
  * @author shawnb58
  */
-public class Enemy extends Pane{
+public class Enemy extends Rectangle{
 
     private double strength;
     private double health;
@@ -23,7 +23,7 @@ public class Enemy extends Pane{
     private String type;//class
     private double defense;
     private ImagePattern imgP;
-    private Rectangle recEnemy;
+    //private Rectangle recEnemy;
 
     public Enemy() {
         super();
@@ -31,19 +31,21 @@ public class Enemy extends Pane{
         health = 100;
         defense = 10;
         type = "slime";
-        imgP = new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString()));
-        recEnemy.setFill(imgP);
+        imgP = new ImagePattern(new Image(getClass().getResource("/sprites/slimeGreen.png").toString()));
+        /*recEnemy.setFill(imgP);
+        recEnemy.setWidth(35);
+        recEnemy.setHeight(30);*/
     }
 
     public Enemy(double s, double h, double d, String t, String im, double l, double w, double ex, double ey) {
         super();
-        recEnemy = new Rectangle(l, w, ex, ey);
+        //recEnemy = new Rectangle(l, w, ex, ey);
         strength = s;
         health = h;
         defense = d;
         type = t;
         imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
-        recEnemy.setFill(imgP);
+        //recEnemy.setFill(imgP);
     }
 
     public double getStrength() {
@@ -86,10 +88,10 @@ public class Enemy extends Pane{
         imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
 
-    public Rectangle getEnemy() {
-        recEnemy.setWidth(35);
-        recEnemy.setHeight(30);
-        recEnemy.setFill(imgP);
-        return recEnemy;
+    public Rectangle getEnemy(int x,int y) {
+        Rectangle rec = new Rectangle(35,30,x,y);
+        
+        rec.setFill(imgP);
+        return rec;
     }
 }

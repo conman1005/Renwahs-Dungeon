@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -196,15 +197,8 @@ public class CavePathController implements Initializable {
         
         MainApp.currentA = ancCavePath;
         
-        //Rectangle enemy;
-        
-        ancCavePath.getChildren().add(new Enemy(0, 0, 0, "", "/sprites/heroBackLeft.png", 35, 30, 50, 50));
-        
-        /*enemy.setFill(enm.getImageP());
-        enemy.setWidth(enm.getWidth());
-        enemy.setHeight(enm.getWidth());
-        enemy.setLayoutX(50);
-        enemy.setLayoutY(50);*/
+        Enemy e=new Enemy();
+        ancCavePath.getChildren().add(e.getEnemy(50, 50));
     }
 
 }
