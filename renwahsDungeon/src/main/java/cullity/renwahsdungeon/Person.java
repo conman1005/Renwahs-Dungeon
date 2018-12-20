@@ -38,7 +38,7 @@ public class Person {
     //private boolean employed;
     private char type;//class
     private double bDefense;
-    private Image img;
+    private ImagePattern imageP;
     //data stuff
     //name = 30
     //level = 4
@@ -68,7 +68,7 @@ public class Person {
         tempT.setLength(1);
         type = tempT.toString().charAt(0);
         coins = 0;
-        img = null;//image of the person
+        imageP = null;//image of the person
 
     }
 
@@ -87,16 +87,16 @@ public class Person {
 
         inventory = i;
         coins = c;
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+        imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
 
     }
 
-    public Image getImage() {
-        return img;
+    public ImagePattern getImageP() {
+        return imageP;
     }
 
-    public void setImage(String im) {
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+    public void setImageP(String im) {
+        imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
 
     public double getBStrength() {
@@ -232,7 +232,6 @@ public class Person {
         }
         return numR;
     }
-
 
     int wAnimation = -1;
 
@@ -474,7 +473,7 @@ public class Person {
         tempT.setLength(1);
         type = tempT.toString().charAt(0);
         coins = 0;
-        img = null;//image of the person
+        imageP = null;//image of the person
     }
 
 }

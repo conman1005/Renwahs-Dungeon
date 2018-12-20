@@ -114,8 +114,8 @@ public class MainApp extends Application {
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
                 if (!currentP.getInventory().substring(i, 1).equals("!")) {
-                    im = new ImagePattern(inv.get(i).getImage());
-                    slot.get(i).setFill(im);
+
+                    slot.get(i).setFill(inv.get(i).getImageP());
                 }
 
             } catch (IndexOutOfBoundsException e) {
@@ -136,7 +136,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
         Scene scene = new Scene(root);
-   
+
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
         scene.getRoot().requestFocus();
