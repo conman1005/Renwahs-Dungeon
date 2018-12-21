@@ -7,6 +7,8 @@ package cullity.renwahsdungeon;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
@@ -76,6 +78,8 @@ public class CavePathController implements Initializable {
     private AnchorPane ancCavePath;
 
     Polygon ply[] = new Polygon[7];
+    
+    ArrayList<Enemy> enemies = new ArrayList();
 
     String direction = "";
 
@@ -83,6 +87,8 @@ public class CavePathController implements Initializable {
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
+    
+    Random rand = new Random();
 
     @FXML
     private void keyPressed(KeyEvent event) {
@@ -147,6 +153,13 @@ public class CavePathController implements Initializable {
                     pneHero.setTranslateX(pneHero.getTranslateX() - 1);
                 }
             }
+            for (int em = 0; em < enemies.size(); em++) {
+                switch (enemies.get(em).getDirection()) {
+                    case "up":
+                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
+                        break;
+                }
+            }
         }
         if (checkCol(plyHero, plyExit)) {
             move.stop();
@@ -182,9 +195,6 @@ public class CavePathController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         psn.wAnimation = -1;
         
-        move.setCycleCount(INDEFINITE);
-        move.play();
-
         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
 
         ply[0] = plyWall1;
@@ -196,9 +206,17 @@ public class CavePathController implements Initializable {
         ply[6] = plyWall7;
         
         MainApp.currentA = ancCavePath;
+                
+        for (int i = 0; i < rand.nextInt(4); i++) {
+            enemies.add(new Enemy("sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
+        }
         
+        for (Rectangle e : enemies) {
+            ancCavePath.getChildren().add(e);
+        }
         
-        ancCavePath.getChildren().add(enm);
+        move.setCycleCount(INDEFINITE);
+        move.play();
     }
 
 }

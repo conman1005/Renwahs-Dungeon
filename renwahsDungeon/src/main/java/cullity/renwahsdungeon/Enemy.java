@@ -26,6 +26,7 @@ public class Enemy extends Rectangle {
     private double defense;
     private ImagePattern imgP;
     //private Rectangle recEnemy;
+    private String direction;
 
     public Enemy() {
         super(50, 50, 35, 30);
@@ -39,15 +40,16 @@ public class Enemy extends Rectangle {
         this.setFill(imgP);
     }
 
-    public Enemy(double s, double h, double d, String t, String im, double l, double w, double ex, double ey) {
+    public Enemy(/*double s, double h, double d, String t, */String im, double l, double w, double ex, double ey, String di) {
         super(ex, ey, l, w);
         //recEnemy = new Rectangle();
-        strength = s;
+        /*strength = s;
         health = h;
         defense = d;
-        type = t;
+        type = t;*/
         imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
-        //recEnemy.setFill(imgP);
+        this.setFill(imgP);
+        direction = di;
     }
 
     public double getStrength() {
@@ -84,6 +86,14 @@ public class Enemy extends Rectangle {
 
     public ImagePattern getImageP() {
         return imgP;
+    }
+    
+    public void setDirection(String d) {
+        direction = d;
+    }
+    
+    public String getDirection() {
+        return direction;
     }
 
     public void setImageP(String im) {
