@@ -66,9 +66,9 @@ public class MainApp extends Application {
         for (int i = 0; i < inven.length(); i++) {
             //put items in arraylist inv
             try {
-                if (inven.substring(i, 1).equals("s")) {
+                if (inven.substring(i, i+1).equals("s")) {
                     inv.add(new Sword());
-                } else if (inven.substring(i, 1).equals("h")) {
+                } else if (inven.substring(i, i+1).equals("h")) {
                     inv.add(new HPotion());
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -113,7 +113,7 @@ public class MainApp extends Application {
         }
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
-                if (!currentP.getInventory().substring(i, 1).equals("!")) {
+                if (!currentP.getInventory().substring(i,i+ 1).equals("!")) {
 
                     slot.get(i).setFill(inv.get(i).getImageP());
                 }
