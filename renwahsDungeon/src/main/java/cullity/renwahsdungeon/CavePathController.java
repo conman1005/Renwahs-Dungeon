@@ -86,7 +86,7 @@ public class CavePathController implements Initializable {
     @FXML
     private void keyPressed(KeyEvent event) {
         keyStuff temp = new keyStuff();
-        temp.keys(event, false,ancCavePath);// this is because the pause button is in the global method
+        temp.keys(event, false,ancCavePath);// this is because the pause button is in the global method//false means not in town
 
         if (null != event.getCode()) {
             switch (event.getCode()) {

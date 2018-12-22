@@ -33,7 +33,7 @@ public class keyStuff {
     public keyStuff() {
 
     }
-    //SHAWN!!!!!!! Consider putting the AnchorPane into the constructor instead of the mainapp
+    
     public void keys(KeyEvent k, boolean inTown,AnchorPane anc) {//if in town scene, inTown=true
         if (k.getSource() == KeyCode.G && MainApp.currentI != null) {
             //drop item
