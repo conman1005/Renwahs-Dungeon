@@ -37,7 +37,7 @@ public class MainApp extends Application {
     public static boolean fighting;//if in combat
     public static double currentHealth;
     public static boolean paused = false;
-    public static AnchorPane currentA = null;
+   // public static AnchorPane currentA = null;
     public Alert alert = new Alert(AlertType.CONFIRMATION);
 
     public static void deleteItem() {//put in 
