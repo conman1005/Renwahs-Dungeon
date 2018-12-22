@@ -86,7 +86,7 @@ public class TownController implements Initializable {
     private void keyPressed(KeyEvent event) {
 
         keyStuff temp = new keyStuff();// this is because the pause button is in the global method
-        temp.keys(event,true);//true because it is in town scene (pausing button)
+        temp.keys(event,true,ancTown);//true because it is in town scene (pausing button)
 
         if (null != event.getCode()) {
             switch (event.getCode()) {
@@ -199,6 +199,6 @@ public class TownController implements Initializable {
         ply[1] = plyTavern;
         ply[2] = plyBlacksmith;
 
-        MainApp.currentA = ancTown;
+//        MainApp.currentA = ancTown;
     }
 }

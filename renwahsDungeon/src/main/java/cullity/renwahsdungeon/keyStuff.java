@@ -33,8 +33,8 @@ public class keyStuff {
     public keyStuff() {
 
     }
-    //SHAWN!!!!!!! Consider putting the AnchorPane into the constructor instead of the mainapp
-    public void keys(KeyEvent k, boolean inTown) {//if in town scene, inTown=true
+    
+    public void keys(KeyEvent k, boolean inTown,AnchorPane anc) {//if in town scene, inTown=true
         if (k.getSource() == KeyCode.G && MainApp.currentI != null) {
             //drop item
             MainApp.deleteItem();
@@ -70,7 +70,7 @@ public class keyStuff {
             MainApp.itSpot = 5;
             MainApp.showItems();
         }
-        if (k.getSource() == KeyCode.ESCAPE && MainApp.currentA != null) {//if null then they are in main menu
+        if (k.getSource() == KeyCode.ESCAPE /*&& MainApp.currentA != null*/) {//if able to use keys on main menu then check if anc is menu 
             //pause or play
 
             if (MainApp.paused) {//true when game is paused
@@ -79,13 +79,13 @@ public class keyStuff {
                 } catch (Exception e) {
                 }
                 MainApp.paused = false;
-                MainApp.currentA.setDisable(MainApp.paused);
+              anc.setDisable(MainApp.paused);
 
             } else {
-                if (MainApp.currentA != null) {//make sure it doesnt error on menu
-                    MainApp.currentA.setDisable(MainApp.paused);
+                //if (MainApp.currentA != null) {//make sure it doesnt error on menu
+                    anc.setDisable(MainApp.paused);
 
-                }
+                //}
                 MainApp.paused = true;
                 //show menu
                 alert.setTitle("Paused");
@@ -148,7 +148,7 @@ public class keyStuff {
                 } else {
                     // ... user chose CANCEL or closed the dialog
                     MainApp.paused = false;
-                    MainApp.currentA.setDisable(MainApp.paused);
+                    anc.setDisable(MainApp.paused);
                 }
             }
 
