@@ -12,6 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 
 /**
  *
@@ -69,7 +71,7 @@ public class Chest {
         imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
 
-    public void open() {//to choose which items they will keep by opening the chest
+    public void open() throws ClassNotFoundException, IllegalAccessException {//to choose which items they will keep by opening the chest
         ArrayList choices = new ArrayList();//items in the chest
 //        for (int i = 0; i < MainApp.inv.size(); i++) {
         choices.addAll(MainApp.inv);
@@ -146,14 +148,15 @@ public class Chest {
             try {
 //put next line in presentation
                 newIn += ((Item) choices.get((Integer.parseInt(chosen.substring(i, i + 1))) - 1)).getSymbol();//putting together all the new items they chose
-
-//                c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, i+1))) - 1)).getSymbol();//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
+                //Gson gson=new Gson();
+                //  c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, i+1))) - 1));//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
 //
 //                if ("s".charAt(0) == c) {
 //                    MainApp.inv.add(new Sword());
 //                } else if ("h".charAt(0) == c) {
 //                    MainApp.inv.add(new HPotion());
 //                }
+
             } catch (IndexOutOfBoundsException numberFormatException) {
 
             }
@@ -161,14 +164,14 @@ public class Chest {
         MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
         MainApp.currentP.setInventory(newIn);
         MainApp.itSpot = 0;
-        MainApp.currentP.setCoins(MainApp.currentP.getCoins()+extraCoins);
+        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + extraCoins);
         MainApp.showItems();
-         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                    al.setTitle("Coins");
-                    al.setHeaderText("You received "+ extraCoins+" coins");
-                    al.setContentText(null);
-                    al.showAndWait();
-                    //show money
+        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+        al.setTitle("Coins");
+        al.setHeaderText("You received " + extraCoins + " coins");
+        al.setContentText(null);
+        al.showAndWait();
+        //show money
 //MainApp.currentP.save("database.raf", );//find correct numbers
 
     }
