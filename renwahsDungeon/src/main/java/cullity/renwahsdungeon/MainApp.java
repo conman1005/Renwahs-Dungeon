@@ -37,12 +37,13 @@ public class MainApp extends Application {
     public static boolean fighting;//if in combat
     public static double currentHealth;
     public static boolean paused = false;
-   // public static AnchorPane currentA = null;
+    // public static AnchorPane currentA = null;
+    public static Rectangle recItem;
     public Alert alert = new Alert(AlertType.CONFIRMATION);
-
+    
     public static void deleteItem() {//put in 
         inv.remove(currentI);
-
+        
         String newI = "";//new inventory
         for (int i = 0; i < inv.size(); i++) {
             newI += inv.get(i);
@@ -58,7 +59,7 @@ public class MainApp extends Application {
         showItems();
         //if there is a spot variable for item then change it here
     }
-
+    
     public static void getItemsFromData(String inven) {//database
         inv.clear();
 
@@ -66,27 +67,27 @@ public class MainApp extends Application {
         for (int i = 0; i < inven.length(); i++) {
             //put items in arraylist inv
             try {
-                if (inven.substring(i, i+1).equals("s")) {
+                if (inven.substring(i, i + 1).equals("s")) {
                     inv.add(new Sword());
-                } else if (inven.substring(i, i+1).equals("h")) {
+                } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
                 }
             } catch (IndexOutOfBoundsException e) {
             }
-
+            
         }
     }
-
+    
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
         if (m.getDeltaY() > 0) {
-
+            
             if (itSpot < 5) {
                 itSpot++;
             } else {
                 itSpot = 0;
             }
         } else if (m.getDeltaY() < 0) {
-
+            
             if (itSpot > 0) {
                 itSpot--;
             } else {
@@ -94,9 +95,9 @@ public class MainApp extends Application {
             }
         }
         showItems();
-
+        
     }
-
+    
     public static void showItems() {//put in all scenes
         //show items in the boxes
         ImagePattern im;
@@ -104,39 +105,40 @@ public class MainApp extends Application {
         colorAdjust1.setBrightness(-0.5);
         for (int r = 0; r < slot.size(); r++) {//reset slots
             try {
-
+                
                 slot.get(r).setFill(Color.web("#393b53"));
                 slot.get(r).setEffect(null);
             } catch (IndexOutOfBoundsException e) {
             }
-
+            
         }
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
-                if (!currentP.getInventory().substring(i,i+ 1).equals("!")) {
-
+                if (!currentP.getInventory().substring(i, i + 1).equals("!")) {
+                    
                     slot.get(i).setFill(inv.get(i).getImageP());
                 }
-
+                
             } catch (IndexOutOfBoundsException e) {
             }
         }
         slot.get(itSpot).setEffect(colorAdjust1);
         if (inv.size() <= itSpot) {
             currentI = null;
+            recItem.setVisible(false);
         } else {
-
             currentI = inv.get(itSpot);
-
+            recItem.setVisible(true);
+            recItem.setFill(currentI.getImageP());
         }
-
+        
     }
-
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
         Scene scene = new Scene(root);
-
+        
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
         scene.getRoot().requestFocus();
@@ -156,5 +158,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
 }
