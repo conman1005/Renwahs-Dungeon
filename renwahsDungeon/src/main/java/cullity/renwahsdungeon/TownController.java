@@ -70,11 +70,10 @@ public class TownController implements Initializable {
 
     Polygon ply[] = new Polygon[3];
 
-
     @FXML
     private AnchorPane ancTown;
-
-
+    @FXML
+    private Rectangle recTI;//rec that shows the item in the hand of the person in the town scene
 
     Person psn = new Person();
 
@@ -86,7 +85,7 @@ public class TownController implements Initializable {
     private void keyPressed(KeyEvent event) {
 
         keyStuff temp = new keyStuff();// this is because the pause button is in the global method
-        temp.keys(event,true,ancTown);//true because it is in town scene (pausing button)
+        temp.keys(event, true, ancTown);//true because it is in town scene (pausing button)
 
         if (null != event.getCode()) {
             switch (event.getCode()) {
@@ -131,6 +130,7 @@ public class TownController implements Initializable {
         kEvent = event;
     }
     KeyEvent kEvent;
+
     private void movement() {
         psn.moveTown(pneTown, direction, recHero);
         for (Polygon i : ply) {
@@ -193,6 +193,7 @@ public class TownController implements Initializable {
         MainApp.slot.add(recT4);
         MainApp.slot.add(recT5);
         MainApp.slot.add(recT6);
+        MainApp.recItem = recTI;
         MainApp.showItems();
 
         ply[0] = plyWall;
