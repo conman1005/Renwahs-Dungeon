@@ -70,9 +70,11 @@ public class CavePathController implements Initializable {
 
     @FXML
     private Pane pneHero;
-    
+
     @FXML
     private AnchorPane ancCavePath;
+    @FXML
+    private Rectangle recCPI;//rec that shows the item in the hand of the person in the cavePath scene
 
     Polygon ply[] = new Polygon[7];
 
@@ -86,7 +88,7 @@ public class CavePathController implements Initializable {
     @FXML
     private void keyPressed(KeyEvent event) {
         keyStuff temp = new keyStuff();
-        temp.keys(event, false,ancCavePath);// this is because the pause button is in the global method//false means not in town
+        temp.keys(event, false, ancCavePath);// this is because the pause button is in the global method//false means not in town
 
         if (null != event.getCode()) {
             switch (event.getCode()) {
@@ -180,7 +182,7 @@ public class CavePathController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         psn.wAnimation = -1;
-        
+
         move.setCycleCount(INDEFINITE);
         move.play();
 
@@ -193,9 +195,9 @@ public class CavePathController implements Initializable {
         ply[4] = plyWall5;
         ply[5] = plyWall6;
         ply[6] = plyWall7;
-        
+        MainApp.recItem = recCPI;
+        MainApp.slot.clear();//then add slots
         //MainApp.currentA = ancCavePath;
-        
         //ancCavePath.getChildren().add(enm.)
     }
 

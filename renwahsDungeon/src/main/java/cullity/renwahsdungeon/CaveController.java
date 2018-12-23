@@ -22,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 //after killing creature, update stats and then save
+
 /**
  * FXML Controller class
  *
@@ -51,6 +52,9 @@ public class CaveController implements Initializable {
     private Rectangle recEnemy;
     @FXML
     private AnchorPane ancCave;
+    @FXML
+    private Rectangle recCI;//rec that shows the item in the hand of the person in the cave scene
+
 //set currentE before coming to this screen when attacked by an enemy
     Timeline cool = new Timeline(new KeyFrame(Duration.millis(1000), ae -> cooldown()));//cooldown between user attack
     Timeline eAttack = new Timeline(new KeyFrame(Duration.millis(100), ae -> enemyAtt()));//enemy attacking 
@@ -66,8 +70,8 @@ public class CaveController implements Initializable {
 
     @FXML
     private void keypress(KeyEvent ke) {
-       keyStuff temp = new keyStuff();// this is because the pause button is in the global method
-       temp.keys(ke,false,ancCave);//false because it is not in town scene (pausing button)
+        keyStuff temp = new keyStuff();// this is because the pause button is in the global method
+        temp.keys(ke, false, ancCave);//false because it is not in town scene (pausing button)
 
         if (ke.getSource() == KeyCode.E && MainApp.currentI.isWeapon() && MainApp.fighting && canAttack) {
             //attack
@@ -88,7 +92,7 @@ public class CaveController implements Initializable {
                     //  ends with destroying enemy
                     MainApp.fighting = false;
                     MainApp.currentE = null;
-                    
+
                 } else {//still alive
                     //set enemy progress bar
                 }
@@ -153,9 +157,10 @@ public class CaveController implements Initializable {
         MainApp.slot.add(recC4);
         MainApp.slot.add(recC5);
         MainApp.slot.add(recC6);
-   //     MainApp.showItems();
-      //  recUser.setFill(new ImagePattern(MainApp.currentP.getImage()));
-    //    recEnemy.setFill(new ImagePattern(MainApp.currentE.getImage()));
+        MainApp.recItem = recCI;
+        //     MainApp.showItems();
+        //  recUser.setFill(new ImagePattern(MainApp.currentP.getImage()));
+        //    recEnemy.setFill(new ImagePattern(MainApp.currentE.getImage()));
         MainApp.fighting = true;
         cool.setCycleCount(1);
         //MainApp.currentA = ancCave;
