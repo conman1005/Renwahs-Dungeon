@@ -47,7 +47,7 @@ public class FXMLController implements Initializable {
             invent = MainApp.currentP.getInventory();
         } else {
             MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
-            invent = "!!!!!!";
+            invent =MainApp.currentP.getInventory();
         }
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
@@ -130,7 +130,7 @@ public class FXMLController implements Initializable {
             lstSaves.getItems().add(psn.getName());
             dbs.add(psn);
         }
-        MainApp.currentA=null;
+        //MainApp.currentA=null;
 //        MainApp.clearSlots();
 //        MainApp.slot.get(0)=recs1;
 

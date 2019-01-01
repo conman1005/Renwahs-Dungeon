@@ -12,6 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 
 /**
  *
@@ -69,8 +71,8 @@ public class Chest {
         imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
 
-    public void open() {//to choose which items they will keep by opening the chest
-        ArrayList choices = new ArrayList();//items in the chest
+    public void open() throws ClassNotFoundException, IllegalAccessException {//to choose which items they will keep by opening the chest
+        ArrayList<Item> choices = new ArrayList();//items in the chest
 //        for (int i = 0; i < MainApp.inv.size(); i++) {
         choices.addAll(MainApp.inv);
         choices.addAll(gains);
@@ -88,87 +90,98 @@ public class Chest {
             choiceString += "\n" + nextNum + " " + choices.get(i).getClass().getSimpleName();
             nextNum++;
         }
-        TextInputDialog dialog = new TextInputDialog("123456");
-        dialog.setTitle("Choose Which Items to Keep ");
-        dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces ");//might need to make easier to understand
-        dialog.setContentText(choiceString);
+        String newIn = "";
+        if (choices.size() > 6) {
+            TextInputDialog dialog = new TextInputDialog("123456");
+            dialog.setTitle("Choose Which Items to Keep ");
+            dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces ");//might need to make easier to understand
+            dialog.setContentText(choiceString);
 
-        Optional<String> result = dialog.showAndWait();
-        String chosen;
-        if (!result.isPresent()) {//if they cancel
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setTitle("Error");
-            a.setHeaderText("Must input a valid answer to continue");
-            a.setContentText("Please exit this message to try again");
-            a.showAndWait();
-            open();
-            return;
-        } else {
-            if (result.get().length() > 6) {//too many items chosen
-                //stuff
-                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                al.setTitle("Error");
-                al.setHeaderText("Maximum of 6 items can be inputed");
-                al.setContentText("Please exit this message to try again");
-                al.showAndWait();
-                open();
-                return;
-
-            } else if (result.get().isBlank()) {
-                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-
-                al.setTitle("Error");
-                al.setHeaderText("Must enter in at least one corresponding number");
-                al.setContentText("Please exit this message to try again");
-                al.showAndWait();
+            Optional<String> result = dialog.showAndWait();
+            String chosen;
+            if (!result.isPresent()) {//if they cancel
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("Error");
+                a.setHeaderText("Must input a valid answer to continue");
+                a.setContentText("Please exit this message to try again");
+                a.showAndWait();
                 open();
                 return;
             } else {
-                try {
-                    Integer.parseInt(result.get());
-                } catch (NumberFormatException numberFormatException) {
+                if (result.get().length() > 6) {//too many items chosen
+                    //stuff
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                     al.setTitle("Error");
-                    al.setHeaderText("Must be all numbers with no spaces");
+                    al.setHeaderText("Maximum of 6 items can be inputed");
                     al.setContentText("Please exit this message to try again");
                     al.showAndWait();
                     open();
                     return;
+
+                } else if (result.get().isBlank()) {
+                    Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+
+                    al.setTitle("Error");
+                    al.setHeaderText("Must enter in at least one corresponding number");
+                    al.setContentText("Please exit this message to try again");
+                    al.showAndWait();
+                    open();
+                    return;
+                } else {
+                    try {
+                        Integer.parseInt(result.get());
+                    } catch (NumberFormatException numberFormatException) {
+                        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                        al.setTitle("Error");
+                        al.setHeaderText("Must be all numbers with no spaces");
+                        al.setContentText("Please exit this message to try again");
+                        al.showAndWait();
+                        open();
+                        return;
+                    }
+                    chosen = result.get();
+
                 }
-                chosen = result.get();
-
             }
-        }
-        MainApp.inv.clear();
-        String newIn = "";
-        for (int i = 0; i < chosen.length(); i++) {//try for number format
+            MainApp.inv.clear();
 
-            try {
+            for (int i = 0; i < chosen.length(); i++) {//try for number format
+
+                try {
 //put next line in presentation
-                newIn += ((Item) choices.get((Integer.parseInt(chosen.substring(i, i + 1))) - 1)).getSymbol();//putting together all the new items they chose
-
-//                c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, i+1))) - 1)).getSymbol();//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
+                    newIn += ((Item) choices.get((Integer.parseInt(chosen.substring(i, i + 1))) - 1)).getSymbol();//putting together all the new items they chose
+                    //Gson gson=new Gson();
+                    //  c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, i+1))) - 1));//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
 //
 //                if ("s".charAt(0) == c) {
 //                    MainApp.inv.add(new Sword());
 //                } else if ("h".charAt(0) == c) {
 //                    MainApp.inv.add(new HPotion());
 //                }
-            } catch (IndexOutOfBoundsException numberFormatException) {
 
+                } catch (IndexOutOfBoundsException numberFormatException) {
+
+                }
+            }
+        } else {
+
+//loop for string newIn
+            for (Item i : choices) {
+                newIn += i.getSymbol();
             }
         }
+
         MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
         MainApp.currentP.setInventory(newIn);
         MainApp.itSpot = 0;
-        MainApp.currentP.setCoins(MainApp.currentP.getCoins()+extraCoins);
+        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + extraCoins);
         MainApp.showItems();
-         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                    al.setTitle("Coins");
-                    al.setHeaderText("You received "+ extraCoins+" coins");
-                    al.setContentText(null);
-                    al.showAndWait();
-                    //show money
+        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+        al.setTitle("Coins");
+        al.setHeaderText("You received " + extraCoins + " coins");
+        al.setContentText(null);
+        al.showAndWait();
+        //show money
 //MainApp.currentP.save("database.raf", );//find correct numbers
 
     }

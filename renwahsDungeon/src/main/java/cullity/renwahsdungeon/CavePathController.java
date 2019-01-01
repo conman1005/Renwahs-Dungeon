@@ -1,7 +1,7 @@
 /*
  * Made By: Conner Cullity
- * Date: 
- * Description: 
+ * Date:
+ * Description:
  */
 package cullity.renwahsdungeon;
 
@@ -76,6 +76,8 @@ public class CavePathController implements Initializable {
 
     @FXML
     private AnchorPane ancCavePath;
+    @FXML
+    private Rectangle recCPI;//rec that shows the item in the hand of the person in the cavePath scene
 
     Polygon ply[] = new Polygon[7];
 
@@ -93,7 +95,7 @@ public class CavePathController implements Initializable {
     @FXML
     private void keyPressed(KeyEvent event) {
         keyStuff temp = new keyStuff();
-        temp.keys(event, false);// this is because the pause button is in the global method
+        temp.keys(event, false, ancCavePath);// this is because the pause button is in the global method//false means not in town
 
         if (null != event.getCode()) {
             switch (event.getCode()) {
