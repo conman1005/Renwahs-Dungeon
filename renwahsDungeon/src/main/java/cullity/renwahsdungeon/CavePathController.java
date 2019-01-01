@@ -73,12 +73,12 @@ public class CavePathController implements Initializable {
 
     @FXML
     private Pane pneHero;
-    
+
     @FXML
     private AnchorPane ancCavePath;
 
     Polygon ply[] = new Polygon[7];
-    
+
     ArrayList<Enemy> enemies = new ArrayList();
 
     String direction = "";
@@ -87,7 +87,7 @@ public class CavePathController implements Initializable {
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
-    
+
     Random rand = new Random();
 
     @FXML
@@ -156,11 +156,42 @@ public class CavePathController implements Initializable {
             for (int em = 0; em < enemies.size(); em++) {
                 switch (enemies.get(em).getDirection()) {
                     case "up":
+                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
+                        break;
+                    case "down":
+                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
+                        break;
+                    case "left":
                         enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
+                        break;
+                    case "right":
+                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
                         break;
                 }
             }
         }
+
+        for (int e = 0; e < enemies.size(); e++) {
+            for (Polygon ply1 : ply) {
+                if (checkCol(enemies.get(e), ply1)) {
+                    switch (enemies.get(e).getDirection()) {
+                        case "up":
+                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
+                            break;
+                        case "down":
+                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
+                            break;
+                        case "left":
+                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
+                            break;
+                        case "right":
+                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
+                            break;
+                    }
+                }
+            }
+        }
+
         if (checkCol(plyHero, plyExit)) {
             move.stop();
             try {
@@ -194,7 +225,7 @@ public class CavePathController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         psn.wAnimation = -1;
-        
+
         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
 
         ply[0] = plyWall1;
@@ -204,17 +235,17 @@ public class CavePathController implements Initializable {
         ply[4] = plyWall5;
         ply[5] = plyWall6;
         ply[6] = plyWall7;
-        
+
         MainApp.currentA = ancCavePath;
-                
-        for (int i = 0; i < rand.nextInt(4); i++) {
+
+        for (int i = 0; i < rand.nextInt(5); i++) {
             enemies.add(new Enemy("sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
         }
-        
+
         for (Rectangle e : enemies) {
             ancCavePath.getChildren().add(e);
         }
-        
+
         move.setCycleCount(INDEFINITE);
         move.play();
     }
