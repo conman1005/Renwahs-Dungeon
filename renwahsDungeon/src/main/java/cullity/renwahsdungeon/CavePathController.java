@@ -1,16 +1,19 @@
 /*
  * Made By: Conner Cullity
- * Date: 
- * Description: 
+ * Date:
+ * Description:
  */
 package cullity.renwahsdungeon;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -78,12 +81,16 @@ public class CavePathController implements Initializable {
 
     Polygon ply[] = new Polygon[7];
 
+    ArrayList<Enemy> enemies = new ArrayList();
+
     String direction = "";
 
     Person psn = new Person();
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
+
+    Random rand = new Random();
 
     @FXML
     private void keyPressed(KeyEvent event) {
@@ -148,7 +155,45 @@ public class CavePathController implements Initializable {
                     pneHero.setTranslateX(pneHero.getTranslateX() - 1);
                 }
             }
+            for (int em = 0; em < enemies.size(); em++) {
+                switch (enemies.get(em).getDirection()) {
+                    case "up":
+                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
+                        break;
+                    case "down":
+                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
+                        break;
+                    case "left":
+                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
+                        break;
+                    case "right":
+                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
+                        break;
+                }
+            }
         }
+
+        for (int e = 0; e < enemies.size(); e++) {
+            for (Polygon ply1 : ply) {
+                if (checkCol(enemies.get(e), ply1)) {
+                    switch (enemies.get(e).getDirection()) {
+                        case "up":
+                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
+                            break;
+                        case "down":
+                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
+                            break;
+                        case "left":
+                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
+                            break;
+                        case "right":
+                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
+                            break;
+                    }
+                }
+            }
+        }
+
         if (checkCol(plyHero, plyExit)) {
             move.stop();
             try {
@@ -183,9 +228,6 @@ public class CavePathController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         psn.wAnimation = -1;
 
-        move.setCycleCount(INDEFINITE);
-        move.play();
-
         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
 
         ply[0] = plyWall1;
@@ -195,10 +237,19 @@ public class CavePathController implements Initializable {
         ply[4] = plyWall5;
         ply[5] = plyWall6;
         ply[6] = plyWall7;
-        MainApp.recItem = recCPI;
-        MainApp.slot.clear();//then add slots
-        //MainApp.currentA = ancCavePath;
-        //ancCavePath.getChildren().add(enm.)
+
+        MainApp.currentA = ancCavePath;
+
+        for (int i = 0; i < rand.nextInt(5); i++) {
+            enemies.add(new Enemy("sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
+        }
+
+        for (Rectangle e : enemies) {
+            ancCavePath.getChildren().add(e);
+        }
+
+        move.setCycleCount(INDEFINITE);
+        move.play();
     }
 
 }
