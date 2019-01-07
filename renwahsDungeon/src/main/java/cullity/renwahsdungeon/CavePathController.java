@@ -94,6 +94,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
+        kEvent = event;
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath);// this is because the pause button is in the global method//false means not in town
 
@@ -137,7 +138,6 @@ public class CavePathController implements Initializable {
                     break;
             }
         }
-        kEvent = event;
     }
     KeyEvent kEvent;
 
@@ -155,7 +155,7 @@ public class CavePathController implements Initializable {
                     pneHero.setTranslateX(pneHero.getTranslateX() - 1);
                 }
             }
-            for (int em = 0; em < enemies.size(); em++) {
+            /*for (int em = 0; em < enemies.size(); em++) {
                 switch (enemies.get(em).getDirection()) {
                     case "up":
                         enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
@@ -170,7 +170,7 @@ public class CavePathController implements Initializable {
                         enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
                         break;
                 }
-            }
+            }*/
         }
 
         for (int e = 0; e < enemies.size(); e++) {
@@ -193,7 +193,8 @@ public class CavePathController implements Initializable {
                 }
                 if (checkCol(enemies.get(e), plyHero)) {
                     MainApp.currentE = enemies.get(e);
-
+                    move.stop();
+                    
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
 
