@@ -82,15 +82,13 @@ public class keyStuff {
               anc.setDisable(MainApp.paused);
 
             } else {
-                //if (MainApp.currentA != null) {//make sure it doesnt error on menu
-                    anc.setDisable(MainApp.paused);
-
-                //}
+               
                 MainApp.paused = true;
+                anc.setDisable(MainApp.paused);
                 //show menu
                 alert.setTitle("Paused");
                 alert.setHeaderText("Warning");
-                alert.setContentText("Changing screens will result in the loss of any unsaved data" + "\n ");
+                alert.setContentText("Changing screens will result in the loss of any unsaved data");
 
                 ButtonType buttonTypeOne = new ButtonType("Main Menu");
                 ButtonType buttonTypeTwo = new ButtonType("Back To Town");
