@@ -54,6 +54,8 @@ public class CaveController implements Initializable {
     private AnchorPane ancCave;
     @FXML
     private Rectangle recCI;//rec that shows the item in the hand of the person in the cave scene
+    
+    Enemy enemy = new Enemy();
 
 //set currentE before coming to this screen when attacked by an enemy
     Timeline cool = new Timeline(new KeyFrame(Duration.millis(1000), ae -> cooldown()));//cooldown between user attack
@@ -147,6 +149,7 @@ public class CaveController implements Initializable {
     private void scrollItem(ScrollEvent s) {//nextItem //put in anchorpane !!!!!!!!!!!!!!!!!!
         MainApp.scrollI(s);
     }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
