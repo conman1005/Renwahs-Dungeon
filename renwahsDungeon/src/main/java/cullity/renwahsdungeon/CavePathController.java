@@ -141,6 +141,8 @@ public class CavePathController implements Initializable {
     }
     KeyEvent kEvent;
 
+    int eMov = 0; //eMov is used to make the enemies move 1 pixel in a longer time, so they move slower than the person
+
     private void movement() {
         psn.moveCave(pneHero, direction, recHero);
         for (Polygon i : ply) {
@@ -155,20 +157,24 @@ public class CavePathController implements Initializable {
                     pneHero.setTranslateX(pneHero.getTranslateX() - 1);
                 }
             }
-            /*for (int em = 0; em < enemies.size(); em++) {
-                switch (enemies.get(em).getDirection()) {
-                    case "up":
-                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
-                        break;
-                    case "down":
-                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
-                        break;
-                    case "left":
-                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
-                        break;
-                    case "right":
-                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
-                        break;
+            eMov++;
+            if (eMov == 5) {
+                eMov = 0;
+                for (int em = 0; em < enemies.size(); em++) {
+                    switch (enemies.get(em).getDirection()) {
+                        case "up":
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
+                            break;
+                        case "down":
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
+                            break;
+                        case "left":
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
+                            break;
+                        case "right":
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
+                            break;
+                    }
                 }
             }*/
         }
@@ -179,22 +185,74 @@ public class CavePathController implements Initializable {
                     switch (enemies.get(e).getDirection()) {
                         case "up":
                             enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("left");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("right");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("down");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "down":
                             enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("left");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("right");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("up");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "left":
                             enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("up");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("right");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("down");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "right":
                             enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("left");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("up");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("down");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                     }
                 }
                 if (checkCol(enemies.get(e), plyHero)) {
                     MainApp.currentE = enemies.get(e);
                     move.stop();
-                    
+
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
 
