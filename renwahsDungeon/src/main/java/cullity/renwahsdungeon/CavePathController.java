@@ -249,6 +249,27 @@ public class CavePathController implements Initializable {
                             break;
                     }
                 }
+                if (checkCol(enemies.get(e), plyHero)) {
+                    MainApp.currentE = enemies.get(e);
+
+                    try {
+                        Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
+
+                        Scene cave_scene = new Scene(town_parent);
+                        MainApp.currentS = cave_scene;
+                        //get reference to the stage
+                        Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+
+                        stage.hide(); //optional
+                        cave_scene.getRoot().requestFocus();
+                        stage.setScene(cave_scene); //puts the new scence in the stage
+
+                        //     stage.setTitle("Town"); //changes the title
+                        stage.show(); //shows the new page
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         }
 
