@@ -238,8 +238,6 @@ public class CavePathController implements Initializable {
         ply[5] = plyWall6;
         ply[6] = plyWall7;
 
-        MainApp.currentA = ancCavePath;
-
         for (int i = 0; i < rand.nextInt(5); i++) {
             enemies.add(new Enemy("sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
         }
