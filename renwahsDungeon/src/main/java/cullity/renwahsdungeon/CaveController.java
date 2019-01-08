@@ -167,6 +167,10 @@ public class CaveController implements Initializable {
         MainApp.fighting = true;
         cool.setCycleCount(1);
         //MainApp.currentA = ancCave;
+        
+        recEnemy.setFill(MainApp.currentE.getFill());
+        recEnemy.setHeight(MainApp.currentE.getHeight() * 3);
+        recEnemy.setWidth(MainApp.currentE.getWidth() * 3);
     }
 
 }

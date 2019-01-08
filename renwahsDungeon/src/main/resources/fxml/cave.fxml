@@ -11,8 +11,8 @@
       <Rectangle fx:id="recC4" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="255.0" layoutY="412.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recC5" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="335.0" layoutY="412.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recC6" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="415.0" layoutY="412.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-      <Rectangle fx:id="recUser" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="175.0" layoutX="68.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="175.0" />
-      <Rectangle fx:id="recEnemy" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="175.0" layoutX="415.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="175.0" />
-      <Rectangle fx:id="recCI" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="230.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="recUser" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="175.0" layoutX="68.0" layoutY="91.0" stroke="TRANSPARENT" strokeType="INSIDE" width="175.0" />
+      <Rectangle fx:id="recEnemy" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="175.0" layoutX="415.0" layoutY="91.0" stroke="TRANSPARENT" strokeType="INSIDE" width="175.0" />
+      <Rectangle fx:id="recCI" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="230.0" layoutY="160.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
    </children>
 </AnchorPane>
