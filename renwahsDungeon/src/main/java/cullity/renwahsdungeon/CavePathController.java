@@ -249,6 +249,7 @@ public class CavePathController implements Initializable {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+                    return;
                 }
             }
         }
