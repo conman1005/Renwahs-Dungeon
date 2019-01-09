@@ -68,7 +68,7 @@ public class Person {
         tempT.setLength(1);
         type = tempT.toString().charAt(0);
         coins = 0;
-        imageP = null;//image of the person
+        imageP = new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString()));//image of the person
 
     }
 

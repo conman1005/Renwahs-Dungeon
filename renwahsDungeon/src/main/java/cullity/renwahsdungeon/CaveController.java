@@ -47,7 +47,7 @@ public class CaveController implements Initializable {
     private Rectangle recC6;
 
     @FXML
-    private Rectangle recUser;
+    private Rectangle recHero;
     @FXML
     private Rectangle recEnemy;
     @FXML
@@ -161,12 +161,14 @@ public class CaveController implements Initializable {
         MainApp.slot.add(recC5);
         MainApp.slot.add(recC6);
         MainApp.recItem = recCI;
-        //     MainApp.showItems();
+        MainApp.showItems();
         //  recUser.setFill(new ImagePattern(MainApp.currentP.getImage()));
         //    recEnemy.setFill(new ImagePattern(MainApp.currentE.getImage()));
         MainApp.fighting = true;
         cool.setCycleCount(1);
         //MainApp.currentA = ancCave;
+        
+        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
         
         recEnemy.setFill(MainApp.currentE.getFill());
         recEnemy.setHeight(MainApp.currentE.getHeight() * 3);
