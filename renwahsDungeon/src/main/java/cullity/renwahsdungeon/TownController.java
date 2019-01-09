@@ -156,7 +156,7 @@ public class TownController implements Initializable {
                     Scene town_scene = new Scene(town_parent);
                     MainApp.currentS = town_scene;
                     //get reference to the stage
-                    Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+                    Stage stage = MainApp.mainStage;
 
                     stage.hide(); //optional
                     town_scene.getRoot().requestFocus();
@@ -205,14 +205,14 @@ public class TownController implements Initializable {
         ply[0] = plyWall;
         ply[1] = plyTavern;
         ply[2] = plyBlacksmith;
-        
+
         if (!MainApp.townLocation.equals("")){
             if (MainApp.townLocation.equalsIgnoreCase("CAVEPATH")){
                 pneTown.setTranslateX(-1250);
                 pneTown.setTranslateY(-743);
             }
         }
-        
+
 
 //        MainApp.currentA = ancTown;
     }
