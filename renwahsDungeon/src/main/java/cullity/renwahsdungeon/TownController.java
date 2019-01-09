@@ -153,7 +153,7 @@ public class TownController implements Initializable {
                     Scene town_scene = new Scene(town_parent);
                     MainApp.currentS = town_scene;
                     //get reference to the stage
-                    Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+                    Stage stage = MainApp.mainStage;
 
                     stage.hide(); //optional
                     town_scene.getRoot().requestFocus();
@@ -184,7 +184,7 @@ public class TownController implements Initializable {
         move.setCycleCount(INDEFINITE);
         move.play();
 
-        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
+        recHero.setFill(MainApp.currentP.getImageP());
 
         MainApp.slot.clear();
         MainApp.slot.add(recT1);

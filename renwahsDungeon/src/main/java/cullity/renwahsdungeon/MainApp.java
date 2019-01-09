@@ -32,7 +32,7 @@ public class MainApp extends Application {
     // public static AnchorPane currentA = null;
     public static Rectangle recItem;
     public Alert alert = new Alert(AlertType.CONFIRMATION);
-    
+    public static Stage mainStage;
     public static void deleteItem() {//put in 
         inv.remove(currentI);
         
@@ -130,7 +130,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
         Scene scene = new Scene(root);
-        
+        mainStage = stage;
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
         scene.getRoot().requestFocus();

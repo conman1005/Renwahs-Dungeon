@@ -77,7 +77,21 @@ public class CavePathController implements Initializable {
     @FXML
     private AnchorPane ancCavePath;
     @FXML
-    private Rectangle recCPI;//rec that shows the item in the hand of the person in the cavePath scene
+    private Rectangle recItem;//rec that shows the item in the hand of the person in the cavePath scene
+    
+    @FXML
+    private Rectangle recC1;
+    @FXML
+    private Rectangle recC2;
+    @FXML
+    private Rectangle recC3;
+    @FXML
+    private Rectangle recC4;
+    @FXML
+    private Rectangle recC5;
+    @FXML
+    private Rectangle recC6;
+
 
     Polygon ply[] = new Polygon[7];
 
@@ -224,7 +238,7 @@ public class CavePathController implements Initializable {
                         Scene cave_scene = new Scene(town_parent);
                         MainApp.currentS = cave_scene;
                         //get reference to the stage
-                        Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+                        Stage stage = MainApp.mainStage;
 
                         stage.hide(); //optional
                         cave_scene.getRoot().requestFocus();
@@ -300,7 +314,7 @@ public class CavePathController implements Initializable {
                 Scene cave_scene = new Scene(town_parent);
                 MainApp.currentS = cave_scene;
                 //get reference to the stage
-                Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+                Stage stage = MainApp.mainStage;
 
                 stage.hide(); //optional
                 cave_scene.getRoot().requestFocus();
@@ -326,7 +340,7 @@ public class CavePathController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         psn.wAnimation = -1;
 
-        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
+        recHero.setFill(MainApp.currentP.getImageP());
 
         ply[0] = plyWall1;
         ply[1] = plyWall2;
@@ -346,6 +360,16 @@ public class CavePathController implements Initializable {
 
         move.setCycleCount(INDEFINITE);
         move.play();
+        
+        MainApp.slot.clear();
+        MainApp.slot.add(recC1);
+        MainApp.slot.add(recC2);
+        MainApp.slot.add(recC3);
+        MainApp.slot.add(recC4);
+        MainApp.slot.add(recC5);
+        MainApp.slot.add(recC6);
+        MainApp.recItem = recItem;
+        MainApp.showItems();
     }
 
 }
