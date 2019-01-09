@@ -100,6 +100,8 @@ public class TownController implements Initializable {
                     break;
                 case D:
                     direction = "right";
+//                    System.out.println(pneTown.getTranslateX());//TESTING
+//                    System.out.println(pneTown.getTranslateY());///TESTING
                     break;
                 default:
                     break;
@@ -147,6 +149,7 @@ public class TownController implements Initializable {
             }
             if (checkCol(plyHero, plyPath)) {//stop move timer and go to
                 move.stop();
+                MainApp.townLocation="CAVEPATH";
                 try {
                     Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -185,7 +188,10 @@ public class TownController implements Initializable {
         move.play();
 
         recHero.setFill(MainApp.currentP.getImageP());
-
+//MainApp.inv.add(new HPotion());//for testing
+//MainApp.inv.add(new Sword());//for testing
+//MainApp.inv.add(new HPotion());//for testing
+//MainApp.currentP.setInventory("hsh!!!");//for testing
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
         MainApp.slot.add(recT2);
@@ -199,6 +205,14 @@ public class TownController implements Initializable {
         ply[0] = plyWall;
         ply[1] = plyTavern;
         ply[2] = plyBlacksmith;
+
+        if (!MainApp.townLocation.equals("")){
+            if (MainApp.townLocation.equalsIgnoreCase("CAVEPATH")){
+                pneTown.setTranslateX(-1250);
+                pneTown.setTranslateY(-743);
+            }
+        }
+
 
 //        MainApp.currentA = ancTown;
     }

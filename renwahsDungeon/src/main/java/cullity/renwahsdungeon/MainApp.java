@@ -27,8 +27,9 @@ public class MainApp extends Application {
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
     public static boolean fighting;//if in combat
-    public static double currentHealth;
-    public static boolean paused = false;
+    public static double currentHealth;//currenthealth of user
+    public static boolean paused = false;//if paused then true
+    public static String townLocation="";//used to know where in the town the user left so that they can eb put back in the same place when returning to town
     // public static AnchorPane currentA = null;
     public static Rectangle recItem;
     public Alert alert = new Alert(AlertType.CONFIRMATION);
