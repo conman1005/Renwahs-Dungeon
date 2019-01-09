@@ -94,6 +94,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
+        kEvent = event;
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath);// this is because the pause button is in the global method//false means not in town
 
@@ -137,62 +138,85 @@ public class CavePathController implements Initializable {
                     break;
             }
         }
-        kEvent = event;
     }
     KeyEvent kEvent;
 
-    private void movement() {
-        psn.moveCave(pneHero, direction, recHero);
-        for (Polygon i : ply) {
-            if (checkCol(plyHero, i)) {
-                if ((direction.equals("up")) || (direction.equals("u"))) {
-                    pneHero.setTranslateY(pneHero.getTranslateY() + 1);
-                } else if ((direction.equals("down")) || (direction.equals("d"))) {
-                    pneHero.setTranslateY(pneHero.getTranslateY() - 1);
-                } else if ((direction.equals("left")) || (direction.equals("l"))) {
-                    pneHero.setTranslateX(pneHero.getTranslateX() + 1);
-                } else if ((direction.equals("right")) || (direction.equals("r"))) {
-                    pneHero.setTranslateX(pneHero.getTranslateX() - 1);
-                }
-            }
-            for (int em = 0; em < enemies.size(); em++) {
-                switch (enemies.get(em).getDirection()) {
-                    case "up":
-                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
-                        break;
-                    case "down":
-                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
-                        break;
-                    case "left":
-                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
-                        break;
-                    case "right":
-                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
-                        break;
-                }
-            }
-        }
+    int eMov = 0; //eMov is used to make the enemies move 1 pixel in a longer time, so they move slower than the person
 
+    private void movement() {
         for (int e = 0; e < enemies.size(); e++) {
             for (Polygon ply1 : ply) {
                 if (checkCol(enemies.get(e), ply1)) {
                     switch (enemies.get(e).getDirection()) {
                         case "up":
                             enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("left");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("right");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("down");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "down":
                             enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("left");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("right");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("up");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "left":
                             enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("up");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("right");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("down");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case "right":
                             enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
+                            switch (rand.nextInt(3)) {
+                                case 0:
+                                    enemies.get(e).setDirection("left");
+                                    break;
+                                case 1:
+                                    enemies.get(e).setDirection("up");
+                                    break;
+                                case 2:
+                                    enemies.get(e).setDirection("down");
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                     }
                 }
                 if (checkCol(enemies.get(e), plyHero)) {
                     MainApp.currentE = enemies.get(e);
+                    move.stop();
 
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
@@ -214,6 +238,59 @@ public class CavePathController implements Initializable {
                 }
             }
         }
+        
+        psn.moveCave(pneHero, direction, recHero);
+        for (Polygon i : ply) {
+            if (checkCol(plyHero, i)) {
+                if ((direction.equals("up")) || (direction.equals("u"))) {
+                    pneHero.setTranslateY(pneHero.getTranslateY() + 1);
+                } else if ((direction.equals("down")) || (direction.equals("d"))) {
+                    pneHero.setTranslateY(pneHero.getTranslateY() - 1);
+                } else if ((direction.equals("left")) || (direction.equals("l"))) {
+                    pneHero.setTranslateX(pneHero.getTranslateX() + 1);
+                } else if ((direction.equals("right")) || (direction.equals("r"))) {
+                    pneHero.setTranslateX(pneHero.getTranslateX() - 1);
+                }
+            }
+            eMov++;
+            if (eMov == 5) {
+                eMov = 0;
+                for (int em = 0; em < enemies.size(); em++) {
+                    if (rand.nextInt(100) == 0) {
+                        switch (rand.nextInt(4)) {
+                            case 0:
+                                enemies.get(em).setDirection("up");
+                                break;
+                            case 1:
+                                enemies.get(em).setDirection("down");
+                                break;
+                            case 2:
+                                enemies.get(em).setDirection("left");
+                                break;
+                            case 3:
+                                enemies.get(em).setDirection("up");
+                                break;
+                        }
+                    }
+                    switch (enemies.get(em).getDirection()) {
+                        case "up":
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
+                            break;
+                        case "down":
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
+                            break;
+                        case "left":
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
+                            break;
+                        case "right":
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
+                            break;
+                    }
+                }
+            }
+        }
+
+        
 
         if (checkCol(plyHero, plyExit)) {
             move.stop();
