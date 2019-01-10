@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -30,6 +31,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.transform.Rotate;
 
 /**
  * FXML Controller class
@@ -132,9 +134,35 @@ public class TownController implements Initializable {
         kEvent = event;
     }
     KeyEvent kEvent;
+    
+    Rotate rotate = new Rotate();
+    
+    @FXML
+    private void mousePressed(MouseEvent event) {
+        if (MainApp.currentI.isWeapon()) {
+            rotate.setPivotX(0);
+            rotate.setPivotY(50);
+            rotate.setAngle(45);
+            
+            recTI.getTransforms().clear();
+            recTI.getTransforms().addAll(rotate);
+        }
+    }
+    
+    @FXML
+    private void mouseReleased(MouseEvent event) {
+        if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty())) {
+            rotate.setPivotX(0);
+            rotate.setPivotY(50);
+            rotate.setAngle(0);
+            
+            recTI.getTransforms().clear();
+            recTI.getTransforms().addAll(rotate);
+        }
+    }
 
     private void movement() {
-        psn.moveTown(pneTown, direction, recHero);
+        psn.moveTown(pneTown, direction, recHero, recTI);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
@@ -180,6 +208,7 @@ public class TownController implements Initializable {
     @FXML
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
+        recTI.getTransforms().clear();
     }
 
     @Override
@@ -188,10 +217,9 @@ public class TownController implements Initializable {
         move.play();
 
         recHero.setFill(MainApp.currentP.getImageP());
-//MainApp.inv.add(new HPotion());//for testing
-//MainApp.inv.add(new Sword());//for testing
-//MainApp.inv.add(new HPotion());//for testing
-//MainApp.currentP.setInventory("hsh!!!");//for testing
+
+MainApp.currentP.setInventory("hsh!!!");//for testing
+MainApp.getItemsFromData(MainApp.currentP.getInventory());//for testing
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
         MainApp.slot.add(recT2);
