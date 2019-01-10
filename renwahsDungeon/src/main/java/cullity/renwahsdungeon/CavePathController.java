@@ -22,12 +22,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -332,6 +335,37 @@ public class CavePathController implements Initializable {
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
+    }
+    
+    @FXML
+    private void scrollItem(ScrollEvent s) {//nextItem
+        MainApp.scrollI(s);
+    }
+    
+    Rotate rotate = new Rotate();
+    
+    @FXML
+    private void mousePressed(MouseEvent event) {
+        if (MainApp.currentI.isWeapon()) {
+            rotate.setPivotX(0);
+            rotate.setPivotY(50);
+            rotate.setAngle(45);
+            
+            recItem.getTransforms().clear();
+            recItem.getTransforms().addAll(rotate);
+        }
+    }
+    
+    @FXML
+    private void mouseReleased(MouseEvent event) {
+        if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty())) {
+            rotate.setPivotX(0);
+            rotate.setPivotY(50);
+            rotate.setAngle(0);
+            
+            recItem.getTransforms().clear();
+            recItem.getTransforms().addAll(rotate);
+        }
     }
 
     /**

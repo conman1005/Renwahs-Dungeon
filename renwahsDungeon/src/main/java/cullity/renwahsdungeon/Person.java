@@ -8,6 +8,7 @@ package cullity.renwahsdungeon;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
+import javafx.geometry.Point3D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -235,9 +236,12 @@ public class Person {
 
     int wAnimation = -1;
 
-    public void moveTown(Pane pne, String direction, Rectangle recHero) {
+    public void moveTown(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(180);
+                recItem.setTranslateX(-55);
                 pne.setTranslateY(pne.getTranslateY() + 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -261,6 +265,9 @@ public class Person {
                 }
                 break;
             case "down":
+                recItem.setTranslateX(0);
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(0);
                 pne.setTranslateY(pne.getTranslateY() - 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -284,6 +291,9 @@ public class Person {
                 }
                 break;
             case "left":
+                recItem.setTranslateX(-55);
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(180);
                 pne.setTranslateX(pne.getTranslateX() + 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -307,6 +317,9 @@ public class Person {
                 }
                 break;
             case "right":
+                recItem.setTranslateX(0);
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(0);
                 pne.setTranslateX(pne.getTranslateX() - 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -345,7 +358,7 @@ public class Person {
                 break;
         }
     }
-    
+
     public void moveCave(Pane pne, String direction, Rectangle recHero) {
         switch (direction) {
             case "up":
