@@ -40,12 +40,12 @@ public class Enemy extends Rectangle {
         this.setFill(imgP);
     }
 
-    public Enemy(/*double s, double h, double d, String t, */String im, double l, double w, double ex, double ey, String di) {
+    public Enemy(/*  double d, String t, */double h,double s,String im, double l, double w, double ex, double ey, String di) {
         super(ex, ey, l, w);
         //recEnemy = new Rectangle();
-        /*strength = s;
+        strength = s;
         health = h;
-        defense = d;
+       /* defense = d;
         type = t;*/
         imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
         this.setFill(imgP);
