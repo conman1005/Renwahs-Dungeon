@@ -29,14 +29,16 @@ public class MainApp extends Application {
     public static boolean fighting;//if in combat
     public static double currentHealth;//currenthealth of user
     public static boolean paused = false;//if paused then true
-    public static String townLocation="";//used to know where in the town the user left so that they can eb put back in the same place when returning to town
+    public static String townLocation = "";//used to know where in the town the user left so that they can eb put back in the same place when returning to town
     // public static AnchorPane currentA = null;
     public static Rectangle recItem;
+    public static int currentL; //current level of the cave path the user is on
     public Alert alert = new Alert(AlertType.CONFIRMATION);
     public static Stage mainStage;
+
     public static void deleteItem() {//put in 
         inv.remove(currentI);
-        
+
         String newI = "";//new inventory
         for (int i = 0; i < inv.size(); i++) {
             newI += inv.get(i);
@@ -52,7 +54,7 @@ public class MainApp extends Application {
         showItems();
         //if there is a spot variable for item then change it here
     }
-    
+
     public static void getItemsFromData(String inven) {//database
         inv.clear();
 
@@ -62,25 +64,27 @@ public class MainApp extends Application {
             try {
                 if (inven.substring(i, i + 1).equals("s")) {
                     inv.add(new Sword());
+                    ((Sword) inv.get(i)).setDMultiplier(MainApp.currentP.getItemStatMultiplier());
                 } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
+                    ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
                 }
             } catch (IndexOutOfBoundsException e) {
             }
-            
+
         }
     }
-    
+
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
         if (m.getDeltaY() > 0) {
-            
+
             if (itSpot < 5) {
                 itSpot++;
             } else {
                 itSpot = 0;
             }
         } else if (m.getDeltaY() < 0) {
-            
+
             if (itSpot > 0) {
                 itSpot--;
             } else {
@@ -88,9 +92,9 @@ public class MainApp extends Application {
             }
         }
         showItems();
-        
+
     }
-    
+
     public static void showItems() {//put in all scenes
         //show items in the boxes
         ImagePattern im;
@@ -98,20 +102,20 @@ public class MainApp extends Application {
         colorAdjust1.setBrightness(-0.5);
         for (int r = 0; r < slot.size(); r++) {//reset slots
             try {
-                
+
                 slot.get(r).setFill(Color.web("#393b53"));
                 slot.get(r).setEffect(null);
             } catch (IndexOutOfBoundsException e) {
             }
-            
+
         }
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
                 if (!currentP.getInventory().substring(i, i + 1).equals("!")) {
-                    
+
                     slot.get(i).setFill(inv.get(i).getImageP());
                 }
-                
+
             } catch (IndexOutOfBoundsException e) {
             }
         }
@@ -124,9 +128,9 @@ public class MainApp extends Application {
             recItem.setVisible(true);
             recItem.setFill(currentI.getImageP());
         }
-        
+
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
@@ -151,5 +155,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
