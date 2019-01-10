@@ -355,7 +355,7 @@ public class CavePathController implements Initializable {
     
     @FXML
     private void mouseReleased(MouseEvent event) {
-        if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty())) {
+        if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty())) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(0);
