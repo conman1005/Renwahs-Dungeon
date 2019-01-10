@@ -352,9 +352,7 @@ public class CavePathController implements Initializable {
             enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
         }
 
-        for (Rectangle e : enemies) {
-            ancCavePath.getChildren().add(e);
-        }
+        ancCavePath.getChildren().addAll(enemies);
 
         move.setCycleCount(INDEFINITE);
         move.play();
