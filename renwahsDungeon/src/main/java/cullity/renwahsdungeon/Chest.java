@@ -5,13 +5,18 @@
  */
 package cullity.renwahsdungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+import javafx.stage.Stage;
 //import com.google.gson.Gson;
 //import com.google.gson.GsonBuilder;
 
@@ -175,14 +180,37 @@ public class Chest {
         MainApp.currentP.setInventory(newIn);
         MainApp.itSpot = 0;
         MainApp.currentP.setCoins(MainApp.currentP.getCoins() + extraCoins);
+
+        MainApp.currentL++;
+        if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
+            MainApp.currentP.setHighestLevel(MainApp.currentL);
+        }
         MainApp.showItems();
         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
         al.setTitle("Coins");
-        al.setHeaderText("You received " + extraCoins + " coins");
+        al.setHeaderText("You received " + extraCoins + " coins. \n You are now being sent to level " + MainApp.currentL);
         al.setContentText(null);
         al.showAndWait();
         //show money
-//MainApp.currentP.save("database.raf", );//find correct numbers
+//MainApp.currentP.save("database.raf", );//find correct numbers//important//qqq
+//send to next level
+        try {
+            Parent path_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
+
+            Scene path_scene = new Scene(path_parent);
+            MainApp.currentS = path_scene;
+            //get reference to the stage
+            Stage stage = MainApp.mainStage;
+
+            stage.hide(); //optional
+            path_scene.getRoot().requestFocus();
+            stage.setScene(path_scene); //puts the new scence in the stage
+
+            //     stage.setTitle("Town"); //changes the title
+            stage.show(); //shows the new page
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
 

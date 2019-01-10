@@ -81,7 +81,7 @@ public class CavePathController implements Initializable {
     private AnchorPane ancCavePath;
     @FXML
     private Rectangle recItem;//rec that shows the item in the hand of the person in the cavePath scene
-    
+
     @FXML
     private Rectangle recC1;
     @FXML
@@ -94,7 +94,6 @@ public class CavePathController implements Initializable {
     private Rectangle recC5;
     @FXML
     private Rectangle recC6;
-
 
     Polygon ply[] = new Polygon[7];
 
@@ -256,7 +255,7 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-        
+
         psn.moveCave(pneHero, direction, recHero);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
@@ -307,8 +306,6 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-
-        
 
         if (checkCol(plyHero, plyExit)) {
             move.stop();
@@ -384,18 +381,16 @@ public class CavePathController implements Initializable {
         ply[4] = plyWall5;
         ply[5] = plyWall6;
         ply[6] = plyWall7;
-
+        double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
         for (int i = 0; i < rand.nextInt(5); i++) {
-            enemies.add(new Enemy("sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
+            enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
         }
 
-        for (Rectangle e : enemies) {
-            ancCavePath.getChildren().add(e);
-        }
+        ancCavePath.getChildren().addAll(enemies);
 
         move.setCycleCount(INDEFINITE);
         move.play();
-        
+
         MainApp.slot.clear();
         MainApp.slot.add(recC1);
         MainApp.slot.add(recC2);

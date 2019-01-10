@@ -46,11 +46,15 @@ public class Person {
     //inventory = 12
     //type = 2
     //coins = 4
-    private final int SIZE = 52;
+    //highestLevel = 4
+    //itemStatMultiplier = 8
+    private final int SIZE = 64;
     private String inventory;
     private String name;
     private int level;
     private int coins;
+    private int highestLevel;
+    private double itemStatMultiplier;
 
     //person stuff
     public Person() {
@@ -70,10 +74,11 @@ public class Person {
         type = tempT.toString().charAt(0);
         coins = 0;
         imageP = new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString()));//image of the person
-
+        highestLevel = 1;//furthest level travelled in the dungeon
+        itemStatMultiplier = 1;
     }
 
-    public Person(String n, int l, double s, double h, double d, char t, String i, int c, String im) {
+    public Person(String n, int l, double s, double h, double d, char t, String i, int c, String im, int hl, double ism) {
         StringBuffer tempN = new StringBuffer(n);
         tempN.setLength(15);
         name = tempN.toString();
@@ -89,7 +94,24 @@ public class Person {
         inventory = i;
         coins = c;
         imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
+        highestLevel = hl;
+        itemStatMultiplier = ism;
+    }
 
+    public int getHighestLevel() {
+        return highestLevel;
+    }
+
+    public void setHighestLevel(int hL) {
+        highestLevel = hL;
+    }
+
+    public void setItemStatMultiplier(int ism) {
+        itemStatMultiplier = ism;
+    }
+
+    public double getItemStatMultiplier() {
+        return itemStatMultiplier;
     }
 
     public ImagePattern getImageP() {
@@ -179,6 +201,8 @@ public class Person {
             save.writeChars(inventory);
             save.writeInt(level);
             save.writeInt(coins);
+            save.writeInt(highestLevel);
+            save.writeDouble(itemStatMultiplier);
             save.close();
         } catch (IOException io) {
 
@@ -202,6 +226,8 @@ public class Person {
             inventory = new String(inve);
             level = open.readInt();
             coins = open.readInt();
+            highestLevel = open.readInt();
+            itemStatMultiplier = open.readInt();
             open.close();
         } catch (IOException io) {
 
