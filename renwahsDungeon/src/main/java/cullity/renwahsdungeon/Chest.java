@@ -179,7 +179,7 @@ public class Chest {
         MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
         MainApp.currentP.setInventory(newIn);
         MainApp.itSpot = 0;
-        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + extraCoins);
+        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + (extraCoins * MainApp.currentL));
 
         MainApp.currentL++;
         if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
@@ -188,11 +188,11 @@ public class Chest {
         MainApp.showItems();
         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
         al.setTitle("Coins");
-        al.setHeaderText("You received " + extraCoins + " coins. \n You are now being sent to level " + MainApp.currentL);
+        al.setHeaderText("You received " + extraCoins * MainApp.currentL + " coins. \n You are now being sent to level " + MainApp.currentL);
         al.setContentText(null);
         al.showAndWait();
         //show money
-//MainApp.currentP.save("database.raf", );//find correct numbers//important//qqq
+        MainApp.currentP.save("database.raf", MainApp.recordNum);
 //send to next level
         try {
             Parent path_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
