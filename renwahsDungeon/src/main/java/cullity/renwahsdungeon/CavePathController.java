@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -94,6 +95,9 @@ public class CavePathController implements Initializable {
     private Rectangle recC5;
     @FXML
     private Rectangle recC6;
+
+    @FXML
+    private ProgressBar prgHealth;
 
     Polygon ply[] = new Polygon[7];
 
@@ -231,32 +235,12 @@ public class CavePathController implements Initializable {
                     }
                 }
                 if (checkCol(enemies.get(e), plyHero)) {
-                    MainApp.currentE = enemies.get(e);
-                    move.stop();
 
-                    try {
-                        Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cave.fxml")); //where FXMLPage2 is the name of the scene
-
-                        Scene cave_scene = new Scene(town_parent);
-                        MainApp.currentS = cave_scene;
-                        //get reference to the stage
-                        Stage stage = MainApp.mainStage;
-
-                        stage.hide(); //optional
-                        cave_scene.getRoot().requestFocus();
-                        stage.setScene(cave_scene); //puts the new scence in the stage
-
-                        //     stage.setTitle("Town"); //changes the title
-                        stage.show(); //shows the new page
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    return;
                 }
             }
         }
 
-        psn.moveCave(pneHero, direction, recHero);
+        psn.moveCave(pneHero, direction, recHero, recItem);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
@@ -289,7 +273,7 @@ public class CavePathController implements Initializable {
                                 break;
                         }
                     }
-                    switch (enemies.get(em).getDirection()) {
+                    /*switch (enemies.get(em).getDirection()) {
                         case "up":
                             enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
                             break;
@@ -302,6 +286,15 @@ public class CavePathController implements Initializable {
                         case "right":
                             enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
                             break;
+                    }*/
+                    if (enemies.get(em).getTranslateX() > recHero.getTranslateX()) {
+                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
+                    } else if (enemies.get(em).getTranslateX() < recHero.getTranslateX()) {
+                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
+                    } else if (enemies.get(em).getTranslateY() > recHero.getTranslateY()) {
+                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
+                    } else if (enemies.get(em).getTranslateY() < recHero.getTranslateY()) {
+                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
                     }
                 }
             }
@@ -333,33 +326,33 @@ public class CavePathController implements Initializable {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
     }
-    
+
     @FXML
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
     }
-    
+
     Rotate rotate = new Rotate();
-    
+
     @FXML
     private void mousePressed(MouseEvent event) {
         if (MainApp.currentI.isWeapon()) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(45);
-            
+
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
         }
     }
-    
+
     @FXML
     private void mouseReleased(MouseEvent event) {
         if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty())) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(0);
-            
+
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
         }
@@ -370,6 +363,8 @@ public class CavePathController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
+
         psn.wAnimation = -1;
 
         recHero.setFill(MainApp.currentP.getImageP());

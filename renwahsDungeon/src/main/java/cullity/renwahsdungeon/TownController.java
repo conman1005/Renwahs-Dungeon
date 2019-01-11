@@ -76,6 +76,7 @@ public class TownController implements Initializable {
     private AnchorPane ancTown;
     @FXML
     private Rectangle recTI;//rec that shows the item in the hand of the person in the town scene
+    
 
     Person psn = new Person();
 
