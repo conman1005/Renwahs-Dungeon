@@ -1,21 +1,14 @@
 package cullity.renwahsdungeon;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -35,15 +28,18 @@ public class MainApp extends Application {
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
     public static boolean fighting;//if in combat
-    public static double currentHealth;
-    public static boolean paused = false;
-    // public static AnchorPane currentA = null;
+    public static double currentHealth;//currenthealth of user
+    public static boolean paused = false;//if paused then true
+    public static String townLocation = "";//used to know where in the town the user left so that they can eb put back in the same place when returning to town
+     public static AnchorPane currentA = null;
     public static Rectangle recItem;
+    public static int currentL; //current level of the cave path the user is on
     public Alert alert = new Alert(AlertType.CONFIRMATION);
-    
+    public static Stage mainStage;
+public static int recordNum;//spot in the random access file of currentP
     public static void deleteItem() {//put in 
         inv.remove(currentI);
-        
+
         String newI = "";//new inventory
         for (int i = 0; i < inv.size(); i++) {
             newI += inv.get(i);
@@ -59,7 +55,7 @@ public class MainApp extends Application {
         showItems();
         //if there is a spot variable for item then change it here
     }
-    
+
     public static void getItemsFromData(String inven) {//database
         inv.clear();
 
@@ -69,25 +65,27 @@ public class MainApp extends Application {
             try {
                 if (inven.substring(i, i + 1).equals("s")) {
                     inv.add(new Sword());
+                    ((Sword) inv.get(i)).setDMultiplier(MainApp.currentP.getItemStatMultiplier());
                 } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
+                    ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
                 }
             } catch (IndexOutOfBoundsException e) {
             }
-            
+
         }
     }
-    
+
     public static void scrollI(ScrollEvent m) {//scroll through Items on screen
         if (m.getDeltaY() > 0) {
-            
+
             if (itSpot < 5) {
                 itSpot++;
             } else {
                 itSpot = 0;
             }
         } else if (m.getDeltaY() < 0) {
-            
+
             if (itSpot > 0) {
                 itSpot--;
             } else {
@@ -95,9 +93,9 @@ public class MainApp extends Application {
             }
         }
         showItems();
-        
+
     }
-    
+
     public static void showItems() {//put in all scenes
         //show items in the boxes
         ImagePattern im;
@@ -105,20 +103,20 @@ public class MainApp extends Application {
         colorAdjust1.setBrightness(-0.5);
         for (int r = 0; r < slot.size(); r++) {//reset slots
             try {
-                
+
                 slot.get(r).setFill(Color.web("#393b53"));
                 slot.get(r).setEffect(null);
             } catch (IndexOutOfBoundsException e) {
             }
-            
+
         }
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
                 if (!currentP.getInventory().substring(i, i + 1).equals("!")) {
-                    
+
                     slot.get(i).setFill(inv.get(i).getImageP());
                 }
-                
+
             } catch (IndexOutOfBoundsException e) {
             }
         }
@@ -131,14 +129,14 @@ public class MainApp extends Application {
             recItem.setVisible(true);
             recItem.setFill(currentI.getImageP());
         }
-        
+
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
         Scene scene = new Scene(root);
-        
+        mainStage = stage;
         stage.setTitle("Renwah's Dungeon");
         stage.setScene(scene);
         scene.getRoot().requestFocus();
@@ -158,5 +156,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

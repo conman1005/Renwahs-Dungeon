@@ -47,13 +47,15 @@ public class CaveController implements Initializable {
     private Rectangle recC6;
 
     @FXML
-    private Rectangle recUser;
+    private Rectangle recHero;
     @FXML
     private Rectangle recEnemy;
     @FXML
     private AnchorPane ancCave;
     @FXML
     private Rectangle recCI;//rec that shows the item in the hand of the person in the cave scene
+    
+    Enemy enemy = new Enemy();
 
 //set currentE before coming to this screen when attacked by an enemy
     Timeline cool = new Timeline(new KeyFrame(Duration.millis(1000), ae -> cooldown()));//cooldown between user attack
@@ -147,6 +149,7 @@ public class CaveController implements Initializable {
     private void scrollItem(ScrollEvent s) {//nextItem //put in anchorpane !!!!!!!!!!!!!!!!!!
         MainApp.scrollI(s);
     }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -158,12 +161,18 @@ public class CaveController implements Initializable {
         MainApp.slot.add(recC5);
         MainApp.slot.add(recC6);
         MainApp.recItem = recCI;
-        //     MainApp.showItems();
+        MainApp.showItems();
         //  recUser.setFill(new ImagePattern(MainApp.currentP.getImage()));
         //    recEnemy.setFill(new ImagePattern(MainApp.currentE.getImage()));
         MainApp.fighting = true;
         cool.setCycleCount(1);
         //MainApp.currentA = ancCave;
+        
+        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
+        
+        recEnemy.setFill(MainApp.currentE.getFill());
+        recEnemy.setHeight(MainApp.currentE.getHeight() * 3);
+        recEnemy.setWidth(MainApp.currentE.getWidth() * 3);
     }
 
 }

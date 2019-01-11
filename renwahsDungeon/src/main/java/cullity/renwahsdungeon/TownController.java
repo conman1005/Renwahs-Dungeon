@@ -7,6 +7,7 @@ package cullity.renwahsdungeon;
  */
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
@@ -18,8 +19,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -30,6 +34,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.transform.Rotate;
 
 /**
  * FXML Controller class
@@ -100,6 +105,8 @@ public class TownController implements Initializable {
                     break;
                 case D:
                     direction = "right";
+//                    System.out.println(pneTown.getTranslateX());//TESTING
+//                    System.out.println(pneTown.getTranslateY());///TESTING
                     break;
                 default:
                     break;
@@ -131,8 +138,34 @@ public class TownController implements Initializable {
     }
     KeyEvent kEvent;
 
+    Rotate rotate = new Rotate();
+
+    @FXML
+    private void mousePressed(MouseEvent event) {
+        if (MainApp.currentI.isWeapon()) {
+            rotate.setPivotX(0);
+            rotate.setPivotY(50);
+            rotate.setAngle(45);
+
+            recTI.getTransforms().clear();
+            recTI.getTransforms().addAll(rotate);
+        }
+    }
+
+    @FXML
+    private void mouseReleased(MouseEvent event) {
+        if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty())) {
+            rotate.setPivotX(0);
+            rotate.setPivotY(50);
+            rotate.setAngle(0);
+
+            recTI.getTransforms().clear();
+            recTI.getTransforms().addAll(rotate);
+        }
+    }
+
     private void movement() {
-        psn.moveTown(pneTown, direction, recHero);
+        psn.moveTown(pneTown, direction, recHero, recTI);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
@@ -147,13 +180,15 @@ public class TownController implements Initializable {
             }
             if (checkCol(plyHero, plyPath)) {//stop move timer and go to
                 move.stop();
+                MainApp.townLocation = "CAVEPATH";
+                determineCaveLevel();
                 try {
                     Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
 
                     Scene town_scene = new Scene(town_parent);
                     MainApp.currentS = town_scene;
                     //get reference to the stage
-                    Stage stage = (Stage) ((Node) kEvent.getSource()).getScene().getWindow();
+                    Stage stage = MainApp.mainStage;
 
                     stage.hide(); //optional
                     town_scene.getRoot().requestFocus();
@@ -169,6 +204,40 @@ public class TownController implements Initializable {
         }
     }
 
+    private void determineCaveLevel() {//allows user to choose level of dungeon
+        TextInputDialog dialog = new TextInputDialog("" + MainApp.currentP.getHighestLevel());
+        dialog.setTitle("Choose Which Level Dungeon you would like to enter");
+        dialog.setHeaderText("Type any number from 1 to the farthest level you've been to \n (currently " + MainApp.currentP.getHighestLevel() + ")");//might need to make easier to understand
+        dialog.setContentText(null);
+
+        Optional<String> result = dialog.showAndWait();
+        String chosen;
+        if (!result.isPresent()) {//if they cancel
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Error");
+            a.setHeaderText("Must input a valid answer to continue");
+            a.setContentText("Please exit this message to try again");
+            a.showAndWait();
+            determineCaveLevel();
+            return;
+        }
+        try {
+            if (Integer.parseInt(result.get()) < 0 || Integer.parseInt(result.get()) > MainApp.currentP.getHighestLevel()) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Error");
+            a.setHeaderText("Must input a valid number between from 1 to " + MainApp.currentP.getHighestLevel());
+            a.setContentText("Please exit this message to try again");
+            a.showAndWait();
+            determineCaveLevel();
+            return;
+        }
+        MainApp.currentL = Integer.parseInt(result.get());
+
+    }
+
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
@@ -177,15 +246,18 @@ public class TownController implements Initializable {
     @FXML
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
+        recTI.getTransforms().clear();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         move.setCycleCount(INDEFINITE);
         move.play();
+MainApp.currentA=ancTown;
+        recHero.setFill(MainApp.currentP.getImageP());
 
-        recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
-
+        MainApp.currentP.setInventory("hsh!!!");//for testing
+        MainApp.getItemsFromData(MainApp.currentP.getInventory());//for testing
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
         MainApp.slot.add(recT2);
@@ -199,6 +271,13 @@ public class TownController implements Initializable {
         ply[0] = plyWall;
         ply[1] = plyTavern;
         ply[2] = plyBlacksmith;
+
+        if (!MainApp.townLocation.equals("")) {
+            if (MainApp.townLocation.equalsIgnoreCase("CAVEPATH")) {
+                pneTown.setTranslateX(-1250);
+                pneTown.setTranslateY(-743);
+            }
+        }
 
 //        MainApp.currentA = ancTown;
     }

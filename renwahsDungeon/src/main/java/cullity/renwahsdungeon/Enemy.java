@@ -6,6 +6,7 @@
 package cullity.renwahsdungeon;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
@@ -13,7 +14,9 @@ import javafx.scene.shape.Rectangle;
  *
  * @author shawnb58
  */
-public class Enemy {
+
+//change to pane later
+public class Enemy extends Rectangle {
 
     private double strength;
     private double health;
@@ -21,28 +24,33 @@ public class Enemy {
     //private boolean employed;
     private String type;//class
     private double defense;
-    private Image img;
-    private Rectangle recEnemy;
+    private ImagePattern imgP;
+    //private Rectangle recEnemy;
+    private String direction;
 
     public Enemy() {
+        super(50, 50, 35, 30);
         strength = 10;
         health = 100;
         defense = 10;
         type = "slime";
-        img = new Image(getClass().getResource("/sprites/heroBackLeft.png").toString());
-        recEnemy.setWidth(35);
-        recEnemy.setHeight(30);
-        recEnemy.setFill(new ImagePattern(img));
+        imgP = new ImagePattern(new Image(getClass().getResource("/sprites/slimeGreen.png").toString()));
+        //recEnemy = new Rectangle();
+        //recEnemy.setFill(imgP);
+        this.setFill(imgP);
     }
 
-    public Enemy(double s, double h, double d, String t, String im) {
+    public Enemy(/*  double d, String t, */double h,double s,String im, double l, double w, double ex, double ey, String di) {
+        super(ex, ey, l, w);
+        //recEnemy = new Rectangle();
         strength = s;
         health = h;
-        defense = d;
-        type = t;
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+       /* defense = d;
+        type = t;*/
+        imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
+        this.setFill(imgP);
+        direction = di;
     }
-    
 
     public double getStrength() {
         return strength;
@@ -76,14 +84,19 @@ public class Enemy {
         type = t;
     }
 
-    public Image getImage() {
-        return img;
+    public ImagePattern getImageP() {
+        return imgP;
+    }
+    
+    public void setDirection(String d) {
+        direction = d;
+    }
+    
+    public String getDirection() {
+        return direction;
     }
 
-    public void setImage(String im) {
-        img = new Image(getClass().getResource("/" + im + ".png").toString());
+    public void setImageP(String im) {
+        imgP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
-
 }
-
-

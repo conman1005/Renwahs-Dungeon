@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polygon?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="298.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="298.0" layoutX="-14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../sprites/slimeGreen.png" />
+         </image>
+      </ImageView>
+      <Polygon fill="#1f93ff00" layoutX="135.0" layoutY="82.0" points="-88.0, 120.0, 89.0, 120.0, 97.0, 106.0, 133.0, 85.0, 133.0, 63.0, 113.0, 17.0, 113.0, -13.0, 97.0, -24.0, 61.0, -52.0, 5.0, -52.0, -98.0, -24.0, -116.0, 72.0" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</Pane>

@@ -47,17 +47,18 @@ public class FXMLController implements Initializable {
             invent = MainApp.currentP.getInventory();
         } else {
             MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
-            invent =MainApp.currentP.getInventory();
+            invent = MainApp.currentP.getInventory();
         }
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
         //MainApp.showItems();
+        MainApp.recordNum = lstSaves.getSelectionModel().getSelectedIndex();
 
         try {
             Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
             Scene town_scene = new Scene(town_parent);
-            MainApp.currentS=town_scene;
+            MainApp.currentS = town_scene;
             //get reference to the stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -130,6 +131,7 @@ public class FXMLController implements Initializable {
             lstSaves.getItems().add(psn.getName());
             dbs.add(psn);
         }
+        MainApp.currentA = null;//not need because not used in menu
         //MainApp.currentA=null;
 //        MainApp.clearSlots();
 //        MainApp.slot.get(0)=recs1;

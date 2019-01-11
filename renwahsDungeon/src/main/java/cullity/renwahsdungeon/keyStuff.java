@@ -17,7 +17,6 @@ import javafx.scene.control.ButtonType;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -33,44 +32,38 @@ public class keyStuff {
     public keyStuff() {
 
     }
-    
-    public void keys(KeyEvent k, boolean inTown,AnchorPane anc) {//if in town scene, inTown=true
-        if (k.getSource() == KeyCode.G && MainApp.currentI != null) {
+
+    public void keys(KeyEvent k, boolean inTown, AnchorPane anc) {//if in town scene, inTown=true
+
+        if (k.getCode() == KeyCode.G && MainApp.currentI != null) {
             //drop item
             MainApp.deleteItem();
-
         }
-        if (k.getSource() == KeyCode.DIGIT1) {
-            //drop item
+        if (k.getCode() == KeyCode.DIGIT1) {
             MainApp.itSpot = 0;
             MainApp.showItems();
         }
-        if (k.getSource() == KeyCode.DIGIT2) {
-            //drop item
+        if (k.getCode() == KeyCode.DIGIT2) {
             MainApp.itSpot = 1;
             MainApp.showItems();
         }
-        if (k.getSource() == KeyCode.DIGIT3) {
-            //drop item
+        if (k.getCode() == KeyCode.DIGIT3) {
             MainApp.itSpot = 2;
             MainApp.showItems();
         }
-        if (k.getSource() == KeyCode.DIGIT4) {
-            //drop item
+        if (k.getCode() == KeyCode.DIGIT4) {
             MainApp.itSpot = 3;
             MainApp.showItems();
         }
-        if (k.getSource() == KeyCode.DIGIT5) {
-            //drop item
+        if (k.getCode() == KeyCode.DIGIT5) {
             MainApp.itSpot = 4;
             MainApp.showItems();
         }
-        if (k.getSource() == KeyCode.DIGIT6) {
-            //drop item
+        if (k.getCode() == KeyCode.DIGIT6) {
             MainApp.itSpot = 5;
             MainApp.showItems();
         }
-        if (k.getSource() == KeyCode.ESCAPE /*&& MainApp.currentA != null*/) {//if able to use keys on main menu then check if anc is menu 
+        if (k.getCode() == KeyCode.ESCAPE /*&& MainApp.currentA != null*/) {//if able to use keys on main menu then check if anc is menu 
             //pause or play
 
             if (MainApp.paused) {//true when game is paused
@@ -79,32 +72,31 @@ public class keyStuff {
                 } catch (Exception e) {
                 }
                 MainApp.paused = false;
-              anc.setDisable(MainApp.paused);
+                anc.setDisable(MainApp.paused);
 
             } else {
-                //if (MainApp.currentA != null) {//make sure it doesnt error on menu
-                    anc.setDisable(MainApp.paused);
 
-                //}
                 MainApp.paused = true;
+                anc.setDisable(MainApp.paused);
                 //show menu
                 alert.setTitle("Paused");
                 alert.setHeaderText("Warning");
-                alert.setContentText("Changing screens will result in the loss of any unsaved data" + "\n ");
+                alert.setContentText("Changing screens will result in the loss of any unsaved data");
 
-                ButtonType buttonTypeOne = new ButtonType("Main Menu");
-                ButtonType buttonTypeTwo = new ButtonType("Back To Town");
-                ButtonType buttonTypeThree = new ButtonType("Quit");
+                ButtonType buttonTypeMenu = new ButtonType("Main Menu");
+                ButtonType buttonTypeTown = new ButtonType("Back To Town");
+                ButtonType buttonTypeQuit = new ButtonType("Quit");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
                 if (!inTown) {
-                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
+                    alert.getButtonTypes().setAll(buttonTypeMenu, buttonTypeTown, buttonTypeQuit, buttonTypeCancel);
                 } else {
-                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeThree, buttonTypeCancel);
+                    alert.getButtonTypes().setAll(buttonTypeMenu, buttonTypeQuit, buttonTypeCancel);
                 }
 
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == buttonTypeOne) {
+                if (result.get() == buttonTypeMenu) {
                     // ... user chose "main menu"
+                    MainApp.paused = false;
                     try {
                         Parent menu_parent = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
 
@@ -121,9 +113,9 @@ public class keyStuff {
                         stage.show(); //shows the new page
                     } catch (IOException iOException) {
                     }
-                } else if (result.get() == buttonTypeTwo) {
+                } else if (result.get() == buttonTypeTown) {
                     // ... user chose "town"
-
+                    MainApp.paused = false;
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml"));
 
@@ -140,7 +132,7 @@ public class keyStuff {
                         stage.show(); //shows the new page
                     } catch (IOException iOException) {
                     }
-                } else if (result.get() == buttonTypeThree) {
+                } else if (result.get() == buttonTypeQuit) {
                     // ... user chose "Quit"
 
                     //add an "are you sure" alert 
@@ -151,7 +143,7 @@ public class keyStuff {
                     anc.setDisable(MainApp.paused);
                 }
             }
-
+MainApp.currentS.getRoot().requestFocus();
         }
     }
 
