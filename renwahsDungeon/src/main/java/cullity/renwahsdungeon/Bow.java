@@ -30,7 +30,7 @@ public class Bow extends Item {
         arrows = null;
     }
 
-    public void useBow(int x, int y, int dir, ArrayList obstacles) {//x and y of user//obstacles are walls, rocks, etc
+    public void useBow(int x, int y, int dir, ArrayList<Polygon> obstacles) {//x and y of user//obstacles are walls, rocks, etc
         if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {//no shooting arrows in town
             Alert al = new Alert(Alert.AlertType.CONFIRMATION);
             al.setTitle("Input not allowed");
@@ -42,7 +42,6 @@ public class Bow extends Item {
 
     }
 
-    
     public void setArrows(ArrayList arr) {
         arrows.clear();
         arrows.addAll(arr);
