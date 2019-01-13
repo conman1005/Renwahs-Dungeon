@@ -37,11 +37,13 @@ public class Chest {
     public Chest() {
         int sizeofGains = ThreadLocalRandom.current().nextInt(1, 3 + 1);//size of gains arraylist
         for (int i = 0; i < sizeofGains; i++) {
-            rand = ThreadLocalRandom.current().nextInt(0, 1 + 1);//max is the amount of items we have
+            rand = ThreadLocalRandom.current().nextInt(0, 2 + 1);//max is the amount of items we have
             if (rand == 0) {
                 gains.add(new Sword());
             } else if (rand == 1) {
                 gains.add(new HPotion());
+            } else if (rand == 2) {
+                gains.add(new Bow());
             }
         }
         itm1 = gains.get(0);
@@ -63,6 +65,8 @@ public class Chest {
                 gains.add(new Sword());
             } else if (rand == 1) {
                 gains.add(new HPotion());
+            } else if (rand == 2) {
+                gains.add(new Bow());
             }
         }
         itm1 = gains.get(0);
