@@ -33,6 +33,7 @@ public class Arrow extends Rectangle {
 
     public Arrow() {
         super(15, 30, 30, 35);
+
         imageP = new ImagePattern(new Image(getClass().getResource("/arrow.png").toString()));
         this.setFill(imageP);
         d = 0;
@@ -52,16 +53,11 @@ public class Arrow extends Rectangle {
         this.setFill(imageP);
     }
 
-    public void shoot(int dir) {//d is direction
-        if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {//no shooting arrows in town
-            Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-            al.setTitle("Input not allowed");
-            al.setHeaderText("shooting arrtows in this town is against the law");
-            al.setContentText(null);
-            al.showAndWait();
-            return;
-        }
+    public void shoot(int dir, int x, int y) {//d is direction//x and y of user 
+//note, set x and y of user
+
         MainApp.currentA.getChildren().add(this);
+
         d = dir;
         Timeline t = new Timeline(new KeyFrame(Duration.millis(500), ae -> shootForTimer()));
         t.play();

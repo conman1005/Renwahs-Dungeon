@@ -31,12 +31,13 @@ public class MainApp extends Application {
     public static double currentHealth;//currenthealth of user
     public static boolean paused = false;//if paused then true
     public static String townLocation = "";//used to know where in the town the user left so that they can eb put back in the same place when returning to town
-     public static AnchorPane currentA = null;
+    public static AnchorPane currentA = null;
     public static Rectangle recItem;
     public static int currentL; //current level of the cave path the user is on
     public Alert alert = new Alert(AlertType.CONFIRMATION);
     public static Stage mainStage;
-public static int recordNum;//spot in the random access file of currentP
+    public static int recordNum;//spot in the random access file of currentP
+
     public static void deleteItem() {//put in 
         inv.remove(currentI);
 
@@ -69,6 +70,9 @@ public static int recordNum;//spot in the random access file of currentP
                 } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
                     ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
+                } else if (inven.substring(i, i + 1).equals("h")) {
+                    inv.add(new Bow());
+
                 }
             } catch (IndexOutOfBoundsException e) {
             }
