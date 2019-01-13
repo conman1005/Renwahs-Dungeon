@@ -34,7 +34,13 @@ public class keyStuff {
     }
 
     public void keys(KeyEvent k, boolean inTown, AnchorPane anc) {//if in town scene, inTown=true
+//        if (k.getCode() == KeyCode.T) {//testing stuff
 
+//            MainApp.currentP.setCoins(999);
+//            MainApp.currentP.setInventory("sbhhhh");
+//            MainApp.getItemsFromData("sbhhhh");
+//            MainApp.showItems();
+//        }
         if (k.getCode() == KeyCode.G && MainApp.currentI != null) {
             //drop item
             MainApp.deleteItem();
@@ -143,7 +149,7 @@ public class keyStuff {
                     anc.setDisable(MainApp.paused);
                 }
             }
-MainApp.currentS.getRoot().requestFocus();
+            MainApp.currentS.getRoot().requestFocus();
         }
     }
 
