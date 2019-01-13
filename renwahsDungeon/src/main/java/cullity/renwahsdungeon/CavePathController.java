@@ -367,7 +367,7 @@ public class CavePathController implements Initializable {
 
         psn.wAnimation = -1;
 
-        recHero.setFill(MainApp.currentP.getImageP());
+        recHero.setFill(MainApp.currentP.getImageP());MainApp.currentA=ancCavePath;
 
         ply[0] = plyWall1;
         ply[1] = plyWall2;
