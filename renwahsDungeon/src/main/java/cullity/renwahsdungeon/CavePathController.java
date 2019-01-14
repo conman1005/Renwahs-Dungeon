@@ -271,7 +271,7 @@ public class CavePathController implements Initializable {
                 }
             }
             eMov++;
-            if (eMov == 50) {
+            if (eMov == 5) {
                 eMov = 0;
                 for (int em = 0; em < enemies.size(); em++) {
                     if (enemies.get(em).getDirectionTime() == 100) {
