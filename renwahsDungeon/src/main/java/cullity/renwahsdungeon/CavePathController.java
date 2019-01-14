@@ -364,6 +364,7 @@ public class CavePathController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
+        System.out.println(prgHealth.getProgress());
 
         psn.wAnimation = -1;
 
