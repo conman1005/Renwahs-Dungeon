@@ -34,13 +34,13 @@ public class keyStuff {
     }
 
     public void keys(KeyEvent k, boolean inTown, AnchorPane anc) {//if in town scene, inTown=true
-//        if (k.getCode() == KeyCode.T) {//testing stuff
+        if (k.getCode() == KeyCode.T) {//testing stuff
 
-//            MainApp.currentP.setCoins(999);
-//            MainApp.currentP.setInventory("sbhhhh");
-//            MainApp.getItemsFromData("sbhhhh");
-//            MainApp.showItems();
-//        }
+            MainApp.currentP.setCoins(999);
+            MainApp.currentP.setInventory("sbhhhh");
+            MainApp.getItemsFromData("sbhhhh");
+            MainApp.showItems();
+        }
         if (k.getCode() == KeyCode.G && MainApp.currentI != null) {
             //drop item
             MainApp.deleteItem();
@@ -69,6 +69,7 @@ public class keyStuff {
             MainApp.itSpot = 5;
             MainApp.showItems();
         }
+       
         if (k.getCode() == KeyCode.ESCAPE /*&& MainApp.currentA != null*/) {//if able to use keys on main menu then check if anc is menu 
             //pause or play
 

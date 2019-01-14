@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -135,6 +136,22 @@ public class CavePathController implements Initializable {
                 default:
                     break;
             }
+        }
+        if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+            ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+
+        }
+        if (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+            ((Bow) MainApp.currentI).useBow(2, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+
+        }
+        if (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+            ((Bow) MainApp.currentI).useBow(1, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+
+        }
+        if (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+            ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+
         }
     }
 
@@ -330,7 +347,55 @@ public class CavePathController implements Initializable {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            return;
         }
+//arrow stuff
+        for (Arrow a : MainApp.arrows) {
+
+            for (Arrow ar : MainApp.arrows) {//if it is in another arrow then delete it//for if the user spams the shooting button
+                if (a != ar && checkCol(a, ar)) {
+                    MainApp.currentA.getChildren().remove(a);
+                    MainApp.arrows.remove(a);
+                }
+            }
+            for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
+                if (checkCol(a, p) || checkCol(a, plyExit)) {
+                    MainApp.currentA.getChildren().remove(a);
+                    MainApp.arrows.remove(a);
+                }
+            }
+            for (Enemy e : enemies) {
+                if (checkCol(a, e)) {
+                    //damage enemy //note not done yet
+
+                    //then delete arrow
+                    MainApp.currentA.getChildren().remove(a);
+                    MainApp.arrows.remove(a);
+                }
+            }
+            int x = 0;
+            int y = 0;
+            if (a.getD() == 1) {
+                x = 0;
+                y = 5;
+                a.setRotate(90);
+            } else if (a.getD() == 2) {
+                x = 5;
+                y = 0;
+                a.setRotate(0);
+            } else if (a.getD() == 3) {
+                x = 0;
+                y = -5;
+                a.setRotate(270);
+            } else if (a.getD() == 4) {
+                x = -5;
+                y = 0;
+                a.setRotate(180);
+            }
+            a.setTranslateX(a.getTranslateX() + x);
+            a.setTranslateY(a.getTranslateY() - y);
+        }
+
     }
 
     private boolean checkCol(Shape obj1, Shape obj2) {
