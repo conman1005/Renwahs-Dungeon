@@ -27,6 +27,8 @@ public class Enemy extends Rectangle {
     private ImagePattern imgP;
     //private Rectangle recEnemy;
     private String direction;
+    
+    private int directionTime = 0;
 
     public Enemy() {
         super(50, 50, 35, 30);
@@ -94,6 +96,13 @@ public class Enemy extends Rectangle {
     
     public String getDirection() {
         return direction;
+    }
+    
+    public void setDiretctionTime(int dt) {
+        directionTime = dt;
+    }
+    public int getDirectionTime() {
+        return directionTime;
     }
 
     public void setImageP(String im) {
