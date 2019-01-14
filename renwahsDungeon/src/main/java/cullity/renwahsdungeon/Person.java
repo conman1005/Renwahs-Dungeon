@@ -35,7 +35,7 @@ public class Person {
     };
 
     private double bStrength;
-    private double bHealth;
+    private double bHealth = 30;
     //private boolean employed;
     private char type;//class
     private double bDefense;
