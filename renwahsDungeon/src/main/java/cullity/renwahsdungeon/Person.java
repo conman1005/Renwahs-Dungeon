@@ -35,7 +35,7 @@ public class Person {
     };
 
     private double bStrength;
-    private double bHealth;
+    private double bHealth = 30;
     //private boolean employed;
     private char type;//class
     private double bDefense;
@@ -267,7 +267,8 @@ public class Person {
             case "up":
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
-                recItem.setTranslateX(-55);
+                recItem.setTranslateX(-35);
+                recItem.setTranslateY(-35);
                 pne.setTranslateY(pne.getTranslateY() + 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -317,7 +318,7 @@ public class Person {
                 }
                 break;
             case "left":
-                recItem.setTranslateX(-55);
+                recItem.setTranslateX(-65);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
                 pne.setTranslateX(pne.getTranslateX() + 1);
@@ -385,9 +386,12 @@ public class Person {
         }
     }
 
-    public void moveCave(Pane pne, String direction, Rectangle recHero) {
+    public void moveCave(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(180);
+                recItem.setTranslateX(-40);
                 pne.setTranslateY(pne.getTranslateY() - 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -411,6 +415,9 @@ public class Person {
                 }
                 break;
             case "down":
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(0);
+                recItem.setTranslateX(0);
                 pne.setTranslateY(pne.getTranslateY() + 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -434,6 +441,9 @@ public class Person {
                 }
                 break;
             case "left":
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(180);
+                recItem.setTranslateX(-40);
                 pne.setTranslateX(pne.getTranslateX() - 1);
                 wAnimation++;
                 switch (wAnimation) {
@@ -457,6 +467,9 @@ public class Person {
                 }
                 break;
             case "right":
+                recItem.setRotationAxis(new Point3D(0, 90, 1));
+                recItem.setRotate(0);
+                recItem.setTranslateX(0);
                 pne.setTranslateX(pne.getTranslateX() + 1);
                 wAnimation++;
                 switch (wAnimation) {

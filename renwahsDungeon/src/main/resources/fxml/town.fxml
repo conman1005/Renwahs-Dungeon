@@ -23,8 +23,8 @@
       <Rectangle fx:id="recT5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="400.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recT6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="495.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Polygon fx:id="plyHero" fill="#1f93ff23" layoutX="400.0" layoutY="275.0" points="0.0, 2.0, 0.0, 70.66665649414062, 51.333343505859375, 70.66665649414062, 51.333343505859375, 2.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-      <Rectangle fx:id="recTI" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="50.0" layoutX="430.0" layoutY="300.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recT3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="210.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+      <Rectangle fx:id="recTI" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="50.0" layoutX="435.0" layoutY="270.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recHero" arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="69.0" layoutX="400.0" layoutY="275.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="heroFront" width="52.0" />
    </children>
 </AnchorPane>

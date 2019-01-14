@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -179,32 +180,35 @@ public class TownController implements Initializable {
                 }
             }
             if (checkCol(plyHero, plyPath)) {//stop move timer and go to
-                move.stop();
-                MainApp.townLocation = "CAVEPATH";
-                determineCaveLevel();
-                try {
-                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
-
-                    Scene town_scene = new Scene(town_parent);
-                    MainApp.currentS = town_scene;
-                    //get reference to the stage
-                    Stage stage = MainApp.mainStage;
-
-                    stage.hide(); //optional
-                    town_scene.getRoot().requestFocus();
-                    stage.setScene(town_scene); //puts the new scence in the stage
-
-                    //     stage.setTitle("Town"); //changes the title
-                    stage.show(); //shows the new page
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                pneTown.setTranslateX(pneTown.getTranslateX() + 1);
+                Platform.runLater(() -> {
+                    move.stop();
+                    MainApp.townLocation = "CAVEPATH";
+                    determineCaveLevel();
+                    try {
+                        Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
+                        
+                        Scene town_scene = new Scene(town_parent);
+                        MainApp.currentS = town_scene;
+                        //get reference to the stage
+                        Stage stage = MainApp.mainStage;
+                        
+                        stage.hide(); //optional
+                        town_scene.getRoot().requestFocus();
+                        stage.setScene(town_scene); //puts the new scence in the stage
+                        
+                        //     stage.setTitle("Town"); //changes the title
+                        stage.show(); //shows the new page
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    pneTown.setTranslateX(pneTown.getTranslateX() + 1);
+                });
             }
         }
     }
 
     private void determineCaveLevel() {//allows user to choose level of dungeon
+
         TextInputDialog dialog = new TextInputDialog("" + MainApp.currentP.getHighestLevel());
         dialog.setTitle("Choose Which Level Dungeon you would like to enter");
         dialog.setHeaderText("Type any number from 1 to the farthest level you've been to \n (currently " + MainApp.currentP.getHighestLevel() + ")");//might need to make easier to understand
@@ -213,6 +217,7 @@ public class TownController implements Initializable {
         Optional<String> result = dialog.showAndWait();
         String chosen;
         if (!result.isPresent()) {//if they cancel
+
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("Error");
             a.setHeaderText("Must input a valid answer to continue");
@@ -253,7 +258,7 @@ public class TownController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         move.setCycleCount(INDEFINITE);
         move.play();
-MainApp.currentA=ancTown;
+        MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
 
         MainApp.currentP.setInventory("hsh!!!");//for testing
