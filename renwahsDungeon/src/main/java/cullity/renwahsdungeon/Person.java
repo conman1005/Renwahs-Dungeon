@@ -35,7 +35,7 @@ public class Person {
     };
 
     private double bStrength;
-    private double bHealth = 30;
+    private double bHealth;
     //private boolean employed;
     private char type;//class
     private double bDefense;
@@ -67,7 +67,7 @@ public class Person {
         inventory = tempI.toString();//! is nothing
         level = 1;
         bStrength = 10;
-        bHealth = 100;
+        bHealth = 30;
         bDefense = 10;
         StringBuffer tempT = new StringBuffer("w");
         tempT.setLength(1);
