@@ -38,8 +38,10 @@ public class keyStuff {
 
             MainApp.currentP.setCoins(999);
             MainApp.currentP.setInventory("sbhhhh");
+          
             MainApp.getItemsFromData("sbhhhh");
             MainApp.showItems();
+            System.out.println(MainApp.inv);
         }
         if (k.getCode() == KeyCode.G && MainApp.currentI != null) {
             //drop item
