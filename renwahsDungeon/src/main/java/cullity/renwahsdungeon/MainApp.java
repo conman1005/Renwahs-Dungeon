@@ -71,7 +71,7 @@ public class MainApp extends Application {
                 } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
                     ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
-                } else if (inven.substring(i, i + 1).equals("h")) {
+                } else if (inven.substring(i, i + 1).equals("b")) {
                     inv.add(new Bow());
 
                 }
