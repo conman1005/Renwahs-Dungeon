@@ -254,9 +254,24 @@ public class CavePathController implements Initializable {
                 }
             }
             eMov++;
-            if (eMov == 5) {
+            if (eMov == 50) {
                 eMov = 0;
                 for (int em = 0; em < enemies.size(); em++) {
+                    if (enemies.get(em).getDirectionTime() == 100) {
+                        enemies.get(em).setDiretctionTime(0);
+
+                        if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
+                            enemies.get(em).setDirection("left");
+                        } else if (enemies.get(em).getTranslateX() < pneHero.getTranslateX() + 450) {
+                            enemies.get(em).setDirection("right");
+                        } else if (enemies.get(em).getTranslateY() > pneHero.getTranslateY() + 556) {
+                            enemies.get(em).setDirection("up");
+                        } else if (enemies.get(em).getTranslateY() < pneHero.getTranslateY() + 556) {
+                            enemies.get(em).setDirection("down");
+                        }
+                        return;
+                    }
+                    
                     if (rand.nextInt(100) == 0) {
                         switch (rand.nextInt(4)) {
                             case 0:
@@ -273,7 +288,7 @@ public class CavePathController implements Initializable {
                                 break;
                         }
                     }
-                    /*switch (enemies.get(em).getDirection()) {
+                    switch (enemies.get(em).getDirection()) {
                         case "up":
                             enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
                             break;
@@ -286,16 +301,12 @@ public class CavePathController implements Initializable {
                         case "right":
                             enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
                             break;
-                    }*/
-                    if (enemies.get(em).getTranslateX() > recHero.getTranslateX()) {
-                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
-                    } else if (enemies.get(em).getTranslateX() < recHero.getTranslateX()) {
-                        enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
-                    } else if (enemies.get(em).getTranslateY() > recHero.getTranslateY()) {
-                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
-                    } else if (enemies.get(em).getTranslateY() < recHero.getTranslateY()) {
-                        enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
                     }
+
+                    enemies.get(em).setDiretctionTime(enemies.get(em).getDirectionTime() + 1);
+
+                    System.out.println(enemies.get(em).getTranslateX() - plyHero.getTranslateX());
+                    System.out.println(enemies.get(em).getTranslateY() - plyHero.getTranslateY());
                 }
             }
         }
@@ -363,12 +374,15 @@ public class CavePathController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        plyHero.setTranslateX(442);
+        plyHero.setTranslateY(534);
+
         prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
-        System.out.println(prgHealth.getProgress());
 
         psn.wAnimation = -1;
 
-        recHero.setFill(MainApp.currentP.getImageP());MainApp.currentA=ancCavePath;
+        recHero.setFill(MainApp.currentP.getImageP());
+        MainApp.currentA = ancCavePath;
 
         ply[0] = plyWall1;
         ply[1] = plyWall2;
@@ -379,7 +393,11 @@ public class CavePathController implements Initializable {
         ply[6] = plyWall7;
         double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
         for (int i = 0; i < rand.nextInt(5); i++) {
-            enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, rand.nextInt(900), rand.nextInt(625), "left"));
+            enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
+        }
+        for (int ii = 0; ii < enemies.size(); ii++) {
+            enemies.get(ii).setTranslateX(rand.nextInt(900));
+            enemies.get(ii).setTranslateY(rand.nextInt(625));
         }
 
         ancCavePath.getChildren().addAll(enemies);

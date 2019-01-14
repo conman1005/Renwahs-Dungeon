@@ -26,9 +26,9 @@
       <Rectangle fx:id="recC6" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="426.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <Pane fx:id="pneHero" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Polygon fx:id="plyHero" fill="#1f93ff66" layoutX="451.0" layoutY="556.0" points="-8.5, 21.5, 23.5, 21.125, 23.5, -6.0, 13.0, -20.5, -1.5, -20.5, -8.5, -6.0" stroke="BLACK" strokeType="INSIDE" />
             <Rectangle fx:id="recItem" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" layoutX="464.0" layoutY="542.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
             <Rectangle fx:id="recHero" arcHeight="5.0" arcWidth="5.0" fill="#0000005e" height="43.125" layoutX="442.0" layoutY="534.0" stroke="TRANSPARENT" strokeType="INSIDE" width="32.5" />
+            <Polygon fx:id="plyHero" fill="#1f93ff66" layoutX="9.0" layoutY="21.0" points="-8.5, 21.5, 23.5, 21.125, 23.5, -6.0, 13.0, -20.5, -1.5, -20.5, -8.5, -6.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </Pane>
       <ProgressBar fx:id="prgHealth" layoutX="575.0" layoutY="14.0" prefWidth="200.0" progress="0.0" />
