@@ -180,8 +180,8 @@ public class TownController implements Initializable {
                 }
             }
             if (checkCol(plyHero, plyPath)) {//stop move timer and go to
+                move.stop();
                 Platform.runLater(() -> {
-                    move.stop();
                     MainApp.townLocation = "CAVEPATH";
                     determineCaveLevel();
                     try {
@@ -203,6 +203,7 @@ public class TownController implements Initializable {
                     }
                     pneTown.setTranslateX(pneTown.getTranslateX() + 1);
                 });
+                return;
             }
         }
     }
