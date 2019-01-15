@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -159,21 +160,32 @@ public class CavePathController implements Initializable {
                     break;
             }
         }
-        if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-            ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+        if ((event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) | (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow"))) {
+            if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {
+                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                al.setTitle("Input not allowed");
+                al.setHeaderText("shooting arrtows in this town is against the law");
+                al.setContentText(null);
+                Platform.runLater(al::showAndWait);
+                return;
 
-        }
-        if (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-            ((Bow) MainApp.currentI).useBow(2, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+            }
+            if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
 
-        }
-        if (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-            ((Bow) MainApp.currentI).useBow(1, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+            }
+            if (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                ((Bow) MainApp.currentI).useBow(2, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
 
-        }
-        if (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-            ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+            }
+            if (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                ((Bow) MainApp.currentI).useBow(1, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
 
+            }
+            if (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+
+            }
         }
     }
     KeyEvent kEvent;
@@ -355,14 +367,18 @@ public class CavePathController implements Initializable {
             return;
         }
 //arrow stuff
+//if (MainApp.arrows.isEmpty()){return;}
+//        ArrayList<Arrow> copy = new ArrayList();
+//        copy.addAll(MainApp.arrows);
+
         for (Arrow a : MainApp.arrows) {
 
-            for (Arrow ar : MainApp.arrows) {//if it is in another arrow then delete it//for if the user spams the shooting button
-                if (a != ar && checkCol(a, ar)) {
-                    MainApp.currentA.getChildren().remove(a);
-                    MainApp.arrows.remove(a);
-                }
-            }
+//            for (Arrow ar : copy) {//if it is in another arrow then delete it//for if the user spams the shooting button
+//                if (MainApp.arrows.indexOf(a) != copy.indexOf(ar) && checkCol(a, ar)) {
+//                    MainApp.currentA.getChildren().remove(a);
+//                    MainApp.arrows.remove(a);
+//                }
+//            }
             for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
                 if (checkCol(a, p) || checkCol(a, plyExit)) {
                     MainApp.currentA.getChildren().remove(a);
@@ -372,7 +388,7 @@ public class CavePathController implements Initializable {
             for (Enemy e : enemies) {
                 if (checkCol(a, e)) {
                     //damage enemy //note not done yet
-
+                    System.out.println("hit with arrow");
                     //then delete arrow
                     MainApp.currentA.getChildren().remove(a);
                     MainApp.arrows.remove(a);

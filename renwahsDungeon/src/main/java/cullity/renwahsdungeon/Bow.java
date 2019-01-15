@@ -6,6 +6,7 @@
 package cullity.renwahsdungeon;
 
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 /**
@@ -31,7 +32,7 @@ public class Bow extends Item {
             al.setTitle("Input not allowed");
             al.setHeaderText("shooting arrtows in this town is against the law");
             al.setContentText(null);
-            al.showAndWait();
+            Platform.runLater(al::showAndWait);
             return;
         }
         Arrow arr = new Arrow(dir, x, y);
