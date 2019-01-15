@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadLocalRandom;
 import static javafx.animation.Animation.INDEFINITE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -111,8 +112,6 @@ public class CavePathController implements Initializable {
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
 
-    Random rand = new Random();
-
     @FXML
     private void keyPressed(KeyEvent event) {
         kEvent = event;
@@ -188,7 +187,7 @@ public class CavePathController implements Initializable {
                     switch (enemies.get(e).getDirection()) {
                         case "up":
                             enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
-                            switch (rand.nextInt(3)) {
+                            switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("left");
                                     break;
@@ -204,7 +203,7 @@ public class CavePathController implements Initializable {
                             break;
                         case "down":
                             enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
-                            switch (rand.nextInt(3)) {
+                            switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("left");
                                     break;
@@ -220,7 +219,7 @@ public class CavePathController implements Initializable {
                             break;
                         case "left":
                             enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
-                            switch (rand.nextInt(3)) {
+                            switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("up");
                                     break;
@@ -236,7 +235,7 @@ public class CavePathController implements Initializable {
                             break;
                         case "right":
                             enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
-                            switch (rand.nextInt(3)) {
+                            switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("left");
                                     break;
@@ -272,26 +271,34 @@ public class CavePathController implements Initializable {
                 }
             }
             eMov++;
-            if (eMov == 5) {
+            if (eMov == 10) {
                 eMov = 0;
                 for (int em = 0; em < enemies.size(); em++) {
-                    if (enemies.get(em).getDirectionTime() == 100) {
+                    if (enemies.get(em).getDirectionTime() == 10) {
                         enemies.get(em).setDiretctionTime(0);
 
-                        if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
-                            enemies.get(em).setDirection("left");
-                        } else if (enemies.get(em).getTranslateX() < pneHero.getTranslateX() + 450) {
-                            enemies.get(em).setDirection("right");
-                        } else if (enemies.get(em).getTranslateY() > pneHero.getTranslateY() + 556) {
-                            enemies.get(em).setDirection("up");
-                        } else if (enemies.get(em).getTranslateY() < pneHero.getTranslateY() + 556) {
-                            enemies.get(em).setDirection("down");
+                        double xDiff = enemies.get(em).getTranslateX() - pneHero.getTranslateX() + 450;
+                        double yDiff = enemies.get(em).getTranslateY() - pneHero.getTranslateY() + 556;
+
+                        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                            if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
+                                enemies.get(em).setDirection("left");
+                            } else if (enemies.get(em).getTranslateX() < pneHero.getTranslateX() + 450) {
+                                enemies.get(em).setDirection("right");
+                            }
+                        } else {
+
+                            if (enemies.get(em).getTranslateY() > pneHero.getTranslateY() + 556) {
+                                enemies.get(em).setDirection("up");
+                            } else if (enemies.get(em).getTranslateY() < pneHero.getTranslateY() + 556) {
+                                enemies.get(em).setDirection("down");
+                            }
+                            return;
                         }
-                        return;
                     }
 
-                    if (rand.nextInt(100) == 0) {
-                        switch (rand.nextInt(4)) {
+                    if (ThreadLocalRandom.current().nextInt(500) == 500) {
+                        switch (ThreadLocalRandom.current().nextInt(4)) {
                             case 0:
                                 enemies.get(em).setDirection("up");
                                 break;
@@ -322,9 +329,6 @@ public class CavePathController implements Initializable {
                     }
 
                     enemies.get(em).setDiretctionTime(enemies.get(em).getDirectionTime() + 1);
-
-                    System.out.println(enemies.get(em).getTranslateX() - plyHero.getTranslateX());
-                    System.out.println(enemies.get(em).getTranslateY() - plyHero.getTranslateY());
                 }
             }
         }
@@ -458,12 +462,12 @@ public class CavePathController implements Initializable {
         ply[5] = plyWall6;
         ply[6] = plyWall7;
         double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
-        for (int i = 0; i < rand.nextInt(5); i++) {
+        for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, 5 + 1); i++) {
             enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
         }
         for (int ii = 0; ii < enemies.size(); ii++) {
-            enemies.get(ii).setTranslateX(rand.nextInt(900));
-            enemies.get(ii).setTranslateY(rand.nextInt(625));
+            enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
+            enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
         }
 
         ancCavePath.getChildren().addAll(enemies);
