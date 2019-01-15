@@ -28,7 +28,7 @@ public class MainApp extends Application {
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
     public static boolean fighting;//if in combat
-    public static double currentHealth;//currenthealth of user
+    public static double currentHealth = 30;//currenthealth of user
     public static boolean paused = false;//if paused then true
     public static String townLocation = "";//used to know where in the town the user left so that they can eb put back in the same place when returning to town
     public static AnchorPane currentA = null;
@@ -37,6 +37,7 @@ public class MainApp extends Application {
     public Alert alert = new Alert(AlertType.CONFIRMATION);
     public static Stage mainStage;
     public static int recordNum;//spot in the random access file of currentP
+    public static ArrayList<Arrow> arrows = new ArrayList();//array of arrows in cavePath//must be global so that it can be calledfrom the object of arrow
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -70,7 +71,7 @@ public class MainApp extends Application {
                 } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
                     ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
-                } else if (inven.substring(i, i + 1).equals("h")) {
+                } else if (inven.substring(i, i + 1).equals("b")) {
                     inv.add(new Bow());
 
                 }
