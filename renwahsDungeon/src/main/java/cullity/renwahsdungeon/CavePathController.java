@@ -193,81 +193,6 @@ public class CavePathController implements Initializable {
     int eMov = 0; //eMov is used to make the enemies move 1 pixel in a longer time, so they move slower than the person
 
     private void movement() {
-        for (int e = 0; e < enemies.size(); e++) {
-            for (Polygon ply1 : ply) {
-                if (checkCol(enemies.get(e), ply1)) {
-                    switch (enemies.get(e).getDirection()) {
-                        case "up":
-                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
-                            switch (ThreadLocalRandom.current().nextInt(3)) {
-                                case 0:
-                                    enemies.get(e).setDirection("left");
-                                    break;
-                                case 1:
-                                    enemies.get(e).setDirection("right");
-                                    break;
-                                case 2:
-                                    enemies.get(e).setDirection("down");
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "down":
-                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
-                            switch (ThreadLocalRandom.current().nextInt(3)) {
-                                case 0:
-                                    enemies.get(e).setDirection("left");
-                                    break;
-                                case 1:
-                                    enemies.get(e).setDirection("right");
-                                    break;
-                                case 2:
-                                    enemies.get(e).setDirection("up");
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "left":
-                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
-                            switch (ThreadLocalRandom.current().nextInt(3)) {
-                                case 0:
-                                    enemies.get(e).setDirection("up");
-                                    break;
-                                case 1:
-                                    enemies.get(e).setDirection("right");
-                                    break;
-                                case 2:
-                                    enemies.get(e).setDirection("down");
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "right":
-                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
-                            switch (ThreadLocalRandom.current().nextInt(3)) {
-                                case 0:
-                                    enemies.get(e).setDirection("left");
-                                    break;
-                                case 1:
-                                    enemies.get(e).setDirection("up");
-                                    break;
-                                case 2:
-                                    enemies.get(e).setDirection("down");
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                    }
-                }
-                if (checkCol(enemies.get(e), plyHero)) {
-
-                }
-            }
-        }
 
         psn.moveCave(pneHero, direction, recHero, recItem);
         for (Polygon i : ply) {
@@ -282,6 +207,101 @@ public class CavePathController implements Initializable {
                     pneHero.setTranslateX(pneHero.getTranslateX() - 1);
                 }
             }
+
+            for (int e = 0; e < enemies.size(); e++) {
+                for (Polygon ply1 : ply) {
+                    if (checkCol(enemies.get(e), ply1)) {
+                        switch (enemies.get(e).getDirection()) {
+                            case "up":
+                                enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
+                                switch (ThreadLocalRandom.current().nextInt(3)) {
+                                    case 0:
+                                        enemies.get(e).setDirection("left");
+                                        break;
+                                    case 1:
+                                        enemies.get(e).setDirection("right");
+                                        break;
+                                    case 2:
+                                        enemies.get(e).setDirection("down");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "down":
+                                enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
+                                switch (ThreadLocalRandom.current().nextInt(3)) {
+                                    case 0:
+                                        enemies.get(e).setDirection("left");
+                                        break;
+                                    case 1:
+                                        enemies.get(e).setDirection("right");
+                                        break;
+                                    case 2:
+                                        enemies.get(e).setDirection("up");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "left":
+                                enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
+                                switch (ThreadLocalRandom.current().nextInt(3)) {
+                                    case 0:
+                                        enemies.get(e).setDirection("up");
+                                        break;
+                                    case 1:
+                                        enemies.get(e).setDirection("right");
+                                        break;
+                                    case 2:
+                                        enemies.get(e).setDirection("down");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "right":
+                                enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
+                                switch (ThreadLocalRandom.current().nextInt(3)) {
+                                    case 0:
+                                        enemies.get(e).setDirection("left");
+                                        break;
+                                    case 1:
+                                        enemies.get(e).setDirection("up");
+                                        break;
+                                    case 2:
+                                        enemies.get(e).setDirection("down");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                        }
+                    }
+
+                    if (checkCol(enemies.get(e), plyHero)) {
+                        enemies.get(e).setBounce(1);
+                    }
+                    if (enemies.get(e).getBounce() >= 1) {
+                        enemies.get(e).setBounce(enemies.get(e).getBounce() + 1);
+                        switch (enemies.get(e).getDirection()) {
+                            case "up":
+                                enemies.get(e).setDirection("down");
+                                break;
+                            case "down":
+                                enemies.get(e).setDirection("up");
+                                break;
+                            case "left":
+                                enemies.get(e).setDirection("right");
+                                break;
+                            case "right":
+                                enemies.get(e).setDirection("left");
+                                break;
+                        }
+                    }
+                }
+            }
+
             eMov++;
             if (eMov == 10) {
                 eMov = 0;
@@ -289,10 +309,7 @@ public class CavePathController implements Initializable {
                     if (enemies.get(em).getDirectionTime() == 10) {
                         enemies.get(em).setDiretctionTime(0);
 
-                        double xDiff = enemies.get(em).getTranslateX() - pneHero.getTranslateX() + 450;
-                        double yDiff = enemies.get(em).getTranslateY() - pneHero.getTranslateY() + 556;
-
-                        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                        if (ThreadLocalRandom.current().nextBoolean() == true) {
                             if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
                                 enemies.get(em).setDirection("left");
                             } else if (enemies.get(em).getTranslateX() < pneHero.getTranslateX() + 450) {
