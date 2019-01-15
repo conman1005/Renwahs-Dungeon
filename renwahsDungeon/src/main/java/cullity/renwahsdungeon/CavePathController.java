@@ -112,6 +112,7 @@ public class CavePathController implements Initializable {
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
+    int arrowCooldown = 0;//cooldown between using arrows
 
     @FXML
     private void keyPressed(KeyEvent event) {
@@ -160,31 +161,38 @@ public class CavePathController implements Initializable {
                     break;
             }
         }
-        if ((event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) | (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow"))) {
-            if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {
-                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                al.setTitle("Input not allowed");
-                al.setHeaderText("shooting arrtows in this town is against the law");
-                al.setContentText(null);
-                Platform.runLater(al::showAndWait);
-                return;
+        if (arrowCooldown == 0) {
 
-            }
-            if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+            if ((event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) | (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow"))) {
+                if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {
+                    Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                    al.setTitle("Input not allowed");
+                    al.setHeaderText("shooting arrtows in this town is against the law");
+                    al.setContentText(null);
+                    Platform.runLater(al::showAndWait);
+                    return;
 
-            }
-            if (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                ((Bow) MainApp.currentI).useBow(2, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                }
 
-            }
-            if (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                ((Bow) MainApp.currentI).useBow(1, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
-
-            }
-            if (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
-
+               
+                    if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                        ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                        //arrowCooldown=10;
+                    }
+                    if (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                        ((Bow) MainApp.currentI).useBow(2, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                        //arrowCooldown=10;
+                    }
+                    if (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                        ((Bow) MainApp.currentI).useBow(1, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                        //arrowCooldown=10;
+                    }
+                    if (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                        ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                        //arrowCooldown=10;
+                    }
+                    arrowCooldown = 100;
+                
             }
         }
     }
@@ -193,7 +201,11 @@ public class CavePathController implements Initializable {
     int eMov = 0; //eMov is used to make the enemies move 1 pixel in a longer time, so they move slower than the person
 
     private void movement() {
+        if (arrowCooldown > 0) {
+            arrowCooldown--;
+        }
         for (int e = 0; e < enemies.size(); e++) {
+
             for (Polygon ply1 : ply) {
                 if (checkCol(enemies.get(e), ply1)) {
                     switch (enemies.get(e).getDirection()) {
@@ -379,27 +391,27 @@ public class CavePathController implements Initializable {
 //                    MainApp.arrows.remove(a);
 //                }
 //            }
-            for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
-                if (checkCol(a, p) || checkCol(a, plyExit)) {
-                    MainApp.currentA.getChildren().remove(a);
-                    MainApp.arrows.remove(a);
-                }
-            }
-            for (Enemy e : enemies) {
-                if (checkCol(a, e)) {
-                    //damage enemy //note not done yet
-                    System.out.println("hit with arrow");
-                    //then delete arrow
-                    MainApp.currentA.getChildren().remove(a);
-                    MainApp.arrows.remove(a);
-                }
-            }
+//           get back for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
+//                if (checkCol(a, p) || checkCol(a, plyExit)) {
+//                    MainApp.currentA.getChildren().remove(a);
+//                    MainApp.arrows.remove(a);
+//                }
+//            }
+//            for (Enemy e : enemies) {
+//                if (checkCol(a, e)) {
+//                    //damage enemy //note not done yet
+//                    System.out.println("hit with arrow");
+//                    //then delete arrow
+//                    MainApp.currentA.getChildren().remove(a);
+//                    MainApp.arrows.remove(a);
+//                }
+//            }
             int x = 0;
             int y = 0;
             if (a.getD() == 1) {
                 x = 0;
                 y = 5;
-                a.setRotate(90);
+                a.setRotate(270);
             } else if (a.getD() == 2) {
                 x = 5;
                 y = 0;
@@ -407,7 +419,7 @@ public class CavePathController implements Initializable {
             } else if (a.getD() == 3) {
                 x = 0;
                 y = -5;
-                a.setRotate(270);
+                a.setRotate(90);
             } else if (a.getD() == 4) {
                 x = -5;
                 y = 0;
