@@ -23,7 +23,7 @@ public class Arrow extends Rectangle {
 //4=left
 
     public Arrow() {
-        super(15, 30, 20, 15);
+        super(15, 30, 50, 25);
 
         imageP = new ImagePattern(new Image(getClass().getResource("/arrow.png").toString()));
         this.setFill(imageP);
@@ -32,7 +32,7 @@ public class Arrow extends Rectangle {
     }
 
     public Arrow(int dir, double x, double y) {
-        super(x, y, 20, 15);
+        super(x, y, 50, 25);
         imageP = new ImagePattern(new Image(getClass().getResource("/arrow.png").toString()));
         this.setFill(imageP);
         d = dir;
