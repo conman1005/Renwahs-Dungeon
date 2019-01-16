@@ -85,7 +85,7 @@ public class TownController implements Initializable {
 
     String direction = "";
 
-    Timeline move = new Timeline(new KeyFrame(Duration.millis(5), ae -> movement()));
+    Timeline move = new Timeline(new KeyFrame(Duration.millis(50), ae -> movement()));
 
     @FXML
     private void keyPressed(KeyEvent event) {
