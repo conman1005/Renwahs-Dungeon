@@ -111,7 +111,7 @@ public class CavePathController implements Initializable {
     Person psn = new Person();
     Enemy enm = new Enemy();
 
-    Timeline move = new Timeline(new KeyFrame(Duration.millis(70), ae -> movement()));
+    Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
     int arrowCooldown = 0;//cooldown between using arrows
 
     @FXML
@@ -363,16 +363,16 @@ public class CavePathController implements Initializable {
                     }*/
                     switch (enemies.get(em).getDirection()) {
                         case "up":
-                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 10);
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 5);
                             break;
                         case "down":
-                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 10);
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 5);
                             break;
                         case "left":
-                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 10);
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 5);
                             break;
                         case "right":
-                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 10);
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 5);
                             break;
                     }
 
