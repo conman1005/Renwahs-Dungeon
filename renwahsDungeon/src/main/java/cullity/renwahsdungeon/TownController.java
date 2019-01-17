@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -91,8 +92,23 @@ public class TownController implements Initializable {
     private void keyPressed(KeyEvent event) {
 
         keyStuff temp = new keyStuff();// this is because the pause button is in the global method
-        temp.keys(event, true, ancTown);//true because it is in town scene (pausing button)
-
+        temp.keys(event, true, ancTown, recTI);//true because it is in town scene (pausing button)
+        if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
+            try {
+                if (MainApp.currentI.getSymbol() == 'b') {
+                    move.stop();
+                    direction = "r";
+                    Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                    a.setTitle("Not Allowed");
+                    a.setHeaderText("This town has outlawed the use of bows");
+                    a.setContentText(null);
+                    a.showAndWait();
+                    move.play();
+                    return;
+                }
+            } catch (NullPointerException e) {//means theres no item being held
+            }
+        }
         if (null != event.getCode()) {
             switch (event.getCode()) {
                 case W:
@@ -254,6 +270,9 @@ public class TownController implements Initializable {
         MainApp.scrollI(s);
         recTI.getTransforms().clear();
         System.out.println(recTI.getTranslateY());
+        if (MainApp.currentI == null) {
+            return;
+        }
         if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
             recTI.setTranslateY(35);
 

@@ -17,7 +17,7 @@ Description:
     -fx-background-size: cover;
 }
 .background {
-    -fx-background-color: #000000;
+    -fx-background-color: #626D80;
 }
 .heroFront {
     -fx-background-image: url(../sprites/heroFront.png);

@@ -19,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -33,15 +34,20 @@ public class keyStuff {
 
     }
 
-    public void keys(KeyEvent k, boolean inTown, AnchorPane anc) {//if in town scene, inTown=true
-        if (k.getCode() == KeyCode.T) {//testing stuff
+    public void keys(KeyEvent k, boolean inTown, AnchorPane anc, Rectangle recI) {//if in town scene, inTown=true//recItem is the rectangle that shows the item
+        if (k.getCode() == KeyCode.T) {//testing stuff//cheat code
 
             MainApp.currentP.setCoins(999);
             MainApp.currentP.setInventory("sbhhhh");
-          
+
             MainApp.getItemsFromData("sbhhhh");
             MainApp.showItems();
-            System.out.println(MainApp.inv);
+             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+                recI.setTranslateY(35);
+
+            } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
+                recI.setTranslateY(-35);
+            }
         }
         if (k.getCode() == KeyCode.G && MainApp.currentI != null) {
             //drop item
@@ -50,28 +56,66 @@ public class keyStuff {
         if (k.getCode() == KeyCode.DIGIT1) {
             MainApp.itSpot = 0;
             MainApp.showItems();
+            if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+                recI.setTranslateY(35);
+
+            } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
+                recI.setTranslateY(-35);
+            }
         }
         if (k.getCode() == KeyCode.DIGIT2) {
             MainApp.itSpot = 1;
-            MainApp.showItems();
+            MainApp.showItems();if (MainApp.currentI==null){return;}
+            if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+                recI.setTranslateY(35);
+
+            } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
+                recI.setTranslateY(-35);
+            }
         }
         if (k.getCode() == KeyCode.DIGIT3) {
             MainApp.itSpot = 2;
-            MainApp.showItems();
+            MainApp.showItems();if (MainApp.currentI==null){return;}
+            if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+                recI.setTranslateY(35);
+
+            } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
+                recI.setTranslateY(-35);
+            }
+
         }
         if (k.getCode() == KeyCode.DIGIT4) {
             MainApp.itSpot = 3;
-            MainApp.showItems();
+            MainApp.showItems();if (MainApp.currentI==null){return;}
+            if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+                recI.setTranslateY(35);
+
+            } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
+                recI.setTranslateY(-35);
+            }
         }
         if (k.getCode() == KeyCode.DIGIT5) {
             MainApp.itSpot = 4;
-            MainApp.showItems();
+            MainApp.showItems();if (MainApp.currentI==null){return;}
+            if (MainApp.currentI==null){return;}
+            if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+                recI.setTranslateY(35);
+
+            } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
+                recI.setTranslateY(-35);
+            }
         }
         if (k.getCode() == KeyCode.DIGIT6) {
             MainApp.itSpot = 5;
-            MainApp.showItems();
+            MainApp.showItems();if (MainApp.currentI==null){return;}
+            if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+                recI.setTranslateY(35);
+
+            } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
+                recI.setTranslateY(-35);
+            }
         }
-       
+
         if (k.getCode() == KeyCode.ESCAPE /*&& MainApp.currentA != null*/) {//if able to use keys on main menu then check if anc is menu 
             //pause or play
 
