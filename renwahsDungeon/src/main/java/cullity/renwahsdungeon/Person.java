@@ -55,6 +55,7 @@ public class Person {
     private int coins;
     private int highestLevel;
     private double itemStatMultiplier;
+    private int hitCooldown = 0;
 
     //person stuff
     public Person() {
@@ -258,6 +259,13 @@ public class Person {
         } catch (Exception ex) {
         }
         return numR;
+    }
+    
+    public void setHitCooldown (int cd) {
+        hitCooldown = cd;
+    }
+    public int getHitCooldown() {
+        return hitCooldown;
     }
 
     int wAnimation = -1;

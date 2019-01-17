@@ -27,7 +27,6 @@ public class Enemy extends Rectangle {
     private ImagePattern imgP;
     //private Rectangle recEnemy;
     private String direction;
-    private int bounce = 0;
     
     private int directionTime = 0;
 
@@ -104,12 +103,6 @@ public class Enemy extends Rectangle {
     }
     public int getDirectionTime() {
         return directionTime;
-    }
-    public void setBounce(int b) {
-        bounce = b;
-    }
-    public int getBounce() {
-        return bounce;
     }
 
     public void setImageP(String im) {
