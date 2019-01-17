@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -105,6 +106,7 @@ public class CavePathController implements Initializable {
     Polygon ply[] = new Polygon[8];
 
     ArrayList<Enemy> enemies = new ArrayList();
+    int totalEnemies = 0;
 
     String direction = "";
 
@@ -113,6 +115,8 @@ public class CavePathController implements Initializable {
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
     int arrowCooldown = 0;//cooldown between using arrows
+    
+    Alert alert = new Alert(AlertType.INFORMATION);
 
     @FXML
     private void keyPressed(KeyEvent event) {
@@ -120,7 +124,7 @@ public class CavePathController implements Initializable {
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath);// this is because the pause button is in the global method//false means not in town
 
-        if (psn.getHitCooldown() == 0) {
+        if ((psn.getHitCooldown() == 0) || (psn.getHitCooldown() > 10)) {
             if (null != event.getCode()) {
                 switch (event.getCode()) {
                     case W:
@@ -144,22 +148,24 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void keyReleased(KeyEvent event) {
-        if (null != event.getCode()) {
-            switch (event.getCode()) {
-                case W:
-                    direction = "u";
-                    break;
-                case A:
-                    direction = "l";
-                    break;
-                case S:
-                    direction = "d";
-                    break;
-                case D:
-                    direction = "r";
-                    break;
-                default:
-                    break;
+        if ((psn.getHitCooldown() == 0) || (psn.getHitCooldown() > 10)) {
+            if (null != event.getCode()) {
+                switch (event.getCode()) {
+                    case W:
+                        direction = "u";
+                        break;
+                    case A:
+                        direction = "l";
+                        break;
+                    case S:
+                        direction = "d";
+                        break;
+                    case D:
+                        direction = "r";
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         if (arrowCooldown == 0) {
@@ -283,27 +289,27 @@ public class CavePathController implements Initializable {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
                     pneHero.setTranslateY(pneHero.getTranslateY() + 5);
                     if (psn.getHitCooldown() >= 1) {
-                        pneHero.setTranslateY(pneHero.getTranslateY() + 5);
+                        pneHero.setTranslateY(pneHero.getTranslateY() + 10);
                     }
                 } else if ((direction.equals("down")) || (direction.equals("d"))) {
                     pneHero.setTranslateY(pneHero.getTranslateY() - 5);
                     if (psn.getHitCooldown() >= 1) {
-                        pneHero.setTranslateY(pneHero.getTranslateY() - 5);
+                        pneHero.setTranslateY(pneHero.getTranslateY() - 10);
                     }
                 } else if ((direction.equals("left")) || (direction.equals("l"))) {
                     pneHero.setTranslateX(pneHero.getTranslateX() + 5);
                     if (psn.getHitCooldown() >= 1) {
-                        pneHero.setTranslateX(pneHero.getTranslateX() + 5);
+                        pneHero.setTranslateX(pneHero.getTranslateX() + 10);
                     }
                 } else if ((direction.equals("right")) || (direction.equals("r"))) {
                     pneHero.setTranslateX(pneHero.getTranslateX() - 5);
                     if (psn.getHitCooldown() >= 1) {
-                        pneHero.setTranslateX(pneHero.getTranslateX() - 5);
+                        pneHero.setTranslateX(pneHero.getTranslateX() - 10);
                     }
                 }
             }
 
-            for (int e = 0; e < enemies.size(); e++) {
+            /*for (int e = 0; e < enemies.size(); e++) {
                 switch (enemies.get(e).getDirection()) {
                     case "up":
                         enemies.get(e).setDirection("down");
@@ -318,8 +324,7 @@ public class CavePathController implements Initializable {
                         enemies.get(e).setDirection("left");
                         break;
                 }
-            }
-
+            }*/
             eMov++;
             if (eMov == 10) {
                 eMov = 0;
@@ -360,29 +365,62 @@ public class CavePathController implements Initializable {
                                 break;
                         }
                     }*/
+                    
+                    //knockback
                     if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
                         psn.setHitCooldown(1);
                         MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 10)));
                         prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
+                        if (MainApp.currentHealth <= 0) {
+                            move.stop();
+                            alert.setTitle("YOU DIED");
+                            alert.setHeaderText("YOU DIED");
+                            alert.setContentText("You have fought a courageous battle against the Slimes. You died at floor " + MainApp.currentL);
+                        }
+                        direction = enemies.get(em).getDirection();
                     } else if (psn.getHitCooldown() >= 1) {
                         psn.setHitCooldown(psn.getHitCooldown() + 1);
-                        System.out.println(psn.getHitCooldown());
-                        if (psn.getHitCooldown() == 100) {
-                            psn.setHitCooldown(0);
+                        if (recHero.isVisible()) {
+                            recHero.setVisible(false);
+                        } else {
+                            recHero.setVisible(true);
                         }
                         switch (direction) {
                             case "up":
                                 pneHero.setTranslateY(pneHero.getTranslateY() - 5);
                                 break;
-                            case "down":
-                                pneHero.setTranslateY(pneHero.getTranslateY() + 5);
-                                break;
                             case "left":
                                 pneHero.setTranslateX(pneHero.getTranslateX() - 5);
+                                break;
+                            case "down":
+                                pneHero.setTranslateY(pneHero.getTranslateY() + 5);
                                 break;
                             case "right":
                                 pneHero.setTranslateX(pneHero.getTranslateX() + 5);
                                 break;
+                            default:
+                                break;
+                        }
+                        if (psn.getHitCooldown() == 10) {
+                            switch (direction) {
+                                case "up":
+                                    direction = "u";
+                                    break;
+                                case "left":
+                                    direction = "l";
+                                    break;
+                                case "down":
+                                    direction = "d";
+                                    break;
+                                case "right":
+                                    direction = "r";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else if (psn.getHitCooldown() == 50) {
+                            psn.setHitCooldown(0);
+                            recHero.setVisible(true);
                         }
                     }
 
@@ -552,6 +590,7 @@ public class CavePathController implements Initializable {
         double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
         for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, 5 + 1); i++) {
             enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
+            totalEnemies++;
         }
         for (int ii = 0; ii < enemies.size(); ii++) {
             enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));

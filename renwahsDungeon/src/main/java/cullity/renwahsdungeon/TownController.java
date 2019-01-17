@@ -170,13 +170,13 @@ public class TownController implements Initializable {
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
-                    pneTown.setTranslateY(pneTown.getTranslateY() - 1);
+                    pneTown.setTranslateY(pneTown.getTranslateY() - 5);
                 } else if ((direction.equals("down")) || (direction.equals("d"))) {
-                    pneTown.setTranslateY(pneTown.getTranslateY() + 1);
+                    pneTown.setTranslateY(pneTown.getTranslateY() + 5);
                 } else if ((direction.equals("left")) || (direction.equals("l"))) {
-                    pneTown.setTranslateX(pneTown.getTranslateX() - 1);
+                    pneTown.setTranslateX(pneTown.getTranslateX() - 5);
                 } else if ((direction.equals("right")) || (direction.equals("r"))) {
-                    pneTown.setTranslateX(pneTown.getTranslateX() + 1);
+                    pneTown.setTranslateX(pneTown.getTranslateX() + 5);
                 }
             }
             if (checkCol(plyHero, plyPath)) {//stop move timer and go to
