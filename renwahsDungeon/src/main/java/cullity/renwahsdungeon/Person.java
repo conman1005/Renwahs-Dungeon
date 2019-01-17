@@ -269,7 +269,11 @@ public class Person {
                 recItem.setRotate(180);
                 recItem.setTranslateX(-35);
                 recItem.setTranslateY(-35);
-                pne.setTranslateY(pne.getTranslateY() + 5);
+                pne.setTranslateY(pne.getTranslateY() + 1);
+                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                    recItem.setTranslateY(35);
+                    recItem.setTranslateX(-60);
+                }
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
@@ -295,7 +299,10 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
-                pne.setTranslateY(pne.getTranslateY() - 5);
+                pne.setTranslateY(pne.getTranslateY() - 1);
+                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                    recItem.setTranslateY(35);
+                }
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
@@ -321,7 +328,10 @@ public class Person {
                 recItem.setTranslateX(-65);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
-                pne.setTranslateX(pne.getTranslateX() + 5);
+                pne.setTranslateX(pne.getTranslateX() + 1);
+                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                    recItem.setTranslateY(35);
+                }
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
@@ -347,7 +357,10 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
-                pne.setTranslateX(pne.getTranslateX() - 5);
+                pne.setTranslateX(pne.getTranslateX() - 1);
+                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                    recItem.setTranslateY(35);
+                }
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:

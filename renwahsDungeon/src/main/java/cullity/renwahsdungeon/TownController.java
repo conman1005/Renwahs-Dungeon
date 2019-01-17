@@ -143,7 +143,7 @@ public class TownController implements Initializable {
 
     @FXML
     private void mousePressed(MouseEvent event) {
-        if (MainApp.currentI.isWeapon()) {
+        if (MainApp.currentI.isWeapon() && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(45);
@@ -155,7 +155,7 @@ public class TownController implements Initializable {
 
     @FXML
     private void mouseReleased(MouseEvent event) {
-        if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty())) {
+        if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(0);
@@ -186,16 +186,16 @@ public class TownController implements Initializable {
                     determineCaveLevel();
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
-                        
+
                         Scene town_scene = new Scene(town_parent);
                         MainApp.currentS = town_scene;
                         //get reference to the stage
                         Stage stage = MainApp.mainStage;
-                        
+
                         stage.hide(); //optional
                         town_scene.getRoot().requestFocus();
                         stage.setScene(town_scene); //puts the new scence in the stage
-                        
+
                         //     stage.setTitle("Town"); //changes the title
                         stage.show(); //shows the new page
                     } catch (IOException ex) {
@@ -253,6 +253,13 @@ public class TownController implements Initializable {
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
         recTI.getTransforms().clear();
+        System.out.println(recTI.getTranslateY());
+        if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+            recTI.setTranslateY(35);
+
+        } else {
+            recTI.setTranslateY(-35);
+        }
     }
 
     @Override

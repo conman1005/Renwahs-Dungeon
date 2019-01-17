@@ -174,24 +174,23 @@ public class CavePathController implements Initializable {
 
                 }
 
-
-                    if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                        ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
-                        //arrowCooldown=10;
-                    }
-                    if (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                        ((Bow) MainApp.currentI).useBow(2, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
-                        //arrowCooldown=10;
-                    }
-                    if (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                        ((Bow) MainApp.currentI).useBow(1, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
-                        //arrowCooldown=10;
-                    }
-                    if (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
-                        ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
-                        //arrowCooldown=10;
-                    }
-                    arrowCooldown = 100;
+                if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                    ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                    //arrowCooldown=10;
+                }
+                if (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                    ((Bow) MainApp.currentI).useBow(2, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                    //arrowCooldown=10;
+                }
+                if (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                    ((Bow) MainApp.currentI).useBow(1, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                    //arrowCooldown=10;
+                }
+                if (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
+                    ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
+                    //arrowCooldown=10;
+                }
+                arrowCooldown = 100;
 
             }
         }
@@ -293,7 +292,7 @@ public class CavePathController implements Initializable {
             }
 
             for (int e = 0; e < enemies.size(); e++) {
-                    
+
                     if (enemies.get(e).getBounce() >= 1) {
                         enemies.get(e).setBounce(enemies.get(e).getBounce() + 1);
                         System.out.println(enemies.get(e).getBounce());
@@ -407,7 +406,7 @@ public class CavePathController implements Initializable {
 //if (MainApp.arrows.isEmpty()){return;}
 //        ArrayList<Arrow> copy = new ArrayList();
 //        copy.addAll(MainApp.arrows);
-
+        ArrayList<Arrow> removeArrow = new ArrayList();//cant remove from arralylist of enhanced loop after loop it will remove all arrows in this arraylist from the actual arrow arraylists
         for (Arrow a : MainApp.arrows) {
 
 //            for (Arrow ar : copy) {//if it is in another arrow then delete it//for if the user spams the shooting button
@@ -416,21 +415,26 @@ public class CavePathController implements Initializable {
 //                    MainApp.arrows.remove(a);
 //                }
 //            }
-//           get back for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
-//                if (checkCol(a, p) || checkCol(a, plyExit)) {
-//                    MainApp.currentA.getChildren().remove(a);
-//                    MainApp.arrows.remove(a);
-//                }
-//            }
-//            for (Enemy e : enemies) {
-//                if (checkCol(a, e)) {
-//                    //damage enemy //note not done yet
-//                    System.out.println("hit with arrow");
-//                    //then delete arrow
-//                    MainApp.currentA.getChildren().remove(a);
-//                    MainApp.arrows.remove(a);
-//                }
-//            }
+            for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
+                if (checkCol(a, p) || checkCol(a, plyExit)) {
+                    MainApp.currentA.getChildren().remove(a);
+                    removeArrow.add(a);
+                    // MainApp.arrows.remove(a);
+//                    a.setD(0);//because going to remove, so it cant continue moving//also cant remove from arralylist of enhanced loop
+                }
+            }
+            for (Enemy e : enemies) {
+                if (checkCol(a, e)) {
+                    //damage enemy //note not done yet
+                    System.out.println("hit with arrow");
+                    //then delete arrow
+                    MainApp.currentA.getChildren().remove(a);
+                    removeArrow.add(a);
+
+                    // MainApp.arrows.remove(a);
+//                    a.setD(0);
+                }
+            }
             int x = 0;
             int y = 0;
             if (a.getD() == 1) {
@@ -453,7 +457,12 @@ public class CavePathController implements Initializable {
             a.setTranslateX(a.getTranslateX() + x);
             a.setTranslateY(a.getTranslateY() - y);
         }
-
+        MainApp.arrows.removeAll(removeArrow);
+//        for (int i = 0; i < MainApp.arrows.size(); i++) {
+//            if (MainApp.arrows.get(i).getD() == 0) {
+//                MainApp.arrows.remove(i);
+//            }
+//        }
     }
 
     private boolean checkCol(Shape obj1, Shape obj2) {
@@ -470,7 +479,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mousePressed(MouseEvent event) {
-        if (MainApp.currentI.isWeapon()) {
+        if (MainApp.currentI.isWeapon()&&MainApp.currentI.getSymbol()=="s".charAt(0)) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(45);
@@ -482,7 +491,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mouseReleased(MouseEvent event) {
-        if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty())) {
+        if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty())&&(MainApp.currentI.getSymbol()=="s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(0);
