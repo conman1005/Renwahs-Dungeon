@@ -55,6 +55,7 @@ public class Person {
     private int coins;
     private int highestLevel;
     private double itemStatMultiplier;
+    private int hitCooldown = 0;
 
     //person stuff
     public Person() {
@@ -259,6 +260,13 @@ public class Person {
         }
         return numR;
     }
+    
+    public void setHitCooldown (int cd) {
+        hitCooldown = cd;
+    }
+    public int getHitCooldown() {
+        return hitCooldown;
+    }
 
     int wAnimation = -1;
 
@@ -269,7 +277,7 @@ public class Person {
                 recItem.setRotate(180);
                 recItem.setTranslateX(-35);
                 recItem.setTranslateY(-35);
-                pne.setTranslateY(pne.getTranslateY() + 1);
+                pne.setTranslateY(pne.getTranslateY() + 5);
                 if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
                     recItem.setTranslateY(35);
                     recItem.setTranslateX(-60);
@@ -279,16 +287,16 @@ public class Person {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:
@@ -299,7 +307,7 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
-                pne.setTranslateY(pne.getTranslateY() - 1);
+                pne.setTranslateY(pne.getTranslateY() - 5);
                 if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
                     recItem.setTranslateY(35);
                 }
@@ -308,16 +316,16 @@ public class Person {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFrontLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFrontRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:
@@ -328,7 +336,7 @@ public class Person {
                 recItem.setTranslateX(-65);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
-                pne.setTranslateX(pne.getTranslateX() + 1);
+                pne.setTranslateX(pne.getTranslateX() + 5);
                 if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
                     recItem.setTranslateY(35);
                 }
@@ -337,16 +345,16 @@ public class Person {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeftLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeftRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:
@@ -357,7 +365,7 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
-                pne.setTranslateX(pne.getTranslateX() - 1);
+                pne.setTranslateX(pne.getTranslateX() - 5);
                 if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
                     recItem.setTranslateY(35);
                 }
@@ -366,16 +374,16 @@ public class Person {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRightLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRightRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:
@@ -405,22 +413,22 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
                 recItem.setTranslateX(-40);
-                pne.setTranslateY(pne.getTranslateY() - 1);
+                pne.setTranslateY(pne.getTranslateY() - 5);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBack.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:
@@ -431,22 +439,22 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
                 recItem.setTranslateX(0);
-                pne.setTranslateY(pne.getTranslateY() + 1);
+                pne.setTranslateY(pne.getTranslateY() + 5);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFrontLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFrontRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:
@@ -457,22 +465,22 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
                 recItem.setTranslateX(-40);
-                pne.setTranslateX(pne.getTranslateX() - 1);
+                pne.setTranslateX(pne.getTranslateX() - 5);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeftLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeftRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroLeft.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:
@@ -483,22 +491,22 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
                 recItem.setTranslateX(0);
-                pne.setTranslateX(pne.getTranslateX() + 1);
+                pne.setTranslateX(pne.getTranslateX() + 5);
                 wAnimation++;
                 switch (wAnimation) {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRightLeft.png").toString())));
                         break;
-                    case 30:
+                    case 6:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
                         break;
-                    case 60:
+                    case 12:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRightRight.png").toString())));
                         break;
-                    case 90:
+                    case 18:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroRight.png").toString())));
                         break;
-                    case 120:
+                    case 24:
                         wAnimation = -1;
                         break;
                     default:

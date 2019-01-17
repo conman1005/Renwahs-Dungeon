@@ -102,7 +102,7 @@ public class CavePathController implements Initializable {
     @FXML
     private ProgressBar prgHealth;
 
-    Polygon ply[] = new Polygon[7];
+    Polygon ply[] = new Polygon[8];
 
     ArrayList<Enemy> enemies = new ArrayList();
 
@@ -111,7 +111,7 @@ public class CavePathController implements Initializable {
     Person psn = new Person();
     Enemy enm = new Enemy();
 
-    Timeline move = new Timeline(new KeyFrame(Duration.millis(7), ae -> movement()));
+    Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
     int arrowCooldown = 0;//cooldown between using arrows
 
     @FXML
@@ -120,25 +120,26 @@ public class CavePathController implements Initializable {
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath);// this is because the pause button is in the global method//false means not in town
 
-        if (null != event.getCode()) {
-            switch (event.getCode()) {
-                case W:
-                    direction = "up";
-                    break;
-                case A:
-                    direction = "left";
-                    break;
-                case S:
-                    direction = "down";
-                    break;
-                case D:
-                    direction = "right";
-                    break;
-                default:
-                    break;
+        if (psn.getHitCooldown() == 0) {
+            if (null != event.getCode()) {
+                switch (event.getCode()) {
+                    case W:
+                        direction = "up";
+                        break;
+                    case A:
+                        direction = "left";
+                        break;
+                    case S:
+                        direction = "down";
+                        break;
+                    case D:
+                        direction = "right";
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-
     }
 
     @FXML
@@ -204,12 +205,11 @@ public class CavePathController implements Initializable {
             arrowCooldown--;
         }
         for (int e = 0; e < enemies.size(); e++) {
-
             for (Polygon ply1 : ply) {
                 if (checkCol(enemies.get(e), ply1)) {
                     switch (enemies.get(e).getDirection()) {
                         case "up":
-                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
+                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 10);
                             switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("left");
@@ -225,7 +225,7 @@ public class CavePathController implements Initializable {
                             }
                             break;
                         case "down":
-                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
+                            enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 10);
                             switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("left");
@@ -241,7 +241,7 @@ public class CavePathController implements Initializable {
                             }
                             break;
                         case "left":
-                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
+                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 10);
                             switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("up");
@@ -257,7 +257,7 @@ public class CavePathController implements Initializable {
                             }
                             break;
                         case "right":
-                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
+                            enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 10);
                             switch (ThreadLocalRandom.current().nextInt(3)) {
                                 case 0:
                                     enemies.get(e).setDirection("left");
@@ -274,9 +274,6 @@ public class CavePathController implements Initializable {
                             break;
                     }
                 }
-                if (checkCol(enemies.get(e), plyHero)) {
-
-                }
             }
         }
 
@@ -284,107 +281,42 @@ public class CavePathController implements Initializable {
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
-                    pneHero.setTranslateY(pneHero.getTranslateY() + 1);
+                    pneHero.setTranslateY(pneHero.getTranslateY() + 5);
+                    if (psn.getHitCooldown() >= 1) {
+                        pneHero.setTranslateY(pneHero.getTranslateY() + 5);
+                    }
                 } else if ((direction.equals("down")) || (direction.equals("d"))) {
-                    pneHero.setTranslateY(pneHero.getTranslateY() - 1);
+                    pneHero.setTranslateY(pneHero.getTranslateY() - 5);
+                    if (psn.getHitCooldown() >= 1) {
+                        pneHero.setTranslateY(pneHero.getTranslateY() - 5);
+                    }
                 } else if ((direction.equals("left")) || (direction.equals("l"))) {
-                    pneHero.setTranslateX(pneHero.getTranslateX() + 1);
+                    pneHero.setTranslateX(pneHero.getTranslateX() + 5);
+                    if (psn.getHitCooldown() >= 1) {
+                        pneHero.setTranslateX(pneHero.getTranslateX() + 5);
+                    }
                 } else if ((direction.equals("right")) || (direction.equals("r"))) {
-                    pneHero.setTranslateX(pneHero.getTranslateX() - 1);
+                    pneHero.setTranslateX(pneHero.getTranslateX() - 5);
+                    if (psn.getHitCooldown() >= 1) {
+                        pneHero.setTranslateX(pneHero.getTranslateX() - 5);
+                    }
                 }
             }
 
             for (int e = 0; e < enemies.size(); e++) {
-                for (Polygon ply1 : ply) {
-                    if (checkCol(enemies.get(e), ply1)) {
-                        switch (enemies.get(e).getDirection()) {
-                            case "up":
-                                enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 1);
-                                switch (ThreadLocalRandom.current().nextInt(3)) {
-                                    case 0:
-                                        enemies.get(e).setDirection("left");
-                                        break;
-                                    case 1:
-                                        enemies.get(e).setDirection("right");
-                                        break;
-                                    case 2:
-                                        enemies.get(e).setDirection("down");
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                break;
-                            case "down":
-                                enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() - 1);
-                                switch (ThreadLocalRandom.current().nextInt(3)) {
-                                    case 0:
-                                        enemies.get(e).setDirection("left");
-                                        break;
-                                    case 1:
-                                        enemies.get(e).setDirection("right");
-                                        break;
-                                    case 2:
-                                        enemies.get(e).setDirection("up");
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                break;
-                            case "left":
-                                enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() + 1);
-                                switch (ThreadLocalRandom.current().nextInt(3)) {
-                                    case 0:
-                                        enemies.get(e).setDirection("up");
-                                        break;
-                                    case 1:
-                                        enemies.get(e).setDirection("right");
-                                        break;
-                                    case 2:
-                                        enemies.get(e).setDirection("down");
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                break;
-                            case "right":
-                                enemies.get(e).setTranslateX(enemies.get(e).getTranslateX() - 1);
-                                switch (ThreadLocalRandom.current().nextInt(3)) {
-                                    case 0:
-                                        enemies.get(e).setDirection("left");
-                                        break;
-                                    case 1:
-                                        enemies.get(e).setDirection("up");
-                                        break;
-                                    case 2:
-                                        enemies.get(e).setDirection("down");
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                break;
-                        }
-                    }
-
-                    if (checkCol(enemies.get(e), plyHero)) {
-                        enemies.get(e).setBounce(1);
-                    }
-                    if (enemies.get(e).getBounce() >= 1) {
-                        enemies.get(e).setBounce(enemies.get(e).getBounce() + 1);
-                        switch (enemies.get(e).getDirection()) {
-                            case "up":
-                                enemies.get(e).setDirection("down");
-                                break;
-                            case "down":
-                                enemies.get(e).setDirection("up");
-                                break;
-                            case "left":
-                                enemies.get(e).setDirection("right");
-                                break;
-                            case "right":
-                                enemies.get(e).setDirection("left");
-                                break;
-                        }
-                    }
+                switch (enemies.get(e).getDirection()) {
+                    case "up":
+                        enemies.get(e).setDirection("down");
+                        break;
+                    case "down":
+                        enemies.get(e).setDirection("up");
+                        break;
+                    case "left":
+                        enemies.get(e).setDirection("right");
+                        break;
+                    case "right":
+                        enemies.get(e).setDirection("left");
+                        break;
                 }
             }
 
@@ -412,7 +344,7 @@ public class CavePathController implements Initializable {
                         }
                     }
 
-                    if (ThreadLocalRandom.current().nextInt(500) == 500) {
+                    /*if ((ThreadLocalRandom.current().nextInt(500) == 0) && (enemies.get(em).getBounce() == 0)) {
                         switch (ThreadLocalRandom.current().nextInt(4)) {
                             case 0:
                                 enemies.get(em).setDirection("up");
@@ -427,19 +359,45 @@ public class CavePathController implements Initializable {
                                 enemies.get(em).setDirection("up");
                                 break;
                         }
+                    }*/
+                    if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
+                        psn.setHitCooldown(1);
+                        MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 10)));
+                        prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
+                    } else if (psn.getHitCooldown() >= 1) {
+                        psn.setHitCooldown(psn.getHitCooldown() + 1);
+                        System.out.println(psn.getHitCooldown());
+                        if (psn.getHitCooldown() == 100) {
+                            psn.setHitCooldown(0);
+                        }
+                        switch (direction) {
+                            case "up":
+                                pneHero.setTranslateY(pneHero.getTranslateY() - 5);
+                                break;
+                            case "down":
+                                pneHero.setTranslateY(pneHero.getTranslateY() + 5);
+                                break;
+                            case "left":
+                                pneHero.setTranslateX(pneHero.getTranslateX() - 5);
+                                break;
+                            case "right":
+                                pneHero.setTranslateX(pneHero.getTranslateX() + 5);
+                                break;
+                        }
                     }
+
                     switch (enemies.get(em).getDirection()) {
                         case "up":
-                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 1);
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 5);
                             break;
                         case "down":
-                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 1);
+                            enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() + 5);
                             break;
                         case "left":
-                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 1);
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() - 5);
                             break;
                         case "right":
-                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 1);
+                            enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 5);
                             break;
                     }
 
@@ -546,7 +504,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mousePressed(MouseEvent event) {
-        if (MainApp.currentI.isWeapon()&&MainApp.currentI.getSymbol()=="s".charAt(0)) {
+        if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(45);
@@ -558,7 +516,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mouseReleased(MouseEvent event) {
-        if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty())&&(MainApp.currentI.getSymbol()=="s".charAt(0))) {
+        if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() == "s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(0);
@@ -590,6 +548,7 @@ public class CavePathController implements Initializable {
         ply[4] = plyWall5;
         ply[5] = plyWall6;
         ply[6] = plyWall7;
+        ply[7] = plyExit;
         double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
         for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, 5 + 1); i++) {
             enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
