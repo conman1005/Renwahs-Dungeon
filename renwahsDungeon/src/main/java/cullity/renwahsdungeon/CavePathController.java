@@ -8,7 +8,7 @@ package cullity.renwahsdungeon;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 import static javafx.animation.Animation.INDEFINITE;
@@ -18,20 +18,18 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -115,14 +113,14 @@ public class CavePathController implements Initializable {
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
     int arrowCooldown = 0;//cooldown between using arrows
-    
+
     Alert alert = new Alert(AlertType.INFORMATION);
 
     @FXML
     private void keyPressed(KeyEvent event) {
         kEvent = event;
         keyStuff temp = new keyStuff();
-        temp.keys(event, false, ancCavePath);// this is because the pause button is in the global method//false means not in town
+        temp.keys(event, false, ancCavePath, recItem);// this is because the pause button is in the global method//false means not in town
 
         if ((psn.getHitCooldown() == 0) || (psn.getHitCooldown() > 10)) {
             if (null != event.getCode()) {
@@ -197,7 +195,7 @@ public class CavePathController implements Initializable {
                     ((Bow) MainApp.currentI).useBow(3, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
                     //arrowCooldown=10;
                 }
-                arrowCooldown = 100;
+                arrowCooldown = 50;
 
             }
         }
@@ -365,7 +363,7 @@ public class CavePathController implements Initializable {
                                 break;
                         }
                     }*/
-                    
+
                     //knockback
                     if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
                         psn.setHitCooldown(1);
@@ -446,24 +444,11 @@ public class CavePathController implements Initializable {
 
         if (checkCol(plyHero, plyExit)) {
             move.stop();
-            try {
-                Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
-
-                Scene cave_scene = new Scene(town_parent);
-                MainApp.currentS = cave_scene;
-                //get reference to the stage
-                Stage stage = MainApp.mainStage;
-
-                stage.hide(); //optional
-                cave_scene.getRoot().requestFocus();
-                stage.setScene(cave_scene); //puts the new scence in the stage
-
-                //     stage.setTitle("Town"); //changes the title
-                stage.show(); //shows the new page
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            pneHero.setTranslateY(pneHero.getTranslateY() - 15);
+            direction = "u";
+            Platform.runLater(() -> askIfWantToExit());
             return;
+
         }
 //arrow stuff
 //if (MainApp.arrows.isEmpty()){return;}
@@ -502,18 +487,18 @@ public class CavePathController implements Initializable {
             int y = 0;
             if (a.getD() == 1) {
                 x = 0;
-                y = 5;
+                y = 10;
                 a.setRotate(270);
             } else if (a.getD() == 2) {
-                x = 5;
+                x = 10;
                 y = 0;
                 a.setRotate(0);
             } else if (a.getD() == 3) {
                 x = 0;
-                y = -5;
+                y = -10;
                 a.setRotate(90);
             } else if (a.getD() == 4) {
-                x = -5;
+                x = -10;
                 y = 0;
                 a.setRotate(180);
             }
@@ -526,6 +511,41 @@ public class CavePathController implements Initializable {
 //                MainApp.arrows.remove(i);
 //            }
 //        }
+    }
+
+    private void askIfWantToExit() {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Are you sure you want to exit?");
+        a.setHeaderText("Any unsaved data will be lost");
+        a.setContentText(null);
+        Optional<ButtonType> result = a.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            // ... user chose OK
+            try {
+                Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
+
+                Scene cave_scene = new Scene(town_parent);
+                MainApp.currentS = cave_scene;
+                //get reference to the stage
+                Stage stage = MainApp.mainStage;
+
+                stage.hide(); //optional
+                cave_scene.getRoot().requestFocus();
+                stage.setScene(cave_scene); //puts the new scence in the stage
+
+                //     stage.setTitle("Town"); //changes the title
+                stage.show(); //shows the new page
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return;
+        } else {
+            // ... user chose CANCEL or closed the dialog
+            move.play();
+        }
+
+//
     }
 
     private boolean checkCol(Shape obj1, Shape obj2) {
