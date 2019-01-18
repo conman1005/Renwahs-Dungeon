@@ -308,8 +308,12 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
                 pne.setTranslateY(pne.getTranslateY() - 5);
-                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
-                    recItem.setTranslateY(35);
+                
+                try {
+                    if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                        recItem.setTranslateY(35);
+                    }
+                } catch (NullPointerException e) {
                 }
                 wAnimation++;
                 switch (wAnimation) {
@@ -337,8 +341,11 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
                 pne.setTranslateX(pne.getTranslateX() + 5);
-                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
-                    recItem.setTranslateY(35);
+                try {
+                    if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                        recItem.setTranslateY(35);
+                    }
+                } catch (NullPointerException e) {
                 }
                 wAnimation++;
                 switch (wAnimation) {

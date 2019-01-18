@@ -230,7 +230,7 @@ public class TownController implements Initializable {
 
     private boolean determineCaveLevel() {//allows user to choose level of dungeon
 
-        TextInputDialog dialog = new TextInputDialog("" + MainApp.currentP.getHighestLevel());
+        TextInputDialog dialog = new TextInputDialog("" + (MainApp.currentP.getHighestLevel()+1));
         dialog.setTitle("Choose Which Level Dungeon you would like to enter");
         dialog.setHeaderText("Type any number from 1 to the farthest level you've been to \n (currently " + (MainApp.currentP.getHighestLevel()+1) + ")");//might need to make easier to understand
         dialog.setContentText(null);
@@ -241,7 +241,7 @@ public class TownController implements Initializable {
             return false;
         }
         try {
-            if (Integer.parseInt(result.get()) < 0 || Integer.parseInt(result.get()) > (MainApp.currentP.getHighestLevel()+1)) {
+            if (Integer.parseInt(result.get()) < 1 || Integer.parseInt(result.get()) > (MainApp.currentP.getHighestLevel()+1)) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
@@ -281,6 +281,7 @@ public class TownController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        MainApp.currentHealth=MainApp.currentP.getBHealth()*(MainApp.currentP.getLevel()/10 +1);
         move.setCycleCount(INDEFINITE);
         move.play();
         MainApp.currentA = ancTown;

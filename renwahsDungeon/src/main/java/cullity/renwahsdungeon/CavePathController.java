@@ -43,43 +43,43 @@ import javafx.util.Duration;
  * @author Conner
  */
 public class CavePathController implements Initializable {
-    
+
     @FXML
     private Polygon plyWall1;
-    
+
     @FXML
     private Polygon plyWall2;
-    
+
     @FXML
     private Polygon plyWall3;
-    
+
     @FXML
     private Polygon plyWall4;
-    
+
     @FXML
     private Polygon plyWall5;
-    
+
     @FXML
     private Polygon plyWall6;
-    
+
     @FXML
     private Polygon plyWall7;
-    
+
     @FXML
     private Polygon plyExit;
-    
+
     @FXML
     private Polygon plyStairs;
-    
+
     @FXML
     private Polygon plyHero;
-    
+
     @FXML
     private Rectangle recHero;
-    
+
     @FXML
     private Pane pneHero;
-    
+
     @FXML
     private AnchorPane ancCavePath;
     @FXML
@@ -97,31 +97,52 @@ public class CavePathController implements Initializable {
     private Rectangle recC5;
     @FXML
     private Rectangle recC6;
-    
+
     @FXML
     private ProgressBar prgHealth;
-    
+
     Polygon ply[] = new Polygon[8];
-    
+
     ArrayList<Enemy> enemies = new ArrayList();
     int totalEnemies = 0;
-    
+
     String direction = "";
-    
+
     Person psn = new Person();
     Enemy enm = new Enemy();
-    
+
     Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
     int arrowCooldown = 0;//cooldown between using arrows
 
     Alert alert = new Alert(AlertType.INFORMATION);
-    
+
     @FXML
     private void keyPressed(KeyEvent event) {
+       
         kEvent = event;
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath, recItem);// this is because the pause button is in the global method//false means not in town
+        if ((event.getCode() == KeyCode.Q)) {
+            if (MainApp.currentHealth < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {
+                //fix it into knowing that the health is less
+                //use item like a potion  special ability for weapons
+                if (MainApp.currentI.getSymbol() == 'h') {//if health potion
+                    if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {//if current health + health potion is less than max health then add it normally
+                        MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
+                    } else {//current health + health potion is higher than full health so just make it full health
+                        MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1);
+                        System.out.println(MainApp.currentHealth);
+                        System.out.println(MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1));
 
+                        System.out.println(MainApp.currentP.getLevel() / 5);
+                    }
+                    //note//set user progress bar
+                    prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
+                    MainApp.deleteItem();
+                }
+
+            }
+        }
         if ((psn.getHitCooldown() == 0) || (psn.getHitCooldown() > 10)) {
             if (null != event.getCode()) {
                 switch (event.getCode()) {
@@ -143,7 +164,7 @@ public class CavePathController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void keyReleased(KeyEvent event) {
         if ((psn.getHitCooldown() == 0) || (psn.getHitCooldown() > 10)) {
@@ -167,7 +188,7 @@ public class CavePathController implements Initializable {
             }
         }
         if (arrowCooldown == 0) {
-            
+
             if ((event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) | (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow"))) {
                 if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
@@ -176,9 +197,9 @@ public class CavePathController implements Initializable {
                     al.setContentText(null);
                     Platform.runLater(al::showAndWait);
                     return;
-                    
+
                 }
-                
+
                 if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
                     ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
                     //arrowCooldown=10;
@@ -196,12 +217,12 @@ public class CavePathController implements Initializable {
                     //arrowCooldown=10;
                 }
                 arrowCooldown = 50;
-                
+
             }
         }
     }
     KeyEvent kEvent;
-    
+
     int eMov = 0; //eMov is used to make the enemies move 1 pixel in a longer time, so they move slower than the person
 
     private void movement() {
@@ -280,7 +301,7 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-        
+
         psn.moveCave(pneHero, direction, recHero, recItem);
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
@@ -329,7 +350,7 @@ public class CavePathController implements Initializable {
                 for (int em = 0; em < enemies.size(); em++) {
                     if (enemies.get(em).getDirectionTime() == 10) {
                         enemies.get(em).setDiretctionTime(0);
-                        
+
                         if (ThreadLocalRandom.current().nextBoolean() == true) {
                             if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
                                 enemies.get(em).setDirection("left");
@@ -337,7 +358,7 @@ public class CavePathController implements Initializable {
                                 enemies.get(em).setDirection("right");
                             }
                         } else {
-                            
+
                             if (enemies.get(em).getTranslateY() > pneHero.getTranslateY() + 556) {
                                 enemies.get(em).setDirection("up");
                             } else if (enemies.get(em).getTranslateY() < pneHero.getTranslateY() + 556) {
@@ -366,18 +387,17 @@ public class CavePathController implements Initializable {
                     //knockback
                     if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
                         psn.setHitCooldown(1);
-                        MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 10)));
-                        prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
+                        MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 5)));
+                        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
 
                             alert.setTitle("YOU WERE DEFEATED");
                             alert.setHeaderText("YOU WERE DEFEATED");
-                            alert.setContentText("You have fought a courageous battle against the Slimes. You died at floor " + MainApp.currentL);
+                            alert.setContentText("You have fought a courageous battle against the Slimes. You lost at floor " + MainApp.currentL);
                             if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
                                 MainApp.currentP.setHighestLevel(MainApp.currentL);
                             }
-                            
 
                             Platform.runLater(() -> {
                                 alert.showAndWait();
@@ -388,7 +408,7 @@ public class CavePathController implements Initializable {
                                     MainApp.currentS = cave_scene;
                                     //get reference to the stage
                                     Stage stage = MainApp.mainStage;
-                                    
+
                                     stage.hide(); //optional
                                     cave_scene.getRoot().requestFocus();
                                     stage.setScene(cave_scene); //puts the new scence in the stage
@@ -446,7 +466,7 @@ public class CavePathController implements Initializable {
                             recHero.setVisible(true);
                         }
                     }
-                    
+
                     switch (enemies.get(em).getDirection()) {
                         case "up":
                             enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 5);
@@ -461,19 +481,19 @@ public class CavePathController implements Initializable {
                             enemies.get(em).setTranslateX(enemies.get(em).getTranslateX() + 5);
                             break;
                     }
-                    
+
                     enemies.get(em).setDiretctionTime(enemies.get(em).getDirectionTime() + 1);
                 }
             }
         }
-        
+
         if (checkCol(plyHero, plyExit)) {
             move.stop();
             pneHero.setTranslateY(pneHero.getTranslateY() - 15);
             direction = "u";
             Platform.runLater(() -> askIfWantToExit());
             return;
-            
+
         }
 //arrow stuff
 //if (MainApp.arrows.isEmpty()){return;}
@@ -537,14 +557,14 @@ public class CavePathController implements Initializable {
 //            }
 //        }
     }
-    
+
     private void askIfWantToExit() {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Are you sure you want to exit?");
         a.setHeaderText("Any unsaved data will be lost");
         a.setContentText(null);
         Optional<ButtonType> result = a.showAndWait();
-        
+
         if (result.get() == ButtonType.OK) {
             // ... user chose OK
             try {
@@ -554,7 +574,7 @@ public class CavePathController implements Initializable {
                 MainApp.currentS = cave_scene;
                 //get reference to the stage
                 Stage stage = MainApp.mainStage;
-                
+
                 stage.hide(); //optional
                 cave_scene.getRoot().requestFocus();
                 stage.setScene(cave_scene); //puts the new scence in the stage
@@ -571,38 +591,38 @@ public class CavePathController implements Initializable {
 
 //
     }
-    
+
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
     }
-    
+
     @FXML
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
     }
-    
+
     Rotate rotate = new Rotate();
-    
+
     @FXML
     private void mousePressed(MouseEvent event) {
         if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(45);
-            
+
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
         }
     }
-    
+
     @FXML
     private void mouseReleased(MouseEvent event) {
         if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() == "s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(0);
-            
+
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
         }
@@ -615,14 +635,14 @@ public class CavePathController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         plyHero.setTranslateX(442);
         plyHero.setTranslateY(534);
-        
-        prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
-        
+
+        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
+
         psn.wAnimation = -1;
-        
+
         recHero.setFill(MainApp.currentP.getImageP());
         MainApp.currentA = ancCavePath;
-        
+
         ply[0] = plyWall1;
         ply[1] = plyWall2;
         ply[2] = plyWall3;
@@ -646,12 +666,12 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-        
+
         ancCavePath.getChildren().addAll(enemies);
-        
+
         move.setCycleCount(INDEFINITE);
         move.play();
-        
+
         MainApp.slot.clear();
         MainApp.slot.add(recC1);
         MainApp.slot.add(recC2);
@@ -662,5 +682,5 @@ public class CavePathController implements Initializable {
         MainApp.recItem = recItem;
         MainApp.showItems();
     }
-    
+
 }
