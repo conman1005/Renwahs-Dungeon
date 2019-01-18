@@ -370,15 +370,15 @@ public class CavePathController implements Initializable {
                         prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
-                            alert.setTitle("YOU DIED");
-                            alert.setHeaderText("YOU DIED");
-                            alert.setContentText("You have fought a courageous battle against the Slimes. You died at floor " + MainApp.currentL);
+                            alert.setTitle("DEFEAT");
+                            alert.setHeaderText("DEFEAT");
+                            alert.setContentText("You have fought a courageous battle against the Slimes. You lost at floor " + MainApp.currentL);
                             Platform.runLater(() -> {
                                 alert.showAndWait();
                                 try {
-                                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
+                                    Parent parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
-                                    Scene cave_scene = new Scene(town_parent);
+                                    Scene cave_scene = new Scene(parent);
                                     MainApp.currentS = cave_scene;
                                     //get reference to the stage
                                     Stage stage = MainApp.mainStage;
