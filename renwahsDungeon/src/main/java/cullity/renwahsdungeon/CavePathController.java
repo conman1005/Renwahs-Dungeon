@@ -128,17 +128,17 @@ public class CavePathController implements Initializable {
                 //use item like a potion  special ability for weapons
                 try {
                     if (MainApp.currentI.getSymbol() == 'h') {//if health potion
-                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {//if current health + health potion is less than max health then add it normally
+                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
                             MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
                         } else {//current health + health potion is higher than full health so just make it full health
-                            MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1);
+                            MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5.0 + 1.0);
                             System.out.println(MainApp.currentHealth);
-                            System.out.println(MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1));
+                            System.out.println(MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0));
 
-                            System.out.println(MainApp.currentP.getLevel() / 5);
+                            System.out.println((double)MainApp.currentP.getLevel() / 5);
                         }
                         //note//set user progress bar
-                        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
+                        prgHealth.setProgress((double)MainApp.currentHealth / ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         MainApp.deleteItem();
                     }
                 } catch (NullPointerException e) {
@@ -391,7 +391,7 @@ public class CavePathController implements Initializable {
                     if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
                         psn.setHitCooldown(1);
                         MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 5)));
-                        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
+                        prgHealth.setProgress((double)MainApp.currentHealth / ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
 
