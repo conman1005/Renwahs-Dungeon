@@ -374,6 +374,7 @@ public class CavePathController implements Initializable {
                             alert.setTitle("YOU DIED");
                             alert.setHeaderText("YOU DIED");
                             alert.setContentText("You have fought a courageous battle against the Slimes. You died at floor " + MainApp.currentL);
+                            Platform.runLater(alert::showAndWait);
                         }
                         direction = enemies.get(em).getDirection();
                     } else if (psn.getHitCooldown() >= 1) {
