@@ -633,6 +633,12 @@ public class CavePathController implements Initializable {
         for (int ii = 0; ii < enemies.size(); ii++) {
             enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
             enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
+            for (Polygon ply1 : ply) {
+                while (checkCol(enemies.get(ii), ply1)) {
+                    enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
+                    enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
+                }
+            }
         }
 
         ancCavePath.getChildren().addAll(enemies);
