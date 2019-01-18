@@ -38,6 +38,7 @@ public class MainApp extends Application {
     public static Stage mainStage;
     public static int recordNum;//spot in the random access file of currentP
     public static ArrayList<Arrow> arrows = new ArrayList();//array of arrows in cavePath//must be global so that it can be calledfrom the object of arrow
+    public static double fullHealth;
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -50,10 +51,11 @@ public class MainApp extends Application {
         if (inv.size() > 0) {
             currentI = inv.get(0);//change to spot if that gets put in
 
-        } else {
-            currentI = null;
         }
-        itSpot = 0;//change later to not make it always go to the beginning again
+        //else {
+//            currentI = null;
+//        }
+        itSpot = 5;//change later to not make it always go to the beginning again
         showItems();
         //if there is a spot variable for item then change it here
     }
