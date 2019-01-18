@@ -38,7 +38,7 @@ public class MainApp extends Application {
     public static Stage mainStage;
     public static int recordNum;//spot in the random access file of currentP
     public static ArrayList<Arrow> arrows = new ArrayList();//array of arrows in cavePath//must be global so that it can be calledfrom the object of arrow
-    public static double fullHealth;
+    
 
     public static void deleteItem() {//put in 
         inv.remove(currentI);
