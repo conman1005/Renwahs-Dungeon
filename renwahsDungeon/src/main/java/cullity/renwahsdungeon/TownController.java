@@ -196,15 +196,10 @@ public class TownController implements Initializable {
                 }
             }
             if (checkCol(plyHero, plyPath)) {//stop move timer and go to
-                pneTown.setTranslateX(pneTown.getTranslateX() + 5);
-                direction="l";
                 move.stop();
                 Platform.runLater(() -> {
                     MainApp.townLocation = "CAVEPATH";
-                    if (!determineCaveLevel()) {
-                        move.play();
-                        return;
-                    }
+                    determineCaveLevel();
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -222,39 +217,46 @@ public class TownController implements Initializable {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+                    pneTown.setTranslateX(pneTown.getTranslateX() + 1);
                 });
                 return;
             }
         }
     }
 
-    private boolean determineCaveLevel() {//allows user to choose level of dungeon
+    private void determineCaveLevel() {//allows user to choose level of dungeon
 
         TextInputDialog dialog = new TextInputDialog("" + MainApp.currentP.getHighestLevel());
         dialog.setTitle("Choose Which Level Dungeon you would like to enter");
-        dialog.setHeaderText("Type any number from 1 to the farthest level you've been to \n (currently " + (MainApp.currentP.getHighestLevel()+1) + ")");//might need to make easier to understand
+        dialog.setHeaderText("Type any number from 1 to the farthest level you've been to \n (currently " + MainApp.currentP.getHighestLevel() + ")");//might need to make easier to understand
         dialog.setContentText(null);
 
         Optional<String> result = dialog.showAndWait();
         String chosen;
         if (!result.isPresent()) {//if they cancel
-            return false;
+
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setTitle("Error");
+            a.setHeaderText("Must input a valid answer to continue");
+            a.setContentText("Please exit this message to try again");
+            a.showAndWait();
+            determineCaveLevel();
+            return;
         }
         try {
-            if (Integer.parseInt(result.get()) < 0 || Integer.parseInt(result.get()) > (MainApp.currentP.getHighestLevel()+1)) {
+            if (Integer.parseInt(result.get()) < 0 || Integer.parseInt(result.get()) > MainApp.currentP.getHighestLevel()) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("Error");
-            a.setHeaderText("Must input a valid number from 1 to " + (MainApp.currentP.getHighestLevel()+1));
+            a.setHeaderText("Must input a valid number between from 1 to " + MainApp.currentP.getHighestLevel());
             a.setContentText("Please exit this message to try again");
             a.showAndWait();
-            
-            return determineCaveLevel();
+            determineCaveLevel();
+            return;
         }
-        MainApp.currentL = Integer.parseInt(result.get())-1;
-        return true;
+        MainApp.currentL = Integer.parseInt(result.get());
 
     }
 
