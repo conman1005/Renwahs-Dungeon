@@ -99,19 +99,7 @@ public class CaveController implements Initializable {
                     //set enemy progress bar
                 }
             }
-        } else if (ke.getSource() == KeyCode.Q) {
-            //use item like a potion  special ability for weapons
-            if (MainApp.currentI.getItemName().equals("h")) {//if health potion
-                if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1))) {//if current health + health potion is less than max health then add it normally
-                    MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
-                } else {//current health + health potion is higher than full health so just make it full health
-                    MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1);
-
-                }
-            }
-            //set user progress bar
-
-        }
+        } 
     }
 
     private void enemyAtt() {
