@@ -118,7 +118,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
-       
+
         kEvent = event;
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath, recItem);// this is because the pause button is in the global method//false means not in town
@@ -126,19 +126,22 @@ public class CavePathController implements Initializable {
             if (MainApp.currentHealth < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {
                 //fix it into knowing that the health is less
                 //use item like a potion  special ability for weapons
-                if (MainApp.currentI.getSymbol() == 'h') {//if health potion
-                    if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {//if current health + health potion is less than max health then add it normally
-                        MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
-                    } else {//current health + health potion is higher than full health so just make it full health
-                        MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1);
-                        System.out.println(MainApp.currentHealth);
-                        System.out.println(MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1));
+                try {
+                    if (MainApp.currentI.getSymbol() == 'h') {//if health potion
+                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {//if current health + health potion is less than max health then add it normally
+                            MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
+                        } else {//current health + health potion is higher than full health so just make it full health
+                            MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1);
+                            System.out.println(MainApp.currentHealth);
+                            System.out.println(MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1));
 
-                        System.out.println(MainApp.currentP.getLevel() / 5);
+                            System.out.println(MainApp.currentP.getLevel() / 5);
+                        }
+                        //note//set user progress bar
+                        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
+                        MainApp.deleteItem();
                     }
-                    //note//set user progress bar
-                    prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
-                    MainApp.deleteItem();
+                } catch (NullPointerException e) {
                 }
 
             }
