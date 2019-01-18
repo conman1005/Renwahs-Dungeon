@@ -363,7 +363,6 @@ public class CavePathController implements Initializable {
                                 break;
                         }
                     }*/
-
                     //knockback
                     if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
                         psn.setHitCooldown(1);
@@ -374,6 +373,26 @@ public class CavePathController implements Initializable {
                             alert.setTitle("YOU DIED");
                             alert.setHeaderText("YOU DIED");
                             alert.setContentText("You have fought a courageous battle against the Slimes. You died at floor " + MainApp.currentL);
+                            Platform.runLater(() -> {
+                                alert.showAndWait();
+                                try {
+                                    Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
+
+                                    Scene cave_scene = new Scene(town_parent);
+                                    MainApp.currentS = cave_scene;
+                                    //get reference to the stage
+                                    Stage stage = MainApp.mainStage;
+
+                                    stage.hide(); //optional
+                                    cave_scene.getRoot().requestFocus();
+                                    stage.setScene(cave_scene); //puts the new scence in the stage
+
+                                    //     stage.setTitle("Town"); //changes the title
+                                    stage.show(); //shows the new page
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            });
                         }
                         direction = enemies.get(em).getDirection();
                     } else if (psn.getHitCooldown() >= 1) {
@@ -539,7 +558,6 @@ public class CavePathController implements Initializable {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            return;
         } else {
             // ... user chose CANCEL or closed the dialog
             move.play();
@@ -615,6 +633,12 @@ public class CavePathController implements Initializable {
         for (int ii = 0; ii < enemies.size(); ii++) {
             enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
             enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
+            for (Polygon ply1 : ply) {
+                while (checkCol(enemies.get(ii), ply1)) {
+                    enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
+                    enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
+                }
+            }
         }
 
         ancCavePath.getChildren().addAll(enemies);
