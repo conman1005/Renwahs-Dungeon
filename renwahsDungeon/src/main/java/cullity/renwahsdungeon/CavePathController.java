@@ -373,12 +373,12 @@ public class CavePathController implements Initializable {
 
                             alert.setTitle("YOU WERE DEFEATED");
                             alert.setHeaderText("YOU WERE DEFEATED");
-                            alert.setContentText("You have fought a courageous battle against the Slimes. You died at floor " + MainApp.currentL);
+                            alert.setContentText("You have fought a courageous battle against the Slimes. You lost at floor " + MainApp.currentL);
                             if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
                                 MainApp.currentP.setHighestLevel(MainApp.currentL);
                             }
+                            MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1);
                             
-
                             Platform.runLater(() -> {
                                 alert.showAndWait();
                                 try {
@@ -616,7 +616,7 @@ public class CavePathController implements Initializable {
         plyHero.setTranslateX(442);
         plyHero.setTranslateY(534);
         
-        prgHealth.setProgress(MainApp.currentHealth / MainApp.currentP.getBHealth());
+        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1)));
         
         psn.wAnimation = -1;
         
