@@ -307,6 +307,8 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
+                recItem.setTranslateX(0);
+                recItem.setTranslateY(0);
                 pne.setTranslateY(pne.getTranslateY() - 5);
                 
                 try {
@@ -340,6 +342,8 @@ public class Person {
                 recItem.setTranslateX(-65);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
+                recItem.setTranslateX(0);
+                recItem.setTranslateY(0);
                 pne.setTranslateX(pne.getTranslateX() + 5);
                 try {
                     if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
@@ -372,6 +376,8 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
+                recItem.setTranslateX(0);
+                recItem.setTranslateY(0);
                 pne.setTranslateX(pne.getTranslateX() - 5);
                 if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
                     recItem.setTranslateY(35);
@@ -419,7 +425,8 @@ public class Person {
             case "up":
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
-                recItem.setTranslateX(-40);
+                recItem.setTranslateX(0);
+                recItem.setTranslateY(-25);
                 pne.setTranslateY(pne.getTranslateY() - 5);
                 wAnimation++;
                 switch (wAnimation) {
@@ -446,6 +453,7 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
                 recItem.setTranslateX(0);
+                recItem.setTranslateY(45);
                 pne.setTranslateY(pne.getTranslateY() + 5);
                 wAnimation++;
                 switch (wAnimation) {
@@ -472,6 +480,7 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
                 recItem.setTranslateX(-40);
+                recItem.setTranslateY(0);
                 pne.setTranslateX(pne.getTranslateX() - 5);
                 wAnimation++;
                 switch (wAnimation) {
@@ -498,6 +507,7 @@ public class Person {
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
                 recItem.setTranslateX(0);
+                recItem.setTranslateY(0);
                 pne.setTranslateX(pne.getTranslateX() + 5);
                 wAnimation++;
                 switch (wAnimation) {
