@@ -393,7 +393,7 @@ public class CavePathController implements Initializable {
                         }
                     }*/
                     //knockback
-                    if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
+                    if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0) && (enemies.get(em).isVisible())) {
                         psn.setHitCooldown(1);
                         MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 5)));
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
@@ -632,6 +632,12 @@ public class CavePathController implements Initializable {
 
             sword = new MediaPlayer((new Media(getClass().getResource("/woosh.mp3").toString())));
             sword.play();
+            
+            for (int e = 0; e < enemies.size(); e++) {
+                if ((checkCol(recItem, enemies.get(e))) && (enemies.get(e).isVisible())) {
+                    enemies.get(e).setHealth(enemies.get(e).getHealth()); //Shawn, add to this
+                }
+            }
         }
     }
 
