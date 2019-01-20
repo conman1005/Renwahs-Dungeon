@@ -192,9 +192,9 @@ public class keyStuff {
                         Scene town_scene = new Scene(town_parent);
                         MainApp.currentS = town_scene;
                         // get reference to the stage
-                        Stage stage = (Stage) ((Node) MainApp.slot.get(0)).getScene().getWindow();
+                        Stage stage = MainApp.mainStage;
 
-//                        stage.hide(); //optional
+                        stage.hide(); //optional
                         town_scene.getRoot().requestFocus();
                         stage.setScene(town_scene); //puts the new scence in the stage
 
@@ -214,6 +214,7 @@ public class keyStuff {
                 }
             }
             MainApp.currentS.getRoot().requestFocus();
+            
         }
     }
     
