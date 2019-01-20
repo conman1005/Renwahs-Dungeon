@@ -279,9 +279,12 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setTranslateY(0);
                 pne.setTranslateY(pne.getTranslateY() + 5);
-                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
-                    recItem.setTranslateY(35);
-                    recItem.setTranslateX(-60);
+                try {
+                    if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                        recItem.setTranslateY(35);
+                        recItem.setTranslateX(-60);
+                    }
+                } catch (NullPointerException e) {
                 }
                 wAnimation++;
                 switch (wAnimation) {
