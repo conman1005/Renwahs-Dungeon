@@ -274,9 +274,9 @@ public class Person {
         switch (direction) {
             case "up":
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
-                recItem.setRotate(180);
-                recItem.setTranslateX(-35);
-                recItem.setTranslateY(-35);
+                recItem.setRotate(0);
+                recItem.setTranslateX(0);
+                recItem.setTranslateY(0);
                 pne.setTranslateY(pne.getTranslateY() + 5);
                 if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
                     recItem.setTranslateY(35);
@@ -304,10 +304,9 @@ public class Person {
                 }
                 break;
             case "down":
-                recItem.setTranslateX(0);
+                recItem.setTranslateX(-65);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
-                recItem.setRotate(0);
-                recItem.setTranslateX(0);
+                recItem.setRotate(180);
                 recItem.setTranslateY(0);
                 pne.setTranslateY(pne.getTranslateY() - 5);
                 
@@ -342,7 +341,6 @@ public class Person {
                 recItem.setTranslateX(-65);
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(180);
-                recItem.setTranslateX(0);
                 recItem.setTranslateY(0);
                 pne.setTranslateX(pne.getTranslateX() + 5);
                 try {
