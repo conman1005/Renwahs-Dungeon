@@ -53,7 +53,7 @@ public class Chest {
             itm3 = gains.get(2);
         } catch (Exception e) {
         }
-        extraCoins = ThreadLocalRandom.current().nextInt(100, 500 + 1);//extra coins
+        extraCoins = ThreadLocalRandom.current().nextInt(100 * (MainApp.currentP.getLevel() / 5 + 1), 500 + 1);//extra coins
         imageP = new ImagePattern(new Image(getClass().getResource("/" + "chest" + ".png").toString()));
     }
 
@@ -178,6 +178,9 @@ public class Chest {
             for (Item i : choices) {
                 newIn += i.getSymbol();
             }
+            for (int i = 0; i < (6 - newIn.length()); i++) {
+                newIn += "!";
+            }
         }
 
         MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
@@ -192,7 +195,7 @@ public class Chest {
         MainApp.showItems();
         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
         al.setTitle("Coins");
-        al.setHeaderText("You received " + extraCoins * MainApp.currentL + " coins. \n You are now being sent to level " + MainApp.currentL);
+        al.setHeaderText("You received " + extraCoins * MainApp.currentL + " coins. \n You are now being sent to level " + (MainApp.currentL + 1));
         al.setContentText(null);
         al.showAndWait();
         //show money

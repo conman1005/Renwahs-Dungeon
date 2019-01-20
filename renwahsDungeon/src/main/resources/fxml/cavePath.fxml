@@ -17,7 +17,7 @@
       <Polygon fx:id="plyWall6" fill="#2197ff00" layoutX="348.0" layoutY="258.0" points="-10.0, -17.0, 21.0, -17.0, 2.0, -41.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Polygon fx:id="plyWall7" fill="#2197ff00" layoutX="569.0" layoutY="258.0" points="-13.0, -19.0, 24.0, -19.0, -1.0, -43.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Polygon fx:id="plyExit" fill="#2197ff00" layoutX="384.0" layoutY="565.0" points="-94.0, 60.0, 205.0, 60.0, 205.0, 41.0, -94.0, 41.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <Polygon fx:id="plyStairs" fill="#2197ff00" layoutX="451.0" layoutY="258.0" points="-9.0, 34.0, 25.0, 34.0, 25.0, 2.0, -9.0, 2.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Polygon fx:id="plyChest" fill="#2197ff00" layoutX="451.0" layoutY="258.0" points="-9.0, 34.0, 25.0, 34.0, 25.0, 2.0, -9.0, 2.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Rectangle fx:id="recC1" arcHeight="5.0" arcWidth="5.0" fill="#383a52" height="50.0" layoutX="26.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recC2" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="106.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recC3" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="186.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
@@ -33,5 +33,6 @@
       </Pane>
       <ProgressBar fx:id="prgHealth" layoutX="575.0" layoutY="14.0" prefWidth="200.0" progress="0.0" />
       <Label layoutX="546.0" layoutY="15.0" text="HP:" textFill="WHITE" />
+      <Rectangle fx:id="recChest" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="32.0" layoutX="443.0" layoutY="260.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="34.0" />
    </children>
 </AnchorPane>

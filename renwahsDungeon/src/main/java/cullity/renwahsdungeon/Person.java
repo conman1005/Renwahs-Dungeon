@@ -260,17 +260,17 @@ public class Person {
         }
         return numR;
     }
-    
-    public void setHitCooldown (int cd) {
+
+    public void setHitCooldown(int cd) {
         hitCooldown = cd;
     }
+
     public int getHitCooldown() {
         return hitCooldown;
     }
 
     int wAnimation = -1;
-    
-    
+
     public void moveTown(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":
@@ -310,7 +310,7 @@ public class Person {
                 recItem.setRotate(180);
                 recItem.setTranslateY(0);
                 pne.setTranslateY(pne.getTranslateY() - 5);
-                
+
                 try {
                     if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
                         recItem.setTranslateY(35);
@@ -378,8 +378,11 @@ public class Person {
                 recItem.setTranslateX(0);
                 recItem.setTranslateY(0);
                 pne.setTranslateX(pne.getTranslateX() - 5);
-                if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
-                    recItem.setTranslateY(35);
+                try {//tried in case there is no item in hand because then currentI is null
+                    if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
+                        recItem.setTranslateY(35);
+                    }
+                } catch (Exception e) {
                 }
                 wAnimation++;
                 switch (wAnimation) {
