@@ -305,7 +305,7 @@ public class TownController implements Initializable {
         music.play();
         MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
-        
+        direction="r";
         //MainApp.currentP.setInventory("hsh!!!");//for testing
         //MainApp.getItemsFromData(MainApp.currentP.getInventory());//for testing
         MainApp.slot.clear();

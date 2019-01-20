@@ -228,7 +228,7 @@ public class Person {
             level = open.readInt();
             coins = open.readInt();
             highestLevel = open.readInt();
-            itemStatMultiplier = open.readInt();
+            itemStatMultiplier = open.readDouble();
             open.close();
         } catch (IOException io) {
 
