@@ -18,13 +18,13 @@ public class HPotion extends Item {
 
     public HPotion() {
         super("hPotion", false, "h".charAt(0), "hPotion", 10);
-        extraHealth = 10 * MainApp.currentP.getItemStatMultiplier();
+        extraHealth = 10;
 
     }
 
     public HPotion(String it, int h, char s, Image im, double p) {
         super(it, false, s, "hPotion", p);//true because sword is weapoon
-        extraHealth = (h * MainApp.currentP.getItemStatMultiplier());
+        extraHealth = h ;
 
     }
 
