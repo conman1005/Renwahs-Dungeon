@@ -129,8 +129,10 @@ public class CavePathController implements Initializable {
     private void keyPressed(KeyEvent event) {
 
         kEvent = event;
+        if (event.getCode()==KeyCode.ESCAPE){move.stop();}
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath, recItem);// this is because the pause button is in the global method//false means not in town
+       if (event.getCode()==KeyCode.ESCAPE){move.play();}
         if ((event.getCode() == KeyCode.Q)) {
             if (MainApp.currentHealth < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {
                 //fix it into knowing that the health is less
@@ -409,7 +411,7 @@ public class CavePathController implements Initializable {
 
                             alert.setTitle("YOU WERE DEFEATED");
                             alert.setHeaderText("YOU WERE DEFEATED");
-                            alert.setContentText("You have fought a courageous battle against the Slimes. You lost at floor " + MainApp.currentL);
+                            alert.setContentText("You have fought a courageous battle against the Slimes. \n You lost at floor " + MainApp.currentL);
                             if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
                                 MainApp.currentP.setHighestLevel(MainApp.currentL);
                             }
@@ -544,7 +546,8 @@ public class CavePathController implements Initializable {
             for (Enemy e : enemies) {
                 if (checkCol(a, e)) {
                     //damage enemy //note not done yet
-                    e.setHealth(e.getHealth() - (MainApp.currentP.getBStrength() * MainApp.currentP.getItemStatMultiplier() * (MainApp.currentP.getLevel() / 5 + 1)));
+                    e.setHealth(e.getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1)));
+                   System.out.println(MainApp.currentP.getBStrength());                   System.out.println(MainApp.currentP.getItemStatMultiplier());                   System.out.println((MainApp.currentP.getLevel() / 5 + 1));
                     if (e.getHealth() < 1) {
                         e.setVisible(false);
                         for (int ee = 0; ee < enemies.size(); ee++) {
@@ -677,7 +680,7 @@ public class CavePathController implements Initializable {
 
             for (int e = 0; e < enemies.size(); e++) {
                 if ((checkCol(recItem, enemies.get(e))) && (enemies.get(e).isVisible())) {
-                    enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() * MainApp.currentP.getItemStatMultiplier() * (MainApp.currentP.getLevel() / 5 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
+                    enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
                     slime = new MediaPlayer((new Media(getClass().getResource("/Blood Squirt.mp3").toString())));
                     slime.play();
                     if (enemies.get(e).getHealth() <= 0) {
