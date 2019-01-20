@@ -306,8 +306,8 @@ public class TownController implements Initializable {
         MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
         
-        MainApp.currentP.setInventory("hsh!!!");//for testing
-        MainApp.getItemsFromData(MainApp.currentP.getInventory());//for testing
+        //MainApp.currentP.setInventory("hsh!!!");//for testing
+        //MainApp.getItemsFromData(MainApp.currentP.getInventory());//for testing
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
         MainApp.slot.add(recT2);

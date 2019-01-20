@@ -71,7 +71,7 @@ public class CavePathController implements Initializable {
     private Polygon plyExit;
 
     @FXML
-    private Polygon plyStairs;
+    private Polygon plyChest;
 
     @FXML
     private Polygon plyHero;
@@ -86,7 +86,8 @@ public class CavePathController implements Initializable {
     private AnchorPane ancCavePath;
     @FXML
     private Rectangle recItem;//rec that shows the item in the hand of the person in the cavePath scene
-
+    @FXML
+    private Rectangle recChest;
     @FXML
     private Rectangle recC1;
     @FXML
@@ -117,9 +118,9 @@ public class CavePathController implements Initializable {
     MediaPlayer music;
     MediaPlayer sword;
     MediaPlayer slime;
-
+    Chest winChest = new Chest();
     int arrowCooldown = 0;//cooldown between using arrows
-
+    boolean chestOpen = false;//if a chest is open in timer then this stops it from opening a bunch
     Alert alert = new Alert(AlertType.INFORMATION);
 
     int deadEnemies = 0;
@@ -237,6 +238,9 @@ public class CavePathController implements Initializable {
     int eMov = 0; //eMov is used to make the enemies move 1 pixel in a longer time, so they move slower than the person
 
     private void movement() {
+        if (chestOpen) {
+            return;
+        }
         if (arrowCooldown > 0) {
             arrowCooldown--;
         }
@@ -409,7 +413,7 @@ public class CavePathController implements Initializable {
                             if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
                                 MainApp.currentP.setHighestLevel(MainApp.currentL);
                             }
-                            MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1);
+                            MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1);
 
                             Platform.runLater(() -> {
                                 alert.showAndWait();
@@ -507,29 +511,28 @@ public class CavePathController implements Initializable {
             Platform.runLater(() -> askIfWantToExit());
             return;
         }
-        if (checkCol(plyHero, plyStairs)) {
-            for (int ee = 0; ee < enemies.size(); ee++) {
-                if (!enemies.get(ee).isVisible()) {
-                    deadEnemies++;
-                    if (deadEnemies == enemies.size()) {
-                        MainApp.currentL++;
-                    }
+        if (checkCol(plyHero, plyChest) && recChest.isVisible()) {
+            chestOpen = true;
+            Platform.runLater(()
+                    -> {
+                try {
+                    winChest.open();
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IllegalAccessException ex) {
+                    ex.printStackTrace();
                 }
             }
+            );
+            return;
+
         }
 //arrow stuff
 //if (MainApp.arrows.isEmpty()){return;}
-//        ArrayList<Arrow> copy = new ArrayList();
-//        copy.addAll(MainApp.arrows);
+
         ArrayList<Arrow> removeArrow = new ArrayList();//cant remove from arralylist of enhanced loop after loop it will remove all arrows in this arraylist from the actual arrow arraylists
         for (Arrow a : MainApp.arrows) {
 
-//            for (Arrow ar : copy) {//if it is in another arrow then delete it//for if the user spams the shooting button
-//                if (MainApp.arrows.indexOf(a) != copy.indexOf(ar) && checkCol(a, ar)) {
-//                    MainApp.currentA.getChildren().remove(a);
-//                    MainApp.arrows.remove(a);
-//                }
-//            }
             for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
                 if (checkCol(a, p) || checkCol(a, plyExit)) {
                     MainApp.currentA.getChildren().remove(a);
@@ -541,7 +544,29 @@ public class CavePathController implements Initializable {
             for (Enemy e : enemies) {
                 if (checkCol(a, e)) {
                     //damage enemy //note not done yet
-                    System.out.println("hit with arrow");
+                    e.setHealth(e.getHealth() - (MainApp.currentP.getBStrength() * MainApp.currentP.getItemStatMultiplier() * (MainApp.currentP.getLevel() / 5 + 1)));
+                    if (e.getHealth() < 1) {
+                        e.setVisible(false);
+                        for (int ee = 0; ee < enemies.size(); ee++) {
+                            if (!enemies.get(ee).isVisible()) {
+                                deadEnemies++;
+                                if (deadEnemies == enemies.size()) {
+                                    recChest.setFill(winChest.getImageP());
+                                    recChest.setVisible(true);
+                                    direction = "r";
+                                    Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                                    al.setTitle("You completed the level!");
+                                    al.setHeaderText("Go collect the chest to save your game and continue");
+                                    al.setContentText(null);
+                                    Platform.runLater(al::showAndWait);
+                                }
+
+                            }
+                        }
+                        deadEnemies = 0;
+
+                    }
+                    System.out.println("hit with arrow");//testing
                     //then delete arrow
                     MainApp.currentA.getChildren().remove(a);
                     removeArrow.add(a);
@@ -652,7 +677,7 @@ public class CavePathController implements Initializable {
 
             for (int e = 0; e < enemies.size(); e++) {
                 if ((checkCol(recItem, enemies.get(e))) && (enemies.get(e).isVisible())) {
-                    enemies.get(e).setHealth(enemies.get(e).getHealth() - 35); //Shawn, add to this. 35 is a placeholder number for testing.
+                    enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() * MainApp.currentP.getItemStatMultiplier() * (MainApp.currentP.getLevel() / 5 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
                     slime = new MediaPlayer((new Media(getClass().getResource("/Blood Squirt.mp3").toString())));
                     slime.play();
                     if (enemies.get(e).getHealth() <= 0) {
@@ -660,6 +685,22 @@ public class CavePathController implements Initializable {
                     }
                 }
             }
+            for (int ee = 0; ee < enemies.size(); ee++) {
+                if (!enemies.get(ee).isVisible()) {
+                    deadEnemies++;
+                    if (deadEnemies == enemies.size()) {
+                        recChest.setFill(winChest.getImageP());
+                        recChest.setVisible(true);
+                        direction = "r";
+                        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                        al.setTitle("You completed the level!");
+                        al.setHeaderText("Go collect the chest to save your game and continue");
+                        al.setContentText(null);
+                        Platform.runLater(al::showAndWait);
+                    }
+                }
+            }
+            deadEnemies = 0;
         }
     }
 
@@ -684,8 +725,8 @@ public class CavePathController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         plyHero.setTranslateX(442);
         plyHero.setTranslateY(534);
-
-        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1)));
+        MainApp.currentHealth = (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1));
+        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
 
         psn.wAnimation = -1;
 

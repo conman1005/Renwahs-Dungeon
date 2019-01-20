@@ -27,24 +27,24 @@ import javafx.stage.Stage;
  * @author shawnb58
  */
 public class keyStuff {
-
+    
     public Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
+    
     public keyStuff() {
-
+        
     }
-
+    
     public void keys(KeyEvent k, boolean inTown, AnchorPane anc, Rectangle recI) {//if in town scene, inTown=true//recItem is the rectangle that shows the item
         if (k.getCode() == KeyCode.T) {//testing stuff//cheat code
 
             MainApp.currentP.setCoins(999);
             MainApp.currentP.setInventory("sbhhhh");
-
+            MainApp.currentP.setBStrength(100);
             MainApp.getItemsFromData("sbhhhh");
             MainApp.showItems();
-             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
+            if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
                 recI.setTranslateY(35);
-
+                
             } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
                 recI.setTranslateY(-35);
             }
@@ -58,64 +58,81 @@ public class keyStuff {
             MainApp.showItems();
             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
                 recI.setTranslateY(35);
-
+                
             } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
                 recI.setTranslateY(-35);
             }
         }
         if (k.getCode() == KeyCode.DIGIT2) {
             MainApp.itSpot = 1;
-            MainApp.showItems();if (MainApp.currentI==null){return;}
+            MainApp.showItems();
+            if (MainApp.currentI == null) {
+                return;
+            }
             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
                 recI.setTranslateY(35);
-
+                
             } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
                 recI.setTranslateY(-35);
             }
         }
         if (k.getCode() == KeyCode.DIGIT3) {
             MainApp.itSpot = 2;
-            MainApp.showItems();if (MainApp.currentI==null){return;}
+            MainApp.showItems();
+            if (MainApp.currentI == null) {
+                return;
+            }
             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
                 recI.setTranslateY(35);
-
+                
             } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
                 recI.setTranslateY(-35);
             }
-
+            
         }
         if (k.getCode() == KeyCode.DIGIT4) {
             MainApp.itSpot = 3;
-            MainApp.showItems();if (MainApp.currentI==null){return;}
+            MainApp.showItems();
+            if (MainApp.currentI == null) {
+                return;
+            }
             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
                 recI.setTranslateY(35);
-
+                
             } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
                 recI.setTranslateY(-35);
             }
         }
         if (k.getCode() == KeyCode.DIGIT5) {
             MainApp.itSpot = 4;
-            MainApp.showItems();if (MainApp.currentI==null){return;}
-            if (MainApp.currentI==null){return;}
+            MainApp.showItems();
+            if (MainApp.currentI == null) {
+                return;
+            }
+            if (MainApp.currentI == null) {
+                return;
+            }
             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
                 recI.setTranslateY(35);
-
+                
             } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
                 recI.setTranslateY(-35);
             }
         }
         if (k.getCode() == KeyCode.DIGIT6) {
             MainApp.itSpot = 5;
-            MainApp.showItems();if (MainApp.currentI==null){return;}
+            MainApp.showItems();
+            if (MainApp.currentI == null) {
+                return;
+            }
             if (MainApp.currentI.getSymbol() == "b".charAt(0) && inTown) {
                 recI.setTranslateY(35);
-
+                
             } else if (MainApp.currentI.getSymbol() != "b".charAt(0) && inTown) {
                 recI.setTranslateY(-35);
             }
         }
-
+        
         if (k.getCode() == KeyCode.ESCAPE /*&& MainApp.currentA != null*/) {//if able to use keys on main menu then check if anc is menu 
             //pause or play
 
@@ -126,16 +143,16 @@ public class keyStuff {
                 }
                 MainApp.paused = false;
                 anc.setDisable(MainApp.paused);
-
+                
             } else {
-
+                
                 MainApp.paused = true;
                 anc.setDisable(MainApp.paused);
                 //show menu
                 alert.setTitle("Paused");
                 alert.setHeaderText("Warning");
                 alert.setContentText("Changing screens will result in the loss of any unsaved data");
-
+                
                 ButtonType buttonTypeMenu = new ButtonType("Main Menu");
                 ButtonType buttonTypeTown = new ButtonType("Back To Town");
                 ButtonType buttonTypeQuit = new ButtonType("Quit");
@@ -145,19 +162,19 @@ public class keyStuff {
                 } else {
                     alert.getButtonTypes().setAll(buttonTypeMenu, buttonTypeQuit, buttonTypeCancel);
                 }
-
+                
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeMenu) {
                     // ... user chose "main menu"
                     MainApp.paused = false;
                     try {
                         Parent menu_parent = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-
+                        
                         Scene menu_scene = new Scene(menu_parent);
                         MainApp.currentS = menu_scene;
                         // get reference to the stage
                         Stage stage = (Stage) ((Node) MainApp.slot.get(0)).getScene().getWindow();
-
+                        
                         stage.hide(); //optional
                         menu_scene.getRoot().requestFocus();
                         stage.setScene(menu_scene); //puts the new scence in the stage
@@ -171,13 +188,13 @@ public class keyStuff {
                     MainApp.paused = false;
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml"));
-
+                        
                         Scene town_scene = new Scene(town_parent);
                         MainApp.currentS = town_scene;
                         // get reference to the stage
                         Stage stage = (Stage) ((Node) MainApp.slot.get(0)).getScene().getWindow();
 
-                        stage.hide(); //optional
+//                        stage.hide(); //optional
                         town_scene.getRoot().requestFocus();
                         stage.setScene(town_scene); //puts the new scence in the stage
 
@@ -199,5 +216,5 @@ public class keyStuff {
             MainApp.currentS.getRoot().requestFocus();
         }
     }
-
+    
 }
