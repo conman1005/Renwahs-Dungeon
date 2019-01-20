@@ -30,6 +30,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -112,9 +114,15 @@ public class CavePathController implements Initializable {
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
+    MediaPlayer music;
+    MediaPlayer sword;
+    MediaPlayer slime;
+
     int arrowCooldown = 0;//cooldown between using arrows
 
     Alert alert = new Alert(AlertType.INFORMATION);
+
+    int deadEnemies = 0;
 
     @FXML
     private void keyPressed(KeyEvent event) {
@@ -128,17 +136,17 @@ public class CavePathController implements Initializable {
                 //use item like a potion  special ability for weapons
                 try {
                     if (MainApp.currentI.getSymbol() == 'h') {//if health potion
-                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
+                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
                             MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
                         } else {//current health + health potion is higher than full health so just make it full health
                             MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5.0 + 1.0);
                             System.out.println(MainApp.currentHealth);
-                            System.out.println(MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0));
+                            System.out.println(MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0));
 
-                            System.out.println((double)MainApp.currentP.getLevel() / 5);
+                            System.out.println((double) MainApp.currentP.getLevel() / 5);
                         }
                         //note//set user progress bar
-                        prgHealth.setProgress((double)MainApp.currentHealth / ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0)));
+                        prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         MainApp.deleteItem();
                     }
                 } catch (NullPointerException e) {
@@ -388,10 +396,10 @@ public class CavePathController implements Initializable {
                         }
                     }*/
                     //knockback
-                    if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
+                    if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0) && (enemies.get(em).isVisible())) {
                         psn.setHitCooldown(1);
                         MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 5)));
-                        prgHealth.setProgress((double)MainApp.currentHealth / ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0)));
+                        prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
 
@@ -401,9 +409,11 @@ public class CavePathController implements Initializable {
                             if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
                                 MainApp.currentP.setHighestLevel(MainApp.currentL);
                             }
+                            MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1);
 
                             Platform.runLater(() -> {
                                 alert.showAndWait();
+                                music.stop();
                                 try {
                                     Parent parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -496,7 +506,16 @@ public class CavePathController implements Initializable {
             direction = "u";
             Platform.runLater(() -> askIfWantToExit());
             return;
-
+        }
+        if (checkCol(plyHero, plyStairs)) {
+            for (int ee = 0; ee < enemies.size(); ee++) {
+                if (!enemies.get(ee).isVisible()) {
+                    deadEnemies++;
+                    if (deadEnemies == enemies.size()) {
+                        MainApp.currentL++;
+                    }
+                }
+            }
         }
 //arrow stuff
 //if (MainApp.arrows.isEmpty()){return;}
@@ -570,6 +589,7 @@ public class CavePathController implements Initializable {
 
         if (result.get() == ButtonType.OK) {
             // ... user chose OK
+            music.stop();
             try {
                 Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -612,10 +632,34 @@ public class CavePathController implements Initializable {
         if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
-            rotate.setAngle(45);
+            if ((direction.equals("up")) || (direction.equals("u"))) {
+                rotate.setAngle(-45);
+                recItem.setTranslateY(-25);
+            } else if ((direction.equals("down")) || (direction.equals("d"))) {
+                rotate.setAngle(145);
+                recItem.setTranslateY(-35);
+            } else {
+                rotate.setPivotX(0);
+                rotate.setPivotY(50);
+                rotate.setAngle(45);
+            }
 
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
+
+            sword = new MediaPlayer((new Media(getClass().getResource("/woosh.mp3").toString())));
+            sword.play();
+
+            for (int e = 0; e < enemies.size(); e++) {
+                if ((checkCol(recItem, enemies.get(e))) && (enemies.get(e).isVisible())) {
+                    enemies.get(e).setHealth(enemies.get(e).getHealth() - 35); //Shawn, add to this. 35 is a placeholder number for testing.
+                    slime = new MediaPlayer((new Media(getClass().getResource("/Blood Squirt.mp3").toString())));
+                    slime.play();
+                    if (enemies.get(e).getHealth() <= 0) {
+                        enemies.get(e).setVisible(false);
+                    }
+                }
+            }
         }
     }
 
@@ -625,6 +669,8 @@ public class CavePathController implements Initializable {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             rotate.setAngle(0);
+
+            recItem.setTranslateY(0);
 
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
@@ -639,7 +685,7 @@ public class CavePathController implements Initializable {
         plyHero.setTranslateX(442);
         plyHero.setTranslateY(534);
 
-        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1)));
+        prgHealth.setProgress(MainApp.currentHealth / (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1)));
 
         psn.wAnimation = -1;
 
@@ -674,6 +720,10 @@ public class CavePathController implements Initializable {
 
         move.setCycleCount(INDEFINITE);
         move.play();
+        music = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
+        music.setCycleCount(INDEFINITE);
+        music.setVolume(0.25);
+        music.play();
 
         MainApp.slot.clear();
         MainApp.slot.add(recC1);
