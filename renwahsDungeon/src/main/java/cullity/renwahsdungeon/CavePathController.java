@@ -129,17 +129,23 @@ public class CavePathController implements Initializable {
     private void keyPressed(KeyEvent event) {
 
         kEvent = event;
-        if (event.getCode()==KeyCode.ESCAPE){move.stop();}
+        if (event.getCode() == KeyCode.ESCAPE) {
+            move.stop();
+        }
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath, recItem);// this is because the pause button is in the global method//false means not in town
-       if (event.getCode()==KeyCode.ESCAPE){move.play();}
+        if (event.getCode() == KeyCode.ESCAPE && MainApp.currentA == ancCavePath) {
+            move.play();
+        }
         if ((event.getCode() == KeyCode.Q)) {
+            System.out.println(prgHealth.getProgress());
+            System.out.println(MainApp.currentHealth);
             if (MainApp.currentHealth < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {
                 //fix it into knowing that the health is less
                 //use item like a potion  special ability for weapons
                 try {
                     if (MainApp.currentI.getSymbol() == 'h') {//if health potion
-                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
+                        if ((MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth())) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
                             MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
                         } else {//current health + health potion is higher than full health so just make it full health
                             MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5.0 + 1.0);
@@ -149,8 +155,11 @@ public class CavePathController implements Initializable {
                             System.out.println((double) MainApp.currentP.getLevel() / 5);
                         }
                         //note//set user progress bar
+                        System.out.println(prgHealth.getProgress());
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         MainApp.deleteItem();
+                        System.out.println(prgHealth.getProgress());
+                        System.out.println(MainApp.currentHealth);
                     }
                 } catch (NullPointerException e) {
                 }
@@ -544,10 +553,12 @@ public class CavePathController implements Initializable {
                 }
             }
             for (Enemy e : enemies) {
-                if (checkCol(a, e)) {
+                if (checkCol(a, e) && (e.isVisible())) {
                     //damage enemy //note not done yet
                     e.setHealth(e.getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1)));
-                   System.out.println(MainApp.currentP.getBStrength());                   System.out.println(MainApp.currentP.getItemStatMultiplier());                   System.out.println((MainApp.currentP.getLevel() / 5 + 1));
+                    System.out.println(MainApp.currentP.getBStrength());
+                    System.out.println(MainApp.currentP.getItemStatMultiplier());
+                    System.out.println((MainApp.currentP.getLevel() / 5 + 1));
                     if (e.getHealth() < 1) {
                         e.setVisible(false);
                         for (int ee = 0; ee < enemies.size(); ee++) {
@@ -709,6 +720,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mouseReleased(MouseEvent event) {
+        direction = "r";
         if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() == "s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
