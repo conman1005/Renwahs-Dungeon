@@ -423,9 +423,9 @@ public class Person {
         switch (direction) {
             case "up":
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
-                recItem.setRotate(180);
+                recItem.setRotate(0);
                 recItem.setTranslateX(0);
-                recItem.setTranslateY(-25);
+                //recItem.setTranslateY(0);
                 pne.setTranslateY(pne.getTranslateY() - 5);
                 wAnimation++;
                 switch (wAnimation) {
@@ -450,9 +450,9 @@ public class Person {
                 break;
             case "down":
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
-                recItem.setRotate(0);
-                recItem.setTranslateX(0);
-                recItem.setTranslateY(45);
+                recItem.setRotate(180);
+                recItem.setTranslateX(-40);
+                //recItem.setTranslateY(0);
                 pne.setTranslateY(pne.getTranslateY() + 5);
                 wAnimation++;
                 switch (wAnimation) {
