@@ -138,18 +138,22 @@ public class CavePathController implements Initializable {
             move.play();
         }
         if ((event.getCode() == KeyCode.Q)) {
+            System.out.println(MainApp.currentI.getSymbol());
             System.out.println(prgHealth.getProgress());
             System.out.println(MainApp.currentHealth);
-            if (MainApp.currentHealth < (MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1))) {
+            if (MainApp.currentHealth < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {
                 //fix it into knowing that the health is less
                 //use item like a potion  special ability for weapons
                 try {
                     if (MainApp.currentI.getSymbol() == 'h') {//if health potion
-                        if ((MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth())) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
-                            MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
+                        System.out.println("correct");
+                        if ((MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) + 10) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
+                            MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth() + 10;
+
+                            System.out.println("hi");
                         } else {//current health + health potion is higher than full health so just make it full health
                             MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5.0 + 1.0);
-                            System.out.println(MainApp.currentHealth);
+                            System.out.println("good");
                             System.out.println(MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0));
 
                             System.out.println((double) MainApp.currentP.getLevel() / 5);
@@ -420,7 +424,7 @@ public class CavePathController implements Initializable {
 
                             alert.setTitle("YOU WERE DEFEATED");
                             alert.setHeaderText("YOU WERE DEFEATED");
-                            alert.setContentText("You have fought a courageous battle against the Slimes. \n You lost at floor " + MainApp.currentL);
+                            alert.setContentText("You have fought a courageous battle against the Slimes. \n You lost at floor " + (MainApp.currentL + 1) + ".");
                             if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
                                 MainApp.currentP.setHighestLevel(MainApp.currentL);
                             }
