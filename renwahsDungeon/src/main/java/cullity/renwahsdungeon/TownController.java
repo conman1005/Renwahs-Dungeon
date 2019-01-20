@@ -29,6 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
@@ -87,6 +89,9 @@ public class TownController implements Initializable {
     String direction = "";
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(25), ae -> movement()));
+    
+    MediaPlayer music;
+    MediaPlayer sword;
 
     @FXML
     private void keyPressed(KeyEvent event) {
@@ -166,6 +171,8 @@ public class TownController implements Initializable {
 
             recTI.getTransforms().clear();
             recTI.getTransforms().addAll(rotate);
+            sword = new MediaPlayer((new Media(getClass().getResource("/woosh.mp3").toString())));
+            sword.play();
         }
     }
 
@@ -205,6 +212,7 @@ public class TownController implements Initializable {
                         move.play();
                         return;
                     }
+                    music.stop();
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -284,6 +292,10 @@ public class TownController implements Initializable {
         MainApp.currentHealth=MainApp.currentP.getBHealth()*(MainApp.currentP.getLevel()/10 +1);
         move.setCycleCount(INDEFINITE);
         move.play();
+        music = new MediaPlayer((new Media(getClass().getResource("/Lowly_Tavern_Bard_II.mp3").toString())));
+        music.setCycleCount(INDEFINITE);
+        music.setVolume(0.25);
+        music.play();
         MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
 

@@ -30,6 +30,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -112,6 +114,9 @@ public class CavePathController implements Initializable {
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
+    MediaPlayer music;
+    MediaPlayer sword;
+
     int arrowCooldown = 0;//cooldown between using arrows
 
     Alert alert = new Alert(AlertType.INFORMATION);
@@ -128,17 +133,17 @@ public class CavePathController implements Initializable {
                 //use item like a potion  special ability for weapons
                 try {
                     if (MainApp.currentI.getSymbol() == 'h') {//if health potion
-                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
+                        if (MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
                             MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth();
                         } else {//current health + health potion is higher than full health so just make it full health
                             MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5.0 + 1.0);
                             System.out.println(MainApp.currentHealth);
-                            System.out.println(MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0));
+                            System.out.println(MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0));
 
-                            System.out.println((double)MainApp.currentP.getLevel() / 5);
+                            System.out.println((double) MainApp.currentP.getLevel() / 5);
                         }
                         //note//set user progress bar
-                        prgHealth.setProgress((double)MainApp.currentHealth / ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0)));
+                        prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         MainApp.deleteItem();
                     }
                 } catch (NullPointerException e) {
@@ -391,7 +396,7 @@ public class CavePathController implements Initializable {
                     if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0)) {
                         psn.setHitCooldown(1);
                         MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 5)));
-                        prgHealth.setProgress((double)MainApp.currentHealth / ((double)MainApp.currentP.getBHealth() * ((double)MainApp.currentP.getLevel() / 5.0 + 1.0)));
+                        prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
 
@@ -617,6 +622,9 @@ public class CavePathController implements Initializable {
 
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
+
+            sword = new MediaPlayer((new Media(getClass().getResource("/woosh.mp3").toString())));
+            sword.play();
         }
     }
 
@@ -675,6 +683,9 @@ public class CavePathController implements Initializable {
 
         move.setCycleCount(INDEFINITE);
         move.play();
+        music = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
+        music.setCycleCount(INDEFINITE);
+        music.play();
 
         MainApp.slot.clear();
         MainApp.slot.add(recC1);
