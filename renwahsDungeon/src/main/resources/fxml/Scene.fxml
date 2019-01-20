@@ -6,25 +6,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="ancCave" prefHeight="700.0" prefWidth="498.0" stylesheets="@../styles/mainMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.FXMLController">
+<AnchorPane id="AnchorPane" fx:id="ancCave" prefHeight="609.0" prefWidth="498.0" stylesheets="@../styles/mainMenu.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.FXMLController">
    <children>
-      <Label layoutX="44.0" layoutY="22.0" text="Renwah's Dungeon">
+      <Label layoutX="44.0" layoutY="17.0" text="Renwah's Dungeon">
          <font>
             <Font size="51.0" />
          </font>
       </Label>
-      <Button layoutX="192.0" layoutY="524.0" mnemonicParsing="false" onAction="#btnPlay" styleClass="menueButton" text="Play">
+      <Button layoutX="192.0" layoutY="407.0" mnemonicParsing="false" onAction="#btnPlay" styleClass="menueButton" text="Play">
          <font>
             <Font size="32.0" />
          </font>
       </Button>
-      <ListView fx:id="lstSaves" layoutX="150.0" layoutY="250.0" prefHeight="247.0" prefWidth="200.0" />
-      <Label layoutX="159.0" layoutY="214.0" text="Saved Games">
+      <ListView fx:id="lstSaves" layoutX="150.0" layoutY="133.0" prefHeight="247.0" prefWidth="200.0" />
+      <Label layoutX="159.0" layoutY="97.0" text="Saved Games">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <Button layoutX="31.0" layoutY="628.0" mnemonicParsing="false" onAction="#btnNew" styleClass="menueButton" text="New Game" />
-      <Button layoutX="307.0" layoutY="628.0" mnemonicParsing="false" onAction="#btnDelete" styleClass="menueButton" text="Delete" />
+      <Button layoutX="31.0" layoutY="511.0" mnemonicParsing="false" onAction="#btnNew" styleClass="menueButton" text="New Game" />
+      <Button layoutX="307.0" layoutY="511.0" mnemonicParsing="false" onAction="#btnDelete" styleClass="menueButton" text="Delete" />
    </children>
 </AnchorPane>

@@ -46,7 +46,13 @@ public class FXMLController implements Initializable {
         if (MainApp.currentP != null) {
             invent = MainApp.currentP.getInventory();
         } else {
-            MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
+
+            try {
+                MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
+
+            } catch (IndexOutOfBoundsException e) {//when the deletion happens
+                return;
+            }
             invent = MainApp.currentP.getInventory();
         }
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
