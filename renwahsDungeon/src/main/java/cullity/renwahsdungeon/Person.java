@@ -269,7 +269,8 @@ public class Person {
     }
 
     int wAnimation = -1;
-
+    
+    
     public void moveTown(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":

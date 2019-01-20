@@ -170,6 +170,7 @@ public class TownController implements Initializable {
             rotate.setPivotY(50);
             if ((direction.equals("up")) || (direction.equals("u"))) {
                 rotate.setAngle(-45);
+                recTI.setTranslateY(-35);
             } else if ((direction.equals("down")) || (direction.equals("d"))) {
                 rotate.setAngle(135);
             } else {

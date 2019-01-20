@@ -618,7 +618,14 @@ public class CavePathController implements Initializable {
         if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
-            rotate.setAngle(45);
+            if ((direction.equals("up")) || (direction.equals("u"))) {
+                rotate.setAngle(-45);
+                recItem.setTranslateY(-35);
+            } else if ((direction.equals("down")) || (direction.equals("d"))) {
+                rotate.setAngle(135);
+            } else {
+                rotate.setAngle(45);
+            }
 
             recItem.getTransforms().clear();
             recItem.getTransforms().addAll(rotate);
