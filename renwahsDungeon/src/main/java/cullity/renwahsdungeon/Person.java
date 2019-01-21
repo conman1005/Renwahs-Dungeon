@@ -47,8 +47,8 @@ public class Person {
     //type = 2
     //coins = 4
     //highestLevel = 4
-    //itemStatMultiplier = 8
-    private final int SIZE = 64;
+    
+    private final int SIZE =56 ;
     private String inventory;
     private String name;
     private int level;
@@ -203,7 +203,6 @@ public class Person {
             save.writeInt(level);
             save.writeInt(coins);
             save.writeInt(highestLevel);
-            save.writeDouble(itemStatMultiplier);
             save.close();
         } catch (IOException io) {
 
@@ -228,7 +227,7 @@ public class Person {
             level = open.readInt();
             coins = open.readInt();
             highestLevel = open.readInt();
-            itemStatMultiplier = open.readDouble();
+            
             open.close();
         } catch (IOException io) {
 
