@@ -43,18 +43,19 @@ public class FXMLController implements Initializable {
         //get inventory
         String invent;
 
-        if (MainApp.currentP != null) {
-            invent = MainApp.currentP.getInventory();
-        } else {
+//        if (MainApp.currentP != null) {
+//            invent = MainApp.currentP.getInventory();
+//        } else {
 
             try {
                 MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
 
             } catch (IndexOutOfBoundsException e) {//when the deletion happens
+              System.out.println("index error");
                 return;
             }
             invent = MainApp.currentP.getInventory();
-        }
+        //}
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
         //MainApp.showItems();
@@ -94,22 +95,30 @@ public class FXMLController implements Initializable {
                 alert.setContentText("Please use 15 characters or less");
 
                 alert.showAndWait();
-                result = dialog.showAndWait();
+                btnNew(event);
+                // return;
             } else {
                 lstSaves.getItems().add(result.get());
-                recNum = lstSaves.getItems().size() - 1;
+                  MainApp.recordNum = lstSaves.getItems().size()-1 ;
 
                 dbs.add(new Person(result.get()));
                 //dbs.get(dbs.size() - 1).setName(result.get());
                 //psn.setName(result.get());
                 psn = dbs.get(dbs.size() - 1);
-                psn.save(file, recNum);
+                psn.save(file,   MainApp.recordNum);
             }
         }
     }
 
     @FXML
     private void btnDelete(ActionEvent event) {
+        if (lstSaves.getSelectionModel().getSelectedItem() == null){
+            alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText("Must select a user to delete");
+        alert.setContentText(null);
+        return;
+        }
         alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Delete");
         alert.setHeaderText("Are you sure you want to delete " + lstSaves.getSelectionModel().getSelectedItem() + "?");
