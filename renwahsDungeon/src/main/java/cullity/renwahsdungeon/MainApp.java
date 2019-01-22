@@ -23,7 +23,7 @@ public class MainApp extends Application {
     public static ArrayList<Item> inv = new ArrayList();
     public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
     public static Item currentI;//current item selected
-    public static Person currentP; //current user/save file
+    public static Person currentP=new Person(); //current user/save file
     public static Enemy currentE;//current enemy fighting the user
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
