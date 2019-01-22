@@ -211,24 +211,24 @@ public class Person {
 
     public void open(String file, int record) {
         try {
-            RandomAccessFile open = new RandomAccessFile(file, "r");
-            open.seek(record * SIZE);
+            RandomAccessFile opn = new RandomAccessFile(file, "r");
+            opn.seek(record * SIZE);
             char n[] = new char[15];
             for (int i = 0; i < n.length; i++) {
-                n[i] = open.readChar();
+                n[i] = opn.readChar();
             }
             name = new String(n);
-            type = open.readChar();
+            type = opn.readChar();
             char inve[] = new char[6];
             for (int i = 0; i < inve.length; i++) {
-                inve[i] = open.readChar();
+                inve[i] = opn.readChar();
             }
             inventory = new String(inve);
-            level = open.readInt();
-            coins = open.readInt();
-            highestLevel = open.readInt();
+            level = opn.readInt();
+            coins = opn.readInt();
+            highestLevel = opn.readInt();
             
-            open.close();
+            opn.close();
         } catch (IOException io) {
 
         }

@@ -24,11 +24,10 @@ import javafx.stage.Stage;
 
 public class FXMLController implements Initializable {
 
-    ArrayList<Person> dbs = new ArrayList();
-    Person psn = new Person();
-
+//    ArrayList<Person> dbs = new ArrayList();
+//    Person psn = new Person();
     String file = "database.raf";
-    int recNum = psn.numRecord("database.raf");
+    int recNum = (new Person()).numRecord("database.raf");
 
     Alert alert = new Alert(AlertType.INFORMATION);
 
@@ -37,7 +36,9 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void btnPlay(ActionEvent event) {
-
+        if (lstSaves.getSelectionModel().getSelectedIndex() == -1) {
+            return;
+        }System.out.println(lstSaves.getSelectionModel().getSelectedIndex());
         //after stuff happens
         //currentP=selected person
         //get inventory
@@ -46,15 +47,14 @@ public class FXMLController implements Initializable {
 //        if (MainApp.currentP != null) {
 //            invent = MainApp.currentP.getInventory();
 //        } else {
+        try {
+            MainApp.currentP.open(file, lstSaves.getSelectionModel().getSelectedIndex());
 
-            try {
-                MainApp.currentP = dbs.get(lstSaves.getSelectionModel().getSelectedIndex());
-
-            } catch (IndexOutOfBoundsException e) {//when the deletion happens
-              System.out.println("index error");
-                return;
-            }
-            invent = MainApp.currentP.getInventory();
+        } catch (IndexOutOfBoundsException e) {//when the deletion happens
+            System.out.println("index error");
+            return;
+        }
+        invent = MainApp.currentP.getInventory();
         //}
         //if new then inv="!!!!!!", if old then use currentP.getInventory()
         MainApp.getItemsFromData(invent);//from database
@@ -99,25 +99,26 @@ public class FXMLController implements Initializable {
                 // return;
             } else {
                 lstSaves.getItems().add(result.get());
-                  MainApp.recordNum = lstSaves.getItems().size()-1 ;
+                MainApp.recordNum = lstSaves.getItems().size() - 1;
 
-                dbs.add(new Person(result.get()));
+//                dbs.add(new Person(result.get()));
                 //dbs.get(dbs.size() - 1).setName(result.get());
                 //psn.setName(result.get());
-                psn = dbs.get(dbs.size() - 1);
-                psn.save(file,   MainApp.recordNum);
+//                psn = dbs.get(dbs.size() - 1);
+                MainApp.currentP = new Person(result.get());
+                MainApp.currentP.save(file, MainApp.recordNum);
             }
         }
     }
 
     @FXML
     private void btnDelete(ActionEvent event) {
-        if (lstSaves.getSelectionModel().getSelectedItem() == null){
+        if (lstSaves.getSelectionModel().getSelectedItem() == null) {
             alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Error");
-        alert.setHeaderText("Must select a user to delete");
-        alert.setContentText(null);
-        return;
+            alert.setTitle("Error");
+            alert.setHeaderText("Must select a user to delete");
+            alert.setContentText(null);
+            return;
         }
         alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Delete");
@@ -126,25 +127,26 @@ public class FXMLController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            psn.delete(file, lstSaves.getSelectionModel().getSelectedIndex());
+
+            MainApp.currentP.delete(file, lstSaves.getSelectionModel().getSelectedIndex());
 
             lstSaves.getItems().clear();
 
-            psn.open(file, psn.numRecord(file));
-            for (int i = 0; i < psn.numRecord(file); i++) {
-                psn.open(file, i);
-                lstSaves.getItems().add(psn.getName());
+            //psn.open(file, psn.numRecord(file));
+            for (int i = 0; i < (new Person()).numRecord(file); i++) {//note, maybe make currentP
+                MainApp.currentP.open(file, i);
+                lstSaves.getItems().add(MainApp.currentP.getName());
             }
-            dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() + 1);
+//            dbs.remove(lstSaves.getSelectionModel().getSelectedIndex() + 1);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (int i = 0; i < psn.numRecord(file); i++) {
-            psn.open(file, i);
-            lstSaves.getItems().add(psn.getName());
-            dbs.add(psn);
+        for (int i = 0; i < (new Person()).numRecord(file); i++) {
+            MainApp.currentP.open(file, i);
+            lstSaves.getItems().add(MainApp.currentP.getName());
+//            dbs.add(psn);
         }
         MainApp.currentA = null;//not need because not used in menu
         //MainApp.currentA=null;
