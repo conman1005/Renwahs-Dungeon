@@ -1,3 +1,4 @@
+
 /*
  * Made By: Conner Cullity
  * Date:
@@ -424,6 +425,9 @@ public class CavePathController implements Initializable {
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
+                            
+                            music.stop();
+                            MainApp.caveMusic = false;
 
                             alert.setTitle("YOU WERE DEFEATED");
                             alert.setHeaderText("YOU WERE DEFEATED");
@@ -636,6 +640,7 @@ public class CavePathController implements Initializable {
         if (result.get() == ButtonType.OK) {
             // ... user chose OK
             music.stop();
+            MainApp.caveMusic = false;
             try {
                 Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -783,10 +788,14 @@ public class CavePathController implements Initializable {
 
         move.setCycleCount(INDEFINITE);
         move.play();
-        music = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
-        music.setCycleCount(INDEFINITE);
-        music.setVolume(0.25);
-        music.play();
+
+        if (MainApp.caveMusic == false) {
+            MainApp.caveMusic = true;
+            music = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
+            music.setCycleCount(INDEFINITE);
+            music.setVolume(0.25);
+            music.play();
+        }
 
         MainApp.slot.clear();
         MainApp.slot.add(recC1);
