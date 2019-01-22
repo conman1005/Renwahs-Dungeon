@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="ancTown" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" onScroll="#scrollItem" prefHeight="600.0" prefWidth="840.0" styleClass="background" stylesheets="@../styles/world.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cullity.renwahsdungeon.TownController">
    <children>
@@ -18,6 +19,11 @@
          </children>
       </Pane>
       <Rectangle fx:id="recT1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="20.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+      <Label fx:id="lblCoins" text="Coins: ">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
       <Rectangle fx:id="recT2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="115.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recT4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="305.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recT5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="400.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />

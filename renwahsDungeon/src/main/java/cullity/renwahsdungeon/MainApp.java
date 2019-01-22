@@ -11,6 +11,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -38,10 +40,10 @@ public class MainApp extends Application {
     public static Stage mainStage;
     public static int recordNum;//spot in the random access file of currentP
     public static ArrayList<Arrow> arrows = new ArrayList();//array of arrows in cavePath//must be global so that it can be calledfrom the object of arrow
-    
-    public static boolean caveMusic = false;
-    
 
+    public static boolean caveMusic = false;
+    public static MediaPlayer caveSong;
+    
     public static void deleteItem() {//put in 
         inv.remove(currentI);
 
@@ -152,6 +154,9 @@ public class MainApp extends Application {
         currentS = scene;
         stage.show();
         stage.setOnCloseRequest(e -> System.exit(0));
+        caveSong = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
+        caveSong.setCycleCount(MediaPlayer.INDEFINITE);
+        caveSong.setVolume(0.25);
     }
 
     /**
