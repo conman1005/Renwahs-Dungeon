@@ -116,7 +116,6 @@ public class CavePathController implements Initializable {
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
-    MediaPlayer music;
     MediaPlayer sword;
     MediaPlayer slime;
     Chest winChest = new Chest();
@@ -226,9 +225,9 @@ public class CavePathController implements Initializable {
                         al.setContentText(null);
                         Platform.runLater(al::showAndWait);
                         return;
-                        
+
                     }
-                    
+
                     if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
                         ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
                         //arrowCooldown=10;
@@ -246,7 +245,7 @@ public class CavePathController implements Initializable {
                         //arrowCooldown=10;
                     }
                     arrowCooldown = 50;
-                    
+
                 }
             } catch (NullPointerException e) {
             }
@@ -425,8 +424,8 @@ public class CavePathController implements Initializable {
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
-                            
-                            music.stop();
+                            MainApp.caveSong.stop();
+                            MainApp.caveSong.stop();
                             MainApp.caveMusic = false;
 
                             alert.setTitle("YOU WERE DEFEATED");
@@ -439,7 +438,7 @@ public class CavePathController implements Initializable {
 
                             Platform.runLater(() -> {
                                 alert.showAndWait();
-                                music.stop();
+                                MainApp.caveSong.stop();
                                 try {
                                     Parent parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -639,7 +638,7 @@ public class CavePathController implements Initializable {
 
         if (result.get() == ButtonType.OK) {
             // ... user chose OK
-            music.stop();
+            MainApp.caveSong.stop();
             MainApp.caveMusic = false;
             try {
                 Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
@@ -708,25 +707,22 @@ public class CavePathController implements Initializable {
                     slime.play();
                     if (enemies.get(e).getHealth() <= 0) {
                         enemies.get(e).setVisible(false);
+                        if (!enemies.get(e).isVisible()) {
+                            deadEnemies++;
+                            if (deadEnemies == enemies.size()) {
+                                recChest.setFill(winChest.getImageP());
+                                recChest.setVisible(true);
+                                direction = "r";
+                                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                                al.setTitle("You completed the level!");
+                                al.setHeaderText("Go collect the chest to save your game and continue");
+                                al.setContentText(null);
+                                Platform.runLater(al::showAndWait);
+                            }
+                        }
                     }
                 }
             }
-            for (int ee = 0; ee < enemies.size(); ee++) {
-                if (!enemies.get(ee).isVisible()) {
-                    deadEnemies++;
-                    if (deadEnemies == enemies.size()) {
-                        recChest.setFill(winChest.getImageP());
-                        recChest.setVisible(true);
-                        direction = "r";
-                        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                        al.setTitle("You completed the level!");
-                        al.setHeaderText("Go collect the chest to save your game and continue");
-                        al.setContentText(null);
-                        Platform.runLater(al::showAndWait);
-                    }
-                }
-            }
-            deadEnemies = 0;
         }
     }
 
@@ -791,10 +787,7 @@ public class CavePathController implements Initializable {
 
         if (MainApp.caveMusic == false) {
             MainApp.caveMusic = true;
-            music = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
-            music.setCycleCount(INDEFINITE);
-            music.setVolume(0.25);
-            music.play();
+            MainApp.caveSong.play();
         }
 
         MainApp.slot.clear();

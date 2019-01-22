@@ -9,12 +9,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
 import javafx.geometry.Point3D;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -56,7 +53,7 @@ public class Person {
     private int highestLevel;
     private double itemStatMultiplier;
     private int hitCooldown = 0;
-
+    
     //person stuff
     public Person() {
         StringBuffer tempN = new StringBuffer("bob");
