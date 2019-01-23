@@ -107,7 +107,7 @@ public class Chest {
             dialog.setContentText(choiceString);
 
             Optional<String> result = dialog.showAndWait();
-            String chosen;
+            String chosen=result.get().trim();
             if (!result.isPresent()) {//if they cancel
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Error");
@@ -117,7 +117,7 @@ public class Chest {
                 open();
                 return;
             } else {
-                if (result.get().length() > 6) {//too many items chosen
+                if (chosen.length() > 6) {//too many items chosen
                     //stuff
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                     al.setTitle("Error");
@@ -127,7 +127,7 @@ public class Chest {
                     open();
                     return;
 
-                } else if (result.get().isBlank()) {
+                } else if (chosen.isBlank()) {
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
 
                     al.setTitle("Error");
@@ -149,7 +149,7 @@ public class Chest {
                         return;
                     }
 
-                    chosen = result.get();
+                    
                     for (int i = 0; i < chosen.length(); i++) {
 
                         try {
