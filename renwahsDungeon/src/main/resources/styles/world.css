@@ -67,3 +67,10 @@ Description:
     -fx-background-image: url(../sprites/heroRightRight.png);
     -fx-background-size: contain;
 }
+@font-face {
+    font-family: ArcadeClassic;
+    src: url(ARCADECLASSIC.TTF);
+}
+.label {
+    -fx-font-family: "ArcadeClassic";
+}

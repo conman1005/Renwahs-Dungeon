@@ -9,12 +9,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
 import javafx.geometry.Point3D;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -47,8 +44,8 @@ public class Person {
     //type = 2
     //coins = 4
     //highestLevel = 4
-    //itemStatMultiplier = 8
-    private final int SIZE = 64;
+    
+    private final int SIZE =56 ;
     private String inventory;
     private String name;
     private int level;
@@ -56,7 +53,7 @@ public class Person {
     private int highestLevel;
     private double itemStatMultiplier;
     private int hitCooldown = 0;
-
+    
     //person stuff
     public Person() {
         StringBuffer tempN = new StringBuffer("bob");
@@ -203,7 +200,6 @@ public class Person {
             save.writeInt(level);
             save.writeInt(coins);
             save.writeInt(highestLevel);
-            save.writeDouble(itemStatMultiplier);
             save.close();
         } catch (IOException io) {
 
@@ -212,24 +208,24 @@ public class Person {
 
     public void open(String file, int record) {
         try {
-            RandomAccessFile open = new RandomAccessFile(file, "r");
-            open.seek(record * SIZE);
+            RandomAccessFile opn = new RandomAccessFile(file, "r");
+            opn.seek(record * SIZE);
             char n[] = new char[15];
             for (int i = 0; i < n.length; i++) {
-                n[i] = open.readChar();
+                n[i] = opn.readChar();
             }
             name = new String(n);
-            type = open.readChar();
+            type = opn.readChar();
             char inve[] = new char[6];
             for (int i = 0; i < inve.length; i++) {
-                inve[i] = open.readChar();
+                inve[i] = opn.readChar();
             }
             inventory = new String(inve);
-            level = open.readInt();
-            coins = open.readInt();
-            highestLevel = open.readInt();
-            itemStatMultiplier = open.readDouble();
-            open.close();
+            level = opn.readInt();
+            coins = opn.readInt();
+            highestLevel = opn.readInt();
+            
+            opn.close();
         } catch (IOException io) {
 
         }

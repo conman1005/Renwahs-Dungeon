@@ -11,6 +11,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -23,7 +25,7 @@ public class MainApp extends Application {
     public static ArrayList<Item> inv = new ArrayList();
     public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
     public static Item currentI;//current item selected
-    public static Person currentP; //current user/save file
+    public static Person currentP=new Person(); //current user/save file
     public static Enemy currentE;//current enemy fighting the user
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
@@ -38,8 +40,10 @@ public class MainApp extends Application {
     public static Stage mainStage;
     public static int recordNum;//spot in the random access file of currentP
     public static ArrayList<Arrow> arrows = new ArrayList();//array of arrows in cavePath//must be global so that it can be calledfrom the object of arrow
-    
 
+    public static boolean caveMusic = false;
+    public static MediaPlayer caveSong;
+    
     public static void deleteItem() {//put in 
         inv.remove(currentI);
 
@@ -150,6 +154,9 @@ public class MainApp extends Application {
         currentS = scene;
         stage.show();
         stage.setOnCloseRequest(e -> System.exit(0));
+        caveSong = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
+        caveSong.setCycleCount(MediaPlayer.INDEFINITE);
+        caveSong.setVolume(0.25);
     }
 
     /**
