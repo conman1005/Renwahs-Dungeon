@@ -178,7 +178,7 @@ public class keyStuff {
                         stage.hide(); //optional
                         menu_scene.getRoot().requestFocus();
                         stage.setScene(menu_scene); //puts the new scence in the stage
-MainApp.currentP=null;//note, might be bad
+
                         //stage.setTitle("Main Menu"); //changes the title
                         stage.show(); //shows the new page
                     } catch (IOException iOException) {
