@@ -103,11 +103,11 @@ public class Chest {
         if (choices.size() > 6) {
             TextInputDialog dialog = new TextInputDialog("123456");
             dialog.setTitle("Choose Which Items to Keep ");
-            dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces ");//might need to make easier to understand
+            dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces \n for example typing in 143 will give you the first, fourth and third item listed");//might need to make easier to understand
             dialog.setContentText(choiceString);
 
             Optional<String> result = dialog.showAndWait();
-            String chosen;
+            String chosen=result.get().trim();
             if (!result.isPresent()) {//if they cancel
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Error");
@@ -117,7 +117,7 @@ public class Chest {
                 open();
                 return;
             } else {
-                if (result.get().length() > 6) {//too many items chosen
+                if (chosen.length() > 6) {//too many items chosen
                     //stuff
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                     al.setTitle("Error");
@@ -127,7 +127,7 @@ public class Chest {
                     open();
                     return;
 
-                } else if (result.get().isBlank()) {
+                } else if (chosen.isBlank()) {
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
 
                     al.setTitle("Error");
@@ -148,7 +148,44 @@ public class Chest {
                         open();
                         return;
                     }
-                    chosen = result.get();
+
+                    
+                    for (int i = 0; i < chosen.length(); i++) {
+
+                        try {
+                            if (Integer.parseInt(chosen.substring(i, i + 1)) > choices.size() || Integer.parseInt(chosen.substring(i, i + 1)) < 1) {
+                                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                                al.setTitle("Error");
+                                al.setHeaderText("Each digit must be more than 0 and less than the highest number in the list (" + choices.size() + ")");
+                                al.setContentText("Please exit this message to try again");
+                                al.showAndWait();
+                                open();
+                                return;
+                            }
+                        } catch (NumberFormatException numberFormatException) {
+                            Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                            al.setTitle("Error");
+                            al.setHeaderText("Must be all numbers with no spaces");
+                            al.setContentText("Please exit this message to try again");
+                            al.showAndWait();
+                            open();
+                            return;
+                        }
+                    }
+
+                    for (int j = 0; j < chosen.length(); j++) {
+                        for (int n = 0; n < chosen.length(); n++) {
+                            if (Integer.parseInt(chosen.substring(j, j + 1)) == Integer.parseInt(chosen.substring(n, n + 1))&&(j!=n)) {
+                                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                                al.setTitle("Error");
+                                al.setHeaderText("Numbers can only be entered in once");
+                                al.setContentText("Please exit this message to try again");
+                                al.showAndWait();
+                                open();
+                                return;
+                            }
+                        }
+                    }
 
                 }
             }
@@ -186,7 +223,10 @@ public class Chest {
         MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
         MainApp.currentP.setInventory(newIn);
         MainApp.itSpot = 0;
-        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + (extraCoins * MainApp.currentL));
+        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + (extraCoins /**
+                 * MainApp.currentL
+                 */
+                ));
 
         MainApp.currentL++;
         if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
