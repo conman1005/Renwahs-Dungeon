@@ -530,13 +530,6 @@ public class CavePathController implements Initializable {
             }
         }
 
-        if (checkCol(plyHero, plyExit)) {
-            move.stop();
-            pneHero.setTranslateY(pneHero.getTranslateY() - 15);
-            direction = "u";
-            Platform.runLater(() -> askIfWantToExit());
-            return;
-        }
         if (checkCol(plyHero, plyChest) && recChest.isVisible()) {
             chestOpen = true;
             Platform.runLater(()
@@ -553,6 +546,14 @@ public class CavePathController implements Initializable {
             return;
 
         }
+        if (checkCol(plyHero, plyExit)) {
+            move.stop();
+            pneHero.setTranslateY(pneHero.getTranslateY() - 15);
+            direction = "u";
+            Platform.runLater(() -> askIfWantToExit());
+            return;
+        }
+        
 //arrow stuff
 //if (MainApp.arrows.isEmpty()){return;}
 
@@ -789,7 +790,7 @@ public class CavePathController implements Initializable {
         ply[6] = plyWall7;
         ply[7] = plyExit;
         double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
-        for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, 5 + 1); i++) {
+        for (int i = 0; i < ThreadLocalRandom.current().nextInt((MainApp.currentL * 2 + 1) / 4, MainApp.currentL + 1); i++) {
             enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
             totalEnemies++;
         }
@@ -797,7 +798,7 @@ public class CavePathController implements Initializable {
             enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
             enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
             for (Polygon ply1 : ply) {
-                while (checkCol(enemies.get(ii), ply1)) {
+                while ((checkCol(enemies.get(ii), ply1)) || (checkCol(enemies.get(ii), plyHero))) {
                     enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
                     enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
                 }
