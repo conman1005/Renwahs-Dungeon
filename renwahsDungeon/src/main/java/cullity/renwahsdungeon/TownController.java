@@ -276,7 +276,7 @@ public class TownController implements Initializable {
             }
         } catch (NumberFormatException e) {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setTitle("Error");
+            a.setTitle("Error"); 
             a.setHeaderText("Must input a valid number from 1 to " + (MainApp.currentP.getHighestLevel() + 1));
             a.setContentText("Please exit this message to try again");
             a.showAndWait();
@@ -297,7 +297,7 @@ public class TownController implements Initializable {
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
         recTI.getTransforms().clear();
-        System.out.println(recTI.getTranslateY());
+       // System.out.println(recTI.getTranslateY());
         if (MainApp.currentI == null) {
             return;
         }
