@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -84,6 +85,9 @@ public class TownController implements Initializable {
     private AnchorPane ancTown;
     @FXML
     private Rectangle recTI;//rec that shows the item in the hand of the person in the town scene
+    
+    @FXML
+    private Label lblCoins;
 
     Person psn = new Person();
     
@@ -165,33 +169,39 @@ public class TownController implements Initializable {
     
     @FXML
     private void mousePressed(MouseEvent event) {
-        if (MainApp.currentI.isWeapon() && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
-            rotate.setPivotX(0);
-            rotate.setPivotY(50);
-            if ((direction.equals("up")) || (direction.equals("u"))) {
-                rotate.setAngle(-45);
-            } else if ((direction.equals("down")) || (direction.equals("d"))) {
-                rotate.setAngle(135);
-            } else {
-                rotate.setAngle(45);
+        try {
+            if (MainApp.currentI.isWeapon() && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
+                rotate.setPivotX(0);
+                rotate.setPivotY(50);
+                if ((direction.equals("up")) || (direction.equals("u"))) {
+                    rotate.setAngle(-45);
+                } else if ((direction.equals("down")) || (direction.equals("d"))) {
+                    rotate.setAngle(135);
+                } else {
+                    rotate.setAngle(45);
+                }
+                
+                recTI.getTransforms().clear();
+                recTI.getTransforms().addAll(rotate);
+                sword = new MediaPlayer((new Media(getClass().getResource("/woosh.mp3").toString())));
+                sword.play();
             }
-            
-            recTI.getTransforms().clear();
-            recTI.getTransforms().addAll(rotate);
-            sword = new MediaPlayer((new Media(getClass().getResource("/woosh.mp3").toString())));
-            sword.play();
+        } catch (NullPointerException e) {
         }
     }
     
     @FXML
     private void mouseReleased(MouseEvent event) {
-        if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
-            rotate.setPivotX(0);
-            rotate.setPivotY(50);
-            rotate.setAngle(0);
-            
-            recTI.getTransforms().clear();
-            recTI.getTransforms().addAll(rotate);
+        try {
+            if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
+                rotate.setPivotX(0);
+                rotate.setPivotY(50);
+                rotate.setAngle(0);
+                
+                recTI.getTransforms().clear();
+                recTI.getTransforms().addAll(rotate);
+            }
+        } catch (NullPointerException e) {
         }
     }
     
@@ -299,6 +309,7 @@ public class TownController implements Initializable {
         MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1);
         move.setCycleCount(INDEFINITE);
         move.play();
+        lblCoins.setText("Coins: " + MainApp.currentP.getCoins());
         music = new MediaPlayer((new Media(getClass().getResource("/Lowly_Tavern_Bard_II.mp3").toString())));
         music.setCycleCount(INDEFINITE);
         music.setVolume(0.25);

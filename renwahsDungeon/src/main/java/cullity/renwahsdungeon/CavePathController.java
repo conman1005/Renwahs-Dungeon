@@ -116,7 +116,6 @@ public class CavePathController implements Initializable {
     Enemy enm = new Enemy();
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(35), ae -> movement()));
-    MediaPlayer music;
     MediaPlayer sword;
     MediaPlayer slime;
     Chest winChest = new Chest();
@@ -226,9 +225,9 @@ public class CavePathController implements Initializable {
                         al.setContentText(null);
                         Platform.runLater(al::showAndWait);
                         return;
-                        
+
                     }
-                    
+
                     if (event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) {
                         ((Bow) MainApp.currentI).useBow(4, pneHero.getLayoutX() + pneHero.getTranslateX() + recHero.getLayoutX() + recHero.getTranslateX(), pneHero.getLayoutY() + pneHero.getTranslateY() + recHero.getLayoutY() + recHero.getTranslateY());
                         //arrowCooldown=10;
@@ -246,7 +245,7 @@ public class CavePathController implements Initializable {
                         //arrowCooldown=10;
                     }
                     arrowCooldown = 50;
-                    
+
                 }
             } catch (NullPointerException e) {
             }
@@ -382,8 +381,13 @@ public class CavePathController implements Initializable {
             if (eMov == 10) {
                 eMov = 0;
                 for (int em = 0; em < enemies.size(); em++) {
-                    if (enemies.get(em).getDirectionTime() == 10) {
-                        enemies.get(em).setDiretctionTime(0);
+                    if (enemies.get(em).getDirectionTime() > 10) {
+                        enemies.get(em).setDirectionTime(enemies.get(em).getDirectionTime() + 1);
+                        if (enemies.get(em).getDirectionTime() >= ThreadLocalRandom.current().nextInt(20, 60)) {
+                            enemies.get(em).setDirectionTime(0);
+                        }
+                    } else if (enemies.get(em).getDirectionTime() == 10) {
+                        enemies.get(em).setDirectionTime(0);
 
                         if (ThreadLocalRandom.current().nextBoolean() == true) {
                             if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
@@ -425,8 +429,8 @@ public class CavePathController implements Initializable {
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
-                            
-                            music.stop();
+                            MainApp.caveSong.stop();
+                            MainApp.caveSong.stop();
                             MainApp.caveMusic = false;
 
                             alert.setTitle("YOU WERE DEFEATED");
@@ -439,7 +443,7 @@ public class CavePathController implements Initializable {
 
                             Platform.runLater(() -> {
                                 alert.showAndWait();
-                                music.stop();
+                                MainApp.caveSong.stop();
                                 try {
                                     Parent parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -521,7 +525,7 @@ public class CavePathController implements Initializable {
                             break;
                     }
 
-                    enemies.get(em).setDiretctionTime(enemies.get(em).getDirectionTime() + 1);
+                    enemies.get(em).setDirectionTime(enemies.get(em).getDirectionTime() + 1);
                 }
             }
         }
@@ -639,7 +643,7 @@ public class CavePathController implements Initializable {
 
         if (result.get() == ButtonType.OK) {
             // ... user chose OK
-            music.stop();
+            MainApp.caveSong.stop();
             MainApp.caveMusic = false;
             try {
                 Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/town.fxml")); //where FXMLPage2 is the name of the scene
@@ -706,33 +710,49 @@ public class CavePathController implements Initializable {
                     enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
                     slime = new MediaPlayer((new Media(getClass().getResource("/Blood Squirt.mp3").toString())));
                     slime.play();
+                    enemies.get(e).setDirectionTime(11);
+                    switch (direction) {
+                        case "u":
+                            enemies.get(e).setDirection("up");
+                            break;
+                        case "d":
+                            enemies.get(e).setDirection("down");
+                            break;
+                        case "l":
+                            enemies.get(e).setDirection("left");
+                            break;
+                        case "r":
+                            enemies.get(e).setDirection("right");
+                            break;
+                        default:
+                            enemies.get(e).setDirection(direction);
+                            break;
+                    }
                     if (enemies.get(e).getHealth() <= 0) {
                         enemies.get(e).setVisible(false);
+                        if (!enemies.get(e).isVisible()) {
+                            deadEnemies++;
+                            if (deadEnemies == enemies.size()) {
+                                //mouseReleased called to finish sword animation, otherwise, the sword would be stuck in the 'swung' position
+                                mouseReleased(event);
+                                recChest.setFill(winChest.getImageP());
+                                recChest.setVisible(true);
+                                direction = "r";
+                                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                                al.setTitle("You completed the level!");
+                                al.setHeaderText("Go collect the chest to save your game and continue");
+                                al.setContentText(null);
+                                Platform.runLater(al::showAndWait);
+                            }
+                        }
                     }
                 }
             }
-            for (int ee = 0; ee < enemies.size(); ee++) {
-                if (!enemies.get(ee).isVisible()) {
-                    deadEnemies++;
-                    if (deadEnemies == enemies.size()) {
-                        recChest.setFill(winChest.getImageP());
-                        recChest.setVisible(true);
-                        direction = "r";
-                        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                        al.setTitle("You completed the level!");
-                        al.setHeaderText("Go collect the chest to save your game and continue");
-                        al.setContentText(null);
-                        Platform.runLater(al::showAndWait);
-                    }
-                }
-            }
-            deadEnemies = 0;
         }
     }
 
     @FXML
     private void mouseReleased(MouseEvent event) {
-        direction = "r";
         if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() == "s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
@@ -791,10 +811,7 @@ public class CavePathController implements Initializable {
 
         if (MainApp.caveMusic == false) {
             MainApp.caveMusic = true;
-            music = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
-            music.setCycleCount(INDEFINITE);
-            music.setVolume(0.25);
-            music.play();
+            MainApp.caveSong.play();
         }
 
         MainApp.slot.clear();
