@@ -127,20 +127,24 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
-
+ if (event.getCode() == KeyCode.H){
+            move.stop();
+        }
         kEvent = event;
         if (event.getCode() == KeyCode.ESCAPE) {
             move.stop();
         }
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath, recItem);// this is because the pause button is in the global method//false means not in town
+        if (event.getCode() == KeyCode.H){
+            move.play();
+            MainApp.currentS.getRoot().requestFocus();
+        }
         if (event.getCode() == KeyCode.ESCAPE && MainApp.currentA == ancCavePath) {
             move.play();
         }
         if ((event.getCode() == KeyCode.Q)) {
-            System.out.println(MainApp.currentI.getSymbol());
-            System.out.println(prgHealth.getProgress());
-            System.out.println(MainApp.currentHealth);
+
             if (MainApp.currentHealth < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {
                 //fix it into knowing that the health is less
                 //use item like a potion  special ability for weapons

@@ -100,9 +100,14 @@ public class TownController implements Initializable {
     
     @FXML
     private void keyPressed(KeyEvent event) {
-        
+        if (event.getCode() == KeyCode.H){
+            move.stop();direction="u";
+        }
         keyStuff temp = new keyStuff();// this is because the pause button is in the global method
         temp.keys(event, true, ancTown, recTI);//true because it is in town scene (pausing button)
+         if (event.getCode() == KeyCode.H){
+            move.play();
+        }
         if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
             try {
                 if (MainApp.currentI.getSymbol() == 'b') {

@@ -103,7 +103,7 @@ public class Chest {
         if (choices.size() > 6) {
             TextInputDialog dialog = new TextInputDialog("123456");
             dialog.setTitle("Choose Which Items to Keep ");
-            dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces ");//might need to make easier to understand
+            dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces \n for example typing in 143 will give you the first, fourth and third item listed");//might need to make easier to understand
             dialog.setContentText(choiceString);
 
             Optional<String> result = dialog.showAndWait();
