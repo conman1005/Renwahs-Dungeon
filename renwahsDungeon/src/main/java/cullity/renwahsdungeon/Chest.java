@@ -90,13 +90,13 @@ public class Chest {
         int nextNum = 1;//starts at 1 so that the i9frst choice for the user is 1
         for (int i = 0; i < MainApp.inv.size(); i++) {//this loop will add the names of the items in the current inventory to the choices string
 
-            choiceString += "\n" + (i + 1) + " " + MainApp.inv.get(i).getClass().getSimpleName();//first spot for user to choose from will be one so I added 1 to the index
+            choiceString += "\n" + (i + 1) + " " + MainApp.inv.get(i).getItemName();//first spot for user to choose from will be one so I added 1 to the index
             nextNum++;
         }
         choiceString += "\n Items in chest includes:";
         for (int i = MainApp.inv.size(); i < choices.size(); i++) {//this loop adds the items in the chest to the choices string
 
-            choiceString += "\n" + nextNum + " " + choices.get(i).getClass().getSimpleName();
+            choiceString += "\n" + nextNum + " " + choices.get(i).getItemName();
             nextNum++;
         }
         String newIn = "";
