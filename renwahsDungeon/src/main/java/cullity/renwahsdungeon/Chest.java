@@ -53,7 +53,7 @@ public class Chest {
             itm3 = gains.get(2);
         } catch (Exception e) {
         }
-        extraCoins = ThreadLocalRandom.current().nextInt(100 * (MainApp.currentP.getLevel() / 5 + 1), 500 + 1);//extra coins
+        extraCoins = ThreadLocalRandom.current().nextInt((100 * MainApp.currentP.getLevel()) / 5, (100 * MainApp.currentP.getLevel()) / 4);//extra coins
         imageP = new ImagePattern(new Image(getClass().getResource("/" + "chest" + ".png").toString()));
     }
 
