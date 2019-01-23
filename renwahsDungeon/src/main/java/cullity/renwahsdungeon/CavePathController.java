@@ -381,8 +381,13 @@ public class CavePathController implements Initializable {
             if (eMov == 10) {
                 eMov = 0;
                 for (int em = 0; em < enemies.size(); em++) {
-                    if (enemies.get(em).getDirectionTime() == 10) {
-                        enemies.get(em).setDiretctionTime(0);
+                    if (enemies.get(em).getDirectionTime() > 10) {
+                        enemies.get(em).setDirectionTime(enemies.get(em).getDirectionTime() + 1);
+                        if (enemies.get(em).getDirectionTime() >= ThreadLocalRandom.current().nextInt(20, 60)) {
+                            enemies.get(em).setDirectionTime(0);
+                        }
+                    } else if (enemies.get(em).getDirectionTime() == 10) {
+                        enemies.get(em).setDirectionTime(0);
 
                         if (ThreadLocalRandom.current().nextBoolean() == true) {
                             if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
@@ -520,7 +525,7 @@ public class CavePathController implements Initializable {
                             break;
                     }
 
-                    enemies.get(em).setDiretctionTime(enemies.get(em).getDirectionTime() + 1);
+                    enemies.get(em).setDirectionTime(enemies.get(em).getDirectionTime() + 1);
                 }
             }
         }
@@ -705,11 +710,31 @@ public class CavePathController implements Initializable {
                     enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
                     slime = new MediaPlayer((new Media(getClass().getResource("/Blood Squirt.mp3").toString())));
                     slime.play();
+                    enemies.get(e).setDirectionTime(11);
+                    switch (direction) {
+                        case "u":
+                            enemies.get(e).setDirection("up");
+                            break;
+                        case "d":
+                            enemies.get(e).setDirection("down");
+                            break;
+                        case "l":
+                            enemies.get(e).setDirection("left");
+                            break;
+                        case "r":
+                            enemies.get(e).setDirection("right");
+                            break;
+                        default:
+                            enemies.get(e).setDirection(direction);
+                            break;
+                    }
                     if (enemies.get(e).getHealth() <= 0) {
                         enemies.get(e).setVisible(false);
                         if (!enemies.get(e).isVisible()) {
                             deadEnemies++;
                             if (deadEnemies == enemies.size()) {
+                                //mouseReleased called to finish sword animation, otherwise, the sword would be stuck in the 'swung' position
+                                mouseReleased(event);
                                 recChest.setFill(winChest.getImageP());
                                 recChest.setVisible(true);
                                 direction = "r";
@@ -728,7 +753,6 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mouseReleased(MouseEvent event) {
-        direction = "r";
         if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() == "s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
