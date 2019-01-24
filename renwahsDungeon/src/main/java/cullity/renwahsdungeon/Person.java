@@ -55,7 +55,6 @@ public class Person {
     private int hitCooldown = 0;
     
     private int xp = 0;
-    private int xpNeeded = 500;
     
     //person stuff
     public Person() {
@@ -158,14 +157,6 @@ public class Person {
     
     public int getXP() {
         return xp;
-    }
-    
-    public void setXPNeeded(int xpn) {
-        xpNeeded = xpn;
-    }
-    
-    public int getXPNeeded() {
-        return xpNeeded;
     }
 
     public void setType(String t) {

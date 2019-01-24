@@ -533,9 +533,20 @@ public class CavePathController implements Initializable {
             return;
         }
         if (checkCol(plyHero, plyChest) && recChest.isVisible()) {
+            MainApp.currentP.setXP(MainApp.currentP.getXP() + (((100 * MainApp.currentL) / 10) * (enemies.size() * 100) / 10));
+
             chestOpen = true;
-            Platform.runLater(()
-                    -> {
+            Platform.runLater(() -> {
+                if (MainApp.currentP.getXP() >= (MainApp.currentP.getLevel() * 100)) {
+                    MainApp.currentP.setLevel(MainApp.currentP.getLevel() + 1);
+                    alert.setTitle("Level Up");
+                    alert.setHeaderText("Level Up");
+                    alert.setContentText("You are now level " + MainApp.currentP.getLevel());
+                    alert.showAndWait();
+                    
+                    MainApp.currentP.setXP(0);
+                }
+
                 try {
                     winChest.open();
                 } catch (ClassNotFoundException ex) {
