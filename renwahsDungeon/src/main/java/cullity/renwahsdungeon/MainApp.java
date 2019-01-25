@@ -73,10 +73,10 @@ public class MainApp extends Application {
             try {
                 if (inven.substring(i, i + 1).equals("s")) {
                     inv.add(new Sword());
-                    ((Sword) inv.get(i)).setDMultiplier(MainApp.currentP.getItemStatMultiplier());
+                    //((Sword) inv.get(i)).setDMultiplier(MainApp.currentP.getItemStatMultiplier());
                 } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
-                    ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
+                   // ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
                 } else if (inven.substring(i, i + 1).equals("b")) {
                     inv.add(new Bow());
 
