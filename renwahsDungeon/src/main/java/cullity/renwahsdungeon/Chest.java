@@ -107,7 +107,7 @@ public class Chest {
             dialog.setContentText(choiceString);
 
             Optional<String> result = dialog.showAndWait();
-            String chosen=result.get().trim();
+            String chosen;
             if (!result.isPresent()) {//if they cancel
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
                 a.setTitle("Error");
@@ -117,6 +117,7 @@ public class Chest {
                 open();
                 return;
             } else {
+                chosen = result.get().trim();
                 if (chosen.length() > 6) {//too many items chosen
                     //stuff
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
@@ -149,7 +150,6 @@ public class Chest {
                         return;
                     }
 
-                    
                     for (int i = 0; i < chosen.length(); i++) {
 
                         try {
@@ -175,7 +175,7 @@ public class Chest {
 
                     for (int j = 0; j < chosen.length(); j++) {
                         for (int n = 0; n < chosen.length(); n++) {
-                            if (Integer.parseInt(chosen.substring(j, j + 1)) == Integer.parseInt(chosen.substring(n, n + 1))&&(j!=n)) {
+                            if (Integer.parseInt(chosen.substring(j, j + 1)) == Integer.parseInt(chosen.substring(n, n + 1)) && (j != n)) {
                                 Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                                 al.setTitle("Error");
                                 al.setHeaderText("Numbers can only be entered in once");
