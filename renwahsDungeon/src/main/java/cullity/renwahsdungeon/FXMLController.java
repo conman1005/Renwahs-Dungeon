@@ -39,7 +39,7 @@ public class FXMLController implements Initializable {
         if (lstSaves.getSelectionModel().getSelectedIndex() == -1) {
             return;
         }
-        System.out.println(lstSaves.getSelectionModel().getSelectedIndex());
+       // System.out.println(lstSaves.getSelectionModel().getSelectedIndex());
         //after stuff happens
         //currentP=selected person
         //get inventory
