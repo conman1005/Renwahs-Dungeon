@@ -51,7 +51,7 @@ public class Person {
     private int level;
     private int coins;
     private int highestLevel;
-    private double itemStatMultiplier;
+   // private double itemStatMultiplier;
     private int hitCooldown = 0;
     
     //person stuff
@@ -73,7 +73,7 @@ public class Person {
         coins = 0;
         imageP = new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString()));//image of the person
         highestLevel = 1;//furthest level travelled in the dungeon
-        itemStatMultiplier = 1;
+//        itemStatMultiplier = 1;
     }
 
     public Person(String n, int l, double s, double h, double d, char t, String i, int c, String im, int hl, double ism) {
@@ -93,7 +93,7 @@ public class Person {
         coins = c;
         imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
         highestLevel = hl;
-        itemStatMultiplier = ism;
+//        itemStatMultiplier = ism;
     }
 
     public int getHighestLevel() {
@@ -104,13 +104,13 @@ public class Person {
         highestLevel = hL;
     }
 
-    public void setItemStatMultiplier(int ism) {
-        itemStatMultiplier = ism;
-    }
-
-    public double getItemStatMultiplier() {
-        return itemStatMultiplier;
-    }
+//    public void setItemStatMultiplier(int ism) {
+//        itemStatMultiplier = ism;
+//    }
+//
+//    public double getItemStatMultiplier() {
+//        return itemStatMultiplier;
+//    }
 
     public ImagePattern getImageP() {
         return imageP;
