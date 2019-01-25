@@ -54,6 +54,8 @@ public class Person {
    // private double itemStatMultiplier;
     private int hitCooldown = 0;
     
+    private int xp = 0;
+    
     //person stuff
     public Person() {
         StringBuffer tempN = new StringBuffer("bob");
@@ -146,6 +148,15 @@ public class Person {
 
     public void setBDefense(double d) {
         bDefense = d;
+    }
+    
+    public void setXP(int x) {
+        xp = x;
+    }
+    
+    
+    public int getXP() {
+        return xp;
     }
 
     public void setType(String t) {
