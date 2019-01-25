@@ -6,8 +6,6 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,17 +24,17 @@ public class MainApp extends Application {
     public static ArrayList<Rectangle> slot = new ArrayList();//item slots//add this in every initialize
     public static Item currentI;//current item selected
     public static Person currentP=new Person(); //current user/save file
-    public static Enemy currentE;//current enemy fighting the user
+    //public static Enemy currentE;//current enemy fighting the user
     public static int itSpot = 0;//spot in item arraylist
     public static Scene currentS;//current scene//probably not needed
-    public static boolean fighting;//if in combat
+    //public static boolean fighting;//if in combat
     public static double currentHealth = 30;//currenthealth of user
     public static boolean paused = false;//if paused then true
     public static String townLocation = "";//used to know where in the town the user left so that they can eb put back in the same place when returning to town
     public static AnchorPane currentA = null;
     public static Rectangle recItem;
     public static int currentL; //current level of the cave path the user is on
-    public Alert alert = new Alert(AlertType.CONFIRMATION);
+    
     public static Stage mainStage;
     public static int recordNum;//spot in the random access file of currentP
     public static ArrayList<Arrow> arrows = new ArrayList();//array of arrows in cavePath//must be global so that it can be calledfrom the object of arrow
