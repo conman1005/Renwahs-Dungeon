@@ -127,7 +127,7 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent event) {
- if (event.getCode() == KeyCode.H){
+        if (event.getCode() == KeyCode.H) {
             move.stop();
         }
         kEvent = event;
@@ -136,7 +136,7 @@ public class CavePathController implements Initializable {
         }
         keyStuff temp = new keyStuff();
         temp.keys(event, false, ancCavePath, recItem);// this is because the pause button is in the global method//false means not in town
-        if (event.getCode() == KeyCode.H){
+        if (event.getCode() == KeyCode.H) {
             move.play();
             MainApp.currentS.getRoot().requestFocus();
         }
@@ -150,20 +150,20 @@ public class CavePathController implements Initializable {
                 //use item like a potion  special ability for weapons
                 try {
                     if (MainApp.currentI.getSymbol() == 'h') {//if health potion
-                       // System.out.println("correct");
+                        // System.out.println("correct");
                         if ((MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) + 10) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
                             MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth() + 10;
 
-                           // System.out.println("hi");
+                            // System.out.println("hi");
                         } else {//current health + health potion is higher than full health so just make it full health
                             MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5.0 + 1.0);
-                           // System.out.println("good");
-                           // System.out.println(MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0));
+                            // System.out.println("good");
+                            // System.out.println(MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0));
 
                             //System.out.println((double) MainApp.currentP.getLevel() / 5);
                         }
                         //note//set user progress bar
-                       // System.out.println(prgHealth.getProgress());
+                        // System.out.println(prgHealth.getProgress());
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         MainApp.deleteItem();
                         //System.out.println(prgHealth.getProgress());
@@ -557,10 +557,9 @@ public class CavePathController implements Initializable {
             Platform.runLater(() -> askIfWantToExit());
             return;
         }
-        
+
 //arrow stuff
 //if (MainApp.arrows.isEmpty()){return;}
-
         ArrayList<Arrow> removeArrow = new ArrayList();//cant remove from arralylist of enhanced loop after loop it will remove all arrows in this arraylist from the actual arrow arraylists
         for (Arrow a : MainApp.arrows) {
 
@@ -576,8 +575,8 @@ public class CavePathController implements Initializable {
                 if (checkCol(a, e) && (e.isVisible())) {
                     //damage enemy //note not done yet
                     e.setHealth(e.getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1)));
-                   // System.out.println(MainApp.currentP.getBStrength());
-                   // System.out.println(MainApp.currentP.getItemStatMultiplier());
+                    // System.out.println(MainApp.currentP.getBStrength());
+                    // System.out.println(MainApp.currentP.getItemStatMultiplier());
                     //System.out.println((MainApp.currentP.getLevel() / 5 + 1));
                     if (e.getHealth() < 1) {
                         e.setVisible(false);
@@ -600,7 +599,7 @@ public class CavePathController implements Initializable {
                         deadEnemies = 0;
 
                     }
-                   // System.out.println("hit with arrow");//testing
+                    // System.out.println("hit with arrow");//testing
                     //then delete arrow
                     MainApp.currentA.getChildren().remove(a);
                     removeArrow.add(a);
@@ -689,6 +688,9 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mousePressed(MouseEvent event) {
+        if (MainApp.currentI == null) {
+            return;
+        }
         if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
@@ -758,6 +760,9 @@ public class CavePathController implements Initializable {
 
     @FXML
     private void mouseReleased(MouseEvent event) {
+        if (MainApp.currentI == null) {
+            return;
+        }
         if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() == "s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
