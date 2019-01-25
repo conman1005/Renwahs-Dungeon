@@ -100,9 +100,14 @@ public class TownController implements Initializable {
     
     @FXML
     private void keyPressed(KeyEvent event) {
-        
+        if (event.getCode() == KeyCode.H){
+            move.stop();direction="u";
+        }
         keyStuff temp = new keyStuff();// this is because the pause button is in the global method
         temp.keys(event, true, ancTown, recTI);//true because it is in town scene (pausing button)
+         if (event.getCode() == KeyCode.H){
+            move.play();
+        }
         if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
             try {
                 if (MainApp.currentI.getSymbol() == 'b') {
@@ -271,7 +276,7 @@ public class TownController implements Initializable {
             }
         } catch (NumberFormatException e) {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setTitle("Error");
+            a.setTitle("Error"); 
             a.setHeaderText("Must input a valid number from 1 to " + (MainApp.currentP.getHighestLevel() + 1));
             a.setContentText("Please exit this message to try again");
             a.showAndWait();
@@ -292,7 +297,7 @@ public class TownController implements Initializable {
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
         recTI.getTransforms().clear();
-        System.out.println(recTI.getTranslateY());
+       // System.out.println(recTI.getTranslateY());
         if (MainApp.currentI == null) {
             return;
         }

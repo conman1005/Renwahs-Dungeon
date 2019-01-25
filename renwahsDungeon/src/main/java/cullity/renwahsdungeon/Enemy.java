@@ -98,7 +98,7 @@ public class Enemy extends Rectangle {
         return direction;
     }
     
-    public void setDiretctionTime(int dt) {
+    public void setDirectionTime(int dt) {
         directionTime = dt;
     }
     public int getDirectionTime() {
