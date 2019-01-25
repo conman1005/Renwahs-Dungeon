@@ -1,0 +1,1 @@
+start target\jlink-image\bin\javaw -jar target\modules\renwahsDungeon-1.0-SNAPSHOT.jar

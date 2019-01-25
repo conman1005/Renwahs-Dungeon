@@ -38,7 +38,8 @@ public class FXMLController implements Initializable {
     private void btnPlay(ActionEvent event) {
         if (lstSaves.getSelectionModel().getSelectedIndex() == -1) {
             return;
-        }System.out.println(lstSaves.getSelectionModel().getSelectedIndex());
+        }
+       // System.out.println(lstSaves.getSelectionModel().getSelectedIndex());
         //after stuff happens
         //currentP=selected person
         //get inventory
@@ -78,6 +79,13 @@ public class FXMLController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        if (MainApp.currentP.getLevel() < 2) {
+            alert.setTitle("Instructions");
+            alert.setHeaderText("Instructions and tips are as follows:");
+            alert.setContentText("1. Use WASD to move \n 2. Use scroll wheel or first 6 numerical buttons to change item selected (items shown in the six inventory slots) \n 3. Clicking the left mouse button while holding a sword will slash \n 4. Clicking the arrow keys while holding a bow will shoot an arrow in the corresponding direction (Using the bow is illegal in the town) \n 5. Clicking Q with a health potion will use it \n 6. Clicking G will drop the current item \n 7. Begin your adventure by going to the bottom left corner of the town \n 8. Clicking the ESCAPE button will pause the game \n 9. Fight slimes to get rewards from chests \n 10. After choosing your items from a chest your progress will be saved \n 11. Pressing H will reopen the instructions for help");
+            alert.showAndWait();
+        }
+
     }
 
     @FXML

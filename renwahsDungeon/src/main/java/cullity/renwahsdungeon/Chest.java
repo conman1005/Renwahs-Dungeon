@@ -53,7 +53,7 @@ public class Chest {
             itm3 = gains.get(2);
         } catch (Exception e) {
         }
-        extraCoins = ThreadLocalRandom.current().nextInt(100 * (MainApp.currentP.getLevel() / 5 + 1), 500 + 1);//extra coins
+        extraCoins = ThreadLocalRandom.current().nextInt((100 * MainApp.currentP.getLevel()) / 5, (100 * MainApp.currentP.getLevel()) / 4);//extra coins
         imageP = new ImagePattern(new Image(getClass().getResource("/" + "chest" + ".png").toString()));
     }
 
@@ -90,20 +90,20 @@ public class Chest {
         int nextNum = 1;//starts at 1 so that the i9frst choice for the user is 1
         for (int i = 0; i < MainApp.inv.size(); i++) {//this loop will add the names of the items in the current inventory to the choices string
 
-            choiceString += "\n" + (i + 1) + " " + MainApp.inv.get(i).getClass().getSimpleName();//first spot for user to choose from will be one so I added 1 to the index
+            choiceString += "\n" + (i + 1) + " " + MainApp.inv.get(i).getItemName();//first spot for user to choose from will be one so I added 1 to the index
             nextNum++;
         }
         choiceString += "\n Items in chest includes:";
         for (int i = MainApp.inv.size(); i < choices.size(); i++) {//this loop adds the items in the chest to the choices string
 
-            choiceString += "\n" + nextNum + " " + choices.get(i).getClass().getSimpleName();
+            choiceString += "\n" + nextNum + " " + choices.get(i).getItemName();
             nextNum++;
         }
         String newIn = "";
         if (choices.size() > 6) {
             TextInputDialog dialog = new TextInputDialog("123456");
             dialog.setTitle("Choose Which Items to Keep ");
-            dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces ");//might need to make easier to understand
+            dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces \n for example typing in 143 will give you the first, fourth and third item listed");//might need to make easier to understand
             dialog.setContentText(choiceString);
 
             Optional<String> result = dialog.showAndWait();
@@ -117,7 +117,8 @@ public class Chest {
                 open();
                 return;
             } else {
-                if (result.get().length() > 6) {//too many items chosen
+                chosen = result.get().trim();
+                if (chosen.length() > 6) {//too many items chosen
                     //stuff
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                     al.setTitle("Error");
@@ -127,7 +128,7 @@ public class Chest {
                     open();
                     return;
 
-                } else if (result.get().isBlank()) {
+                } else if (chosen.isBlank()) {
                     Alert al = new Alert(Alert.AlertType.CONFIRMATION);
 
                     al.setTitle("Error");
@@ -148,7 +149,43 @@ public class Chest {
                         open();
                         return;
                     }
-                    chosen = result.get();
+
+                    for (int i = 0; i < chosen.length(); i++) {
+
+                        try {
+                            if (Integer.parseInt(chosen.substring(i, i + 1)) > choices.size() || Integer.parseInt(chosen.substring(i, i + 1)) < 1) {
+                                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                                al.setTitle("Error");
+                                al.setHeaderText("Each digit must be more than 0 and less than the highest number in the list (" + choices.size() + ")");
+                                al.setContentText("Please exit this message to try again");
+                                al.showAndWait();
+                                open();
+                                return;
+                            }
+                        } catch (NumberFormatException numberFormatException) {
+                            Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                            al.setTitle("Error");
+                            al.setHeaderText("Must be all numbers with no spaces");
+                            al.setContentText("Please exit this message to try again");
+                            al.showAndWait();
+                            open();
+                            return;
+                        }
+                    }
+
+                    for (int j = 0; j < chosen.length(); j++) {
+                        for (int n = 0; n < chosen.length(); n++) {
+                            if (Integer.parseInt(chosen.substring(j, j + 1)) == Integer.parseInt(chosen.substring(n, n + 1)) && (j != n)) {
+                                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                                al.setTitle("Error");
+                                al.setHeaderText("Numbers can only be entered in once");
+                                al.setContentText("Please exit this message to try again");
+                                al.showAndWait();
+                                open();
+                                return;
+                            }
+                        }
+                    }
 
                 }
             }
@@ -186,7 +223,10 @@ public class Chest {
         MainApp.getItemsFromData(newIn);//makes it so that the invenotry arraylist gets updated
         MainApp.currentP.setInventory(newIn);
         MainApp.itSpot = 0;
-        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + (extraCoins * MainApp.currentL));
+        MainApp.currentP.setCoins(MainApp.currentP.getCoins() + (extraCoins /**
+                 * MainApp.currentL
+                 */
+                ));
 
         MainApp.currentL++;
         if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
