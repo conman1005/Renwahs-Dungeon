@@ -810,7 +810,7 @@ public class CavePathController implements Initializable {
         ply[6] = plyWall7;
         ply[7] = plyExit;
         double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
-        for (int i = 0; i < ThreadLocalRandom.current().nextInt((MainApp.currentL * 2 + 1) / 4, MainApp.currentL + 1); i++) {
+        for (int i = 0; i < ThreadLocalRandom.current().nextInt((MainApp.currentL * 2 + 2) / 4, MainApp.currentL + 2); i++) {
             enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
             totalEnemies++;
         }
