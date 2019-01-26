@@ -41,6 +41,7 @@ public class MainApp extends Application {
 
     public static boolean caveMusic = false;
     public static MediaPlayer caveSong;
+    public static MediaPlayer townSong;
     
     public static void deleteItem() {//put in 
         inv.remove(currentI);
@@ -155,6 +156,9 @@ public class MainApp extends Application {
         caveSong = new MediaPlayer((new Media(getClass().getResource("/Vampire_Underground_Drum_and_Bass_Remix.mp3").toString())));
         caveSong.setCycleCount(MediaPlayer.INDEFINITE);
         caveSong.setVolume(0.25);
+        townSong = new MediaPlayer((new Media(getClass().getResource("/Lowly_Tavern_Bard_II.mp3").toString())));
+        townSong.setCycleCount(MediaPlayer.INDEFINITE);
+        townSong.setVolume(0.25);
     }
 
     /**
