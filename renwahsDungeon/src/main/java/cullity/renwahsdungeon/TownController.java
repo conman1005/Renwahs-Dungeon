@@ -42,7 +42,7 @@ import javafx.scene.transform.Rotate;
  * @author shawnb58
  */
 public class TownController implements Initializable {
-    
+
     @FXML
     private Rectangle recT1;//rec slots in town controller (T)
     @FXML
@@ -55,13 +55,13 @@ public class TownController implements Initializable {
     private Rectangle recT5;
     @FXML
     private Rectangle recT6;
-    
+
     @FXML
     private Pane pneTown;
-    
+
     @FXML
     private Rectangle recHero;
-    
+
     @FXML
     private Polygon plyWall;
     @FXML
@@ -72,35 +72,40 @@ public class TownController implements Initializable {
     private Polygon plyHero;
     @FXML
     private Polygon plyPath;
-    
+
     Polygon ply[] = new Polygon[3];
-    
+
     @FXML
     private AnchorPane ancTown;
     @FXML
     private Rectangle recTI;//rec that shows the item in the hand of the person in the town scene
-    
+
     @FXML
     private Label lblCoins;
 
     Person psn = new Person();
-    
+
     String direction = "";
-    
+
     Timeline move = new Timeline(new KeyFrame(Duration.millis(25), ae -> movement()));
-    
+
     MediaPlayer music;
     MediaPlayer sword;
-    
+
     @FXML
     private void keyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.H){
-            move.stop();direction="u";
+
+        if (event.getCode() == KeyCode.H) {
+            move.stop();
+            direction = "u";
         }
         keyStuff temp = new keyStuff();// this is because the pause button is in the global method
         temp.keys(event, true, ancTown, recTI);//true because it is in town scene (pausing button)
-         if (event.getCode() == KeyCode.H){
+        if (event.getCode() == KeyCode.H) {
             move.play();
+        }
+        if (event.getCode() == KeyCode.T) {//cheat is in keystuff
+            lblCoins.setText("Coins: " + MainApp.currentP.getCoins());
         }
         if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
             try {
@@ -139,7 +144,7 @@ public class TownController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void keyReleased(KeyEvent event) {
         if (null != event.getCode()) {
@@ -163,9 +168,9 @@ public class TownController implements Initializable {
         kEvent = event;
     }
     KeyEvent kEvent;
-    
+
     Rotate rotate = new Rotate();
-    
+
     @FXML
     private void mousePressed(MouseEvent event) {
         try {
@@ -179,7 +184,7 @@ public class TownController implements Initializable {
                 } else {
                     rotate.setAngle(45);
                 }
-                
+
                 recTI.getTransforms().clear();
                 recTI.getTransforms().addAll(rotate);
                 sword = new MediaPlayer((new Media(getClass().getResource("/woosh.mp3").toString())));
@@ -188,7 +193,7 @@ public class TownController implements Initializable {
         } catch (NullPointerException e) {
         }
     }
-    
+
     @FXML
     private void mouseReleased(MouseEvent event) {
         try {
@@ -196,14 +201,14 @@ public class TownController implements Initializable {
                 rotate.setPivotX(0);
                 rotate.setPivotY(50);
                 rotate.setAngle(0);
-                
+
                 recTI.getTransforms().clear();
                 recTI.getTransforms().addAll(rotate);
             }
         } catch (NullPointerException e) {
         }
     }
-    
+
     private void movement() {
         psn.moveTown(pneTown, direction, recHero, recTI);
         for (Polygon i : ply) {
@@ -236,7 +241,7 @@ public class TownController implements Initializable {
                         MainApp.currentS = town_scene;
                         //get reference to the stage
                         Stage stage = MainApp.mainStage;
-                        
+
                         stage.hide(); //optional
                         town_scene.getRoot().requestFocus();
                         stage.setScene(town_scene); //puts the new scence in the stage
@@ -251,14 +256,14 @@ public class TownController implements Initializable {
             }
         }
     }
-    
+
     private boolean determineCaveLevel() {//allows user to choose level of dungeon
 
         TextInputDialog dialog = new TextInputDialog("" + (MainApp.currentP.getHighestLevel() + 1));
         dialog.setTitle("Choose Which Level Dungeon you would like to enter");
         dialog.setHeaderText("Type any number from 1 to the farthest level you've been to \n (currently " + (MainApp.currentP.getHighestLevel() + 1) + ")");//might need to make easier to understand
         dialog.setContentText(null);
-        
+
         Optional<String> result = dialog.showAndWait();
         String chosen;
         if (!result.isPresent()) {//if they cancel
@@ -270,39 +275,39 @@ public class TownController implements Initializable {
             }
         } catch (NumberFormatException e) {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-            a.setTitle("Error"); 
+            a.setTitle("Error");
             a.setHeaderText("Must input a valid number from 1 to " + (MainApp.currentP.getHighestLevel() + 1));
             a.setContentText("Please exit this message to try again");
             a.showAndWait();
-            
+
             return determineCaveLevel();
         }
         MainApp.currentL = Integer.parseInt(result.get()) - 1;
         return true;
-        
+
     }
-    
+
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
     }
-    
+
     @FXML
     private void scrollItem(ScrollEvent s) {//nextItem
         MainApp.scrollI(s);
         recTI.getTransforms().clear();
-       // System.out.println(recTI.getTranslateY());
+        // System.out.println(recTI.getTranslateY());
         if (MainApp.currentI == null) {
             return;
         }
         if (MainApp.currentI.getSymbol() == "b".charAt(0)) {
             recTI.setTranslateY(35);
-            
+
         } else {
             recTI.setTranslateY(-35);
         }
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 10 + 1);
@@ -315,7 +320,7 @@ public class TownController implements Initializable {
         music.play();
         MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
-        direction="r";
+        direction = "r";
         //MainApp.currentP.setInventory("hsh!!!");//for testing
         //MainApp.getItemsFromData(MainApp.currentP.getInventory());//for testing
         MainApp.slot.clear();
@@ -327,11 +332,11 @@ public class TownController implements Initializable {
         MainApp.slot.add(recT6);
         MainApp.recItem = recTI;
         MainApp.showItems();
-        
+
         ply[0] = plyWall;
         ply[1] = plyTavern;
         ply[2] = plyBlacksmith;
-        
+
         if (!MainApp.townLocation.equals("")) {
             if (MainApp.townLocation.equalsIgnoreCase("CAVEPATH")) {
                 pneTown.setTranslateX(-1250);
