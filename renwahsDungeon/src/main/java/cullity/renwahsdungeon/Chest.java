@@ -93,7 +93,7 @@ public class Chest {
             choiceString += "\n" + (i + 1) + " " + MainApp.inv.get(i).getItemName();//first spot for user to choose from will be one so I added 1 to the index
             nextNum++;
         }
-        choiceString += "\n Items in chest includes:";
+        choiceString += "\n \n Items in chest includes:";//twice to make it easier to read
         for (int i = MainApp.inv.size(); i < choices.size(); i++) {//this loop adds the items in the chest to the choices string
 
             choiceString += "\n" + nextNum + " " + choices.get(i).getItemName();
