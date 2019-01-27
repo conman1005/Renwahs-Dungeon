@@ -18,7 +18,7 @@ public class Sword extends Item {
     private double price;
 
     public Sword() {
-        super("sword", true, "s".charAt(0),"baseSword",10);
+        super("Sword", true, "s".charAt(0),"baseSword",10);
         dMultiplier = 2;
         
     }

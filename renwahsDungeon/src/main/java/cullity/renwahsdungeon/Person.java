@@ -62,7 +62,7 @@ public class Person {
         tempN.setLength(15);
         name = tempN.toString();
 
-        StringBuffer tempI = new StringBuffer("!!!!!!");
+        StringBuffer tempI = new StringBuffer("s!!!!!");
         tempI.setLength(6);
         inventory = tempI.toString();//! is nothing
         level = 1;

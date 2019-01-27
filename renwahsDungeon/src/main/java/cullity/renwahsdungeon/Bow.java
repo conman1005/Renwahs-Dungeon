@@ -17,7 +17,7 @@ public class Bow extends Item {
 
 //note, might need an enemy arraylist that constantly updates during shoot timer
     public Bow() {
-        super("bow", true, "b".charAt(0), "bow", 50);
+        super("Bow", true, "b".charAt(0), "bow", 50);
 
     }
 
