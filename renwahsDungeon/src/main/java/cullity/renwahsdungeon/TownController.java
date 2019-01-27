@@ -89,7 +89,6 @@ public class TownController implements Initializable {
 
     Timeline move = new Timeline(new KeyFrame(Duration.millis(25), ae -> movement()));
 
-    MediaPlayer music;
     MediaPlayer sword;
 
     @FXML
@@ -233,7 +232,7 @@ public class TownController implements Initializable {
                         move.play();
                         return;
                     }
-                    music.stop();
+                    MainApp.townSong.stop();
                     try {
                         Parent town_parent = FXMLLoader.load(getClass().getResource("/fxml/cavePath.fxml")); //where FXMLPage2 is the name of the scene
 
@@ -314,10 +313,7 @@ public class TownController implements Initializable {
         move.setCycleCount(INDEFINITE);
         move.play();
         lblCoins.setText("Coins: " + MainApp.currentP.getCoins());
-        music = new MediaPlayer((new Media(getClass().getResource("/Lowly_Tavern_Bard_II.mp3").toString())));
-        music.setCycleCount(INDEFINITE);
-        music.setVolume(0.25);
-        music.play();
+        MainApp.townSong.play();
         MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
         direction = "r";

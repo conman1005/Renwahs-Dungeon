@@ -175,6 +175,8 @@ public class keyStuff {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeMenu) {
+                    MainApp.caveSong.stop();
+                    MainApp.townSong.stop();
                     // ... user chose "main menu"
                     MainApp.paused = false;
                     try {
@@ -194,6 +196,7 @@ public class keyStuff {
                     } catch (IOException iOException) {
                     }
                 } else if (result.get() == buttonTypeTown) {
+                    MainApp.caveSong.stop();
                     // ... user chose "town"
                     MainApp.paused = false;
                     try {
