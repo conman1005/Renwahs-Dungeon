@@ -66,7 +66,7 @@ public class Person {
         tempI.setLength(6);
         inventory = tempI.toString();//! is nothing
         level = 1;
-        bStrength = 10;
+        bStrength = 30;
         bHealth = 30;
         bDefense = 10;
         StringBuffer tempT = new StringBuffer("w");
