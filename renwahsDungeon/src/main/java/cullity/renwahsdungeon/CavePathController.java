@@ -1,8 +1,8 @@
 
 /*
  * Made By: Conner Cullity
- * Date:
- * Description:
+ * Date: Dec 10, 2018
+ * Description: Window where you can fight slimes and go deeper into the dungeon
  */
 package cullity.renwahsdungeon;
 
@@ -131,6 +131,7 @@ public class CavePathController implements Initializable {
             move.stop();
         }
         kEvent = event;
+        //pausing
         if (event.getCode() == KeyCode.ESCAPE) {
             move.stop();
         }
