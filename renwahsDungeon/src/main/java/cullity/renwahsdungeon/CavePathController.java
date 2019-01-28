@@ -725,7 +725,7 @@ public class CavePathController implements Initializable {
 
             for (int e = 0; e < enemies.size(); e++) {
                 if ((checkCol(recItem, enemies.get(e))) && (enemies.get(e).isVisible())) {
-                    enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
+                    enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 2 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
                     slime = new MediaPlayer((new Media(getClass().getResource("/Blood Squirt.mp3").toString())));
                     slime.play();
                     enemies.get(e).setDirectionTime(11);
@@ -809,21 +809,23 @@ public class CavePathController implements Initializable {
         ply[5] = plyWall6;
         ply[6] = plyWall7;
         ply[7] = plyExit;
-        double multiplier = (MainApp.currentL * 0.01) + 1;//multiplies strength and health of enemies
-        for (int i = 0; i < ThreadLocalRandom.current().nextInt((MainApp.currentL * 2 + 2) / 4, MainApp.currentL + 2); i++) {
-            enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
+        double multiplier = (MainApp.currentL * 0.1) + 1;//multiplies strength and health of enemies
+        for (int i = 0; i < ThreadLocalRandom.current().nextInt((MainApp.currentL + 1), ((MainApp.currentL + 1) * 4) / 2); i++) {
+            enemies.add(new Enemy(30 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
             totalEnemies++;
         }
         for (int ii = 0; ii < enemies.size(); ii++) {
             enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
             enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
+            enemies.get(ii).setHealth(multiplier * 50);
             for (Polygon ply1 : ply) {
                 while ((checkCol(enemies.get(ii), ply1)) || (checkCol(enemies.get(ii), plyHero))) {
-                    enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
-                    enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
+                    enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(100, 800));
+                    enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(100, 500));
                 }
             }
         }
+        plyHero.setVisible(true);
 
         ancCavePath.getChildren().addAll(enemies);
 
