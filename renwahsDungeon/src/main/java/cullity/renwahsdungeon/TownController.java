@@ -339,6 +339,8 @@ public class TownController implements Initializable {
                 pneTown.setTranslateY(-743);
             }
         }
+        
+        System.out.println((MainApp.currentL * 4) / 2);
 
 //        MainApp.currentA = ancTown;
     }

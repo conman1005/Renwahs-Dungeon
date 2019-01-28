@@ -810,8 +810,8 @@ public class CavePathController implements Initializable {
         ply[6] = plyWall7;
         ply[7] = plyExit;
         double multiplier = (MainApp.currentL * 0.1) + 1;//multiplies strength and health of enemies
-        for (int i = 0; i < ThreadLocalRandom.current().nextInt((MainApp.currentL * 2 + 2) / 4, MainApp.currentL + 2); i++) {
-            enemies.add(new Enemy(100 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
+        for (int i = 0; i < ThreadLocalRandom.current().nextInt((MainApp.currentL + 1), ((MainApp.currentL + 1) * 4) / 2); i++) {
+            enemies.add(new Enemy(30 * multiplier, 10 * multiplier, "sprites/slimeGreen", 35, 30, 0, 0, "left"));
             totalEnemies++;
         }
         for (int ii = 0; ii < enemies.size(); ii++) {
@@ -820,11 +820,12 @@ public class CavePathController implements Initializable {
             enemies.get(ii).setHealth(multiplier * 50);
             for (Polygon ply1 : ply) {
                 while ((checkCol(enemies.get(ii), ply1)) || (checkCol(enemies.get(ii), plyHero))) {
-                    enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
-                    enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
+                    enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(100, 800));
+                    enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(100, 500));
                 }
             }
         }
+        plyHero.setVisible(true);
 
         ancCavePath.getChildren().addAll(enemies);
 
