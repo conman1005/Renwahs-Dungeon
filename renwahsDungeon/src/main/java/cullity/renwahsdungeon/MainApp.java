@@ -65,20 +65,16 @@ public class MainApp extends Application {
 
     public static void getItemsFromData(String inven) {//database
         inv.clear();
-
         //add all items
         for (int i = 0; i < inven.length(); i++) {
             //put items in arraylist inv
             try {
                 if (inven.substring(i, i + 1).equals("s")) {
                     inv.add(new Sword());
-                    //((Sword) inv.get(i)).setDMultiplier(MainApp.currentP.getItemStatMultiplier());
                 } else if (inven.substring(i, i + 1).equals("h")) {
                     inv.add(new HPotion());
-                   // ((HPotion) inv.get(i)).setExtraHealth(MainApp.currentP.getItemStatMultiplier() * ((HPotion) inv.get(i)).getExtraHealth());
                 } else if (inven.substring(i, i + 1).equals("b")) {
                     inv.add(new Bow());
-
                 }
             } catch (IndexOutOfBoundsException e) {
             }
@@ -108,7 +104,6 @@ public class MainApp extends Application {
 
     public static void showItems() {//put in all scenes
         //show items in the boxes
-        ImagePattern im;
         ColorAdjust colorAdjust1 = new ColorAdjust();//shows it was selected
         colorAdjust1.setBrightness(-0.5);
         for (int r = 0; r < slot.size(); r++) {//reset slots
