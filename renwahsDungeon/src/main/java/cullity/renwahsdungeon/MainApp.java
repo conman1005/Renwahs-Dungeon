@@ -118,7 +118,6 @@ public class MainApp extends Application {
         for (int i = 0; i < currentP.getInventory().length(); i++) {
             try {//might not need try catch
                 if (!currentP.getInventory().substring(i, i + 1).equals("!")) {
-
                     slot.get(i).setFill(inv.get(i).getImageP());
                 }
 
