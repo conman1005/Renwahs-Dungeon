@@ -1,10 +1,9 @@
 //made by: Shawn and Conner
 //made on: 12/4/18
-//made to: be a dungeon style rpg
+//made to: Be an RPG Where the player goes into a dungeon and fights slimes
 package cullity.renwahsdungeon;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -36,6 +35,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void btnPlay(ActionEvent event) {
+        //checks if you selected anything
         if (lstSaves.getSelectionModel().getSelectedIndex() == -1) {
             return;
         }
@@ -88,7 +88,7 @@ public class FXMLController implements Initializable {
             }
 
     }
-
+    //adds new person
     @FXML
     private void btnNew(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog("");

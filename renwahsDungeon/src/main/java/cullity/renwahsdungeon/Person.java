@@ -282,6 +282,7 @@ public class Person {
     public void moveTown(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":
+                //checks direction and moves player
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
                 recItem.setTranslateX(0);
@@ -295,6 +296,7 @@ public class Person {
                 } catch (NullPointerException e) {
                 }
                 wAnimation++;
+                //walking animation
                 switch (wAnimation) {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString())));
@@ -432,7 +434,7 @@ public class Person {
                 break;
         }
     }
-
+    //similar to town movement
     public void moveCave(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":

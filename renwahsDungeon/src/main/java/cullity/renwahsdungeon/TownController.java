@@ -83,6 +83,8 @@ public class TownController implements Initializable {
 
     @FXML
     private Label lblCoins;
+    @FXML
+    private Label lblLevel;
 
     Person psn = new Person();
 
@@ -323,6 +325,7 @@ public class TownController implements Initializable {
         move.setCycleCount(INDEFINITE);
         move.play();
         lblCoins.setText("Coins: " + MainApp.currentP.getCoins());
+        lblLevel.setText("Level: " + MainApp.currentP.getLevel());
         MainApp.townSong.play();
         MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
