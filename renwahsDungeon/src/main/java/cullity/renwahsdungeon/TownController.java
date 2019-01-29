@@ -1,9 +1,9 @@
 package cullity.renwahsdungeon;
 
 /*
- * Made By: Shawn Benedict
+ * Made By: Shawn Benedict and Conner Cullity
  * Date: Dec 4, 2018
- * Made to
+ * Description: This is the scren for the town of our game, nothing much yet, maybe some pre order dlc in the future
  */
 import java.io.IOException;
 import java.net.URL;
@@ -61,7 +61,7 @@ public class TownController implements Initializable {
 
     @FXML
     private Rectangle recHero;
-
+    
     @FXML
     private Polygon plyWall;
     @FXML
@@ -73,6 +73,7 @@ public class TownController implements Initializable {
     @FXML
     private Polygon plyPath;
 
+    //Polygons added to ply
     Polygon ply[] = new Polygon[3];
 
     @FXML
@@ -82,6 +83,8 @@ public class TownController implements Initializable {
 
     @FXML
     private Label lblCoins;
+    @FXML
+    private Label lblLevel;
 
     Person psn = new Person();
 
@@ -91,6 +94,7 @@ public class TownController implements Initializable {
 
     MediaPlayer sword;
 
+    // for changing directrion and pausing
     @FXML
     private void keyPressed(KeyEvent event) {
 
@@ -122,6 +126,7 @@ public class TownController implements Initializable {
             } catch (NullPointerException e) {//means theres no item being held
             }
         }
+        //switch case statement to determine direction
         if (null != event.getCode()) {
             switch (event.getCode()) {
                 case W:
@@ -135,8 +140,6 @@ public class TownController implements Initializable {
                     break;
                 case D:
                     direction = "right";
-//                    System.out.println(pneTown.getTranslateX());//TESTING
-//                    System.out.println(pneTown.getTranslateY());///TESTING
                     break;
                 default:
                     break;
@@ -146,6 +149,7 @@ public class TownController implements Initializable {
 
     @FXML
     private void keyReleased(KeyEvent event) {
+        //switch case to determine what direction the player is facing while standing
         if (null != event.getCode()) {
             switch (event.getCode()) {
                 case W:
@@ -164,16 +168,16 @@ public class TownController implements Initializable {
                     break;
             }
         }
-        kEvent = event;
     }
-    KeyEvent kEvent;
 
     Rotate rotate = new Rotate();
 
     @FXML
     private void mousePressed(MouseEvent event) {
         try {
+            //checks if you are holding a weapon
             if (MainApp.currentI.isWeapon() && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
+                //movements to show sword swinging animations, depending on the direction faced
                 rotate.setPivotX(0);
                 rotate.setPivotY(50);
                 if ((direction.equals("up")) || (direction.equals("u"))) {
@@ -196,6 +200,7 @@ public class TownController implements Initializable {
     @FXML
     private void mouseReleased(MouseEvent event) {
         try {
+            //resets weaponm posiition after releasing the click
             if ((MainApp.currentI.isWeapon()) && (!recTI.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() != "b".charAt(0))) {
                 rotate.setPivotX(0);
                 rotate.setPivotY(50);
@@ -209,7 +214,9 @@ public class TownController implements Initializable {
     }
 
     private void movement() {
+        //constructor for external move code line 282
         psn.moveTown(pneTown, direction, recHero, recTI);
+        //collision code with walls
         for (Polygon i : ply) {
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
@@ -222,6 +229,7 @@ public class TownController implements Initializable {
                     pneTown.setTranslateX(pneTown.getTranslateX() + 5);
                 }
             }
+            //takes you to the cave
             if (checkCol(plyHero, plyPath)) {//stop move timer and go to
                 pneTown.setTranslateX(pneTown.getTranslateX() + 5);
                 direction = "l";
@@ -257,6 +265,8 @@ public class TownController implements Initializable {
     }
 
     private boolean determineCaveLevel() {//allows user to choose level of dungeon
+        
+        //alert for you to select what floor to go to
 
         TextInputDialog dialog = new TextInputDialog("" + (MainApp.currentP.getHighestLevel() + 1));
         dialog.setTitle("Choose Which Level Dungeon you would like to enter");
@@ -285,7 +295,8 @@ public class TownController implements Initializable {
         return true;
 
     }
-
+    
+    //for collision with Shapes
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
@@ -293,6 +304,7 @@ public class TownController implements Initializable {
 
     @FXML
     private void scrollItem(ScrollEvent s) {//nextItem
+        //lets you scroll through items
         MainApp.scrollI(s);
         recTI.getTransforms().clear();
         // System.out.println(recTI.getTranslateY());
@@ -313,12 +325,15 @@ public class TownController implements Initializable {
         move.setCycleCount(INDEFINITE);
         move.play();
         lblCoins.setText("Coins: " + MainApp.currentP.getCoins());
+        lblLevel.setText("Level: " + MainApp.currentP.getLevel());
         MainApp.townSong.play();
         MainApp.currentA = ancTown;
         recHero.setFill(MainApp.currentP.getImageP());
         direction = "r";
         //MainApp.currentP.setInventory("hsh!!!");//for testing
         //MainApp.getItemsFromData(MainApp.currentP.getInventory());//for testing
+        
+        //adds items to slots
         MainApp.slot.clear();
         MainApp.slot.add(recT1);
         MainApp.slot.add(recT2);
@@ -328,11 +343,13 @@ public class TownController implements Initializable {
         MainApp.slot.add(recT6);
         MainApp.recItem = recTI;
         MainApp.showItems();
-
+        
+        //adds walls to array
         ply[0] = plyWall;
         ply[1] = plyTavern;
         ply[2] = plyBlacksmith;
-
+        
+        //checks previous location
         if (!MainApp.townLocation.equals("")) {
             if (MainApp.townLocation.equalsIgnoreCase("CAVEPATH")) {
                 pneTown.setTranslateX(-1250);

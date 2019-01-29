@@ -1,8 +1,8 @@
 
 /*
  * Made By: Conner Cullity
- * Date:
- * Description:
+ * Date: Dec 10, 2018
+ * Description: Window where you can fight slimes and go deeper into the dungeon
  */
 package cullity.renwahsdungeon;
 
@@ -131,6 +131,7 @@ public class CavePathController implements Initializable {
             move.stop();
         }
         kEvent = event;
+        //pausing
         if (event.getCode() == KeyCode.ESCAPE) {
             move.stop();
         }
@@ -154,26 +155,20 @@ public class CavePathController implements Initializable {
                         if ((MainApp.currentHealth + (((HPotion) MainApp.currentI).getExtraHealth()) + 10) < ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0))) {//if current health + health potion is less than max health then add it normally
                             MainApp.currentHealth += ((HPotion) MainApp.currentI).getExtraHealth() + 10;
 
-                            // System.out.println("hi");
                         } else {//current health + health potion is higher than full health so just make it full health
                             MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5.0 + 1.0);
-                            // System.out.println("good");
-                            // System.out.println(MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0));
-
-                            //System.out.println((double) MainApp.currentP.getLevel() / 5);
                         }
                         //note//set user progress bar
-                        // System.out.println(prgHealth.getProgress());
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
                         MainApp.deleteItem();
-                        //System.out.println(prgHealth.getProgress());
-                        //System.out.println(MainApp.currentHealth);
+
                     }
                 } catch (NullPointerException e) {
                 }
 
             }
         }
+        //Checks which key you pressed to set direction
         if ((psn.getHitCooldown() == 0) || (psn.getHitCooldown() > 10)) {
             if (null != event.getCode()) {
                 switch (event.getCode()) {
@@ -199,6 +194,7 @@ public class CavePathController implements Initializable {
     @FXML
     private void keyReleased(KeyEvent event) {
         if ((psn.getHitCooldown() == 0) || (psn.getHitCooldown() > 10)) {
+            //Checks key released to set direction to stand
             if (null != event.getCode()) {
                 switch (event.getCode()) {
                     case W:
@@ -266,10 +262,13 @@ public class CavePathController implements Initializable {
         if (arrowCooldown > 0) {
             arrowCooldown--;
         }
+        //nested for loop so enemies can collide with walls
         for (int e = 0; e < enemies.size(); e++) {
             for (Polygon ply1 : ply) {
+                //checks if slime collides with wall
                 if (checkCol(enemies.get(e), ply1)) {
                     switch (enemies.get(e).getDirection()) {
+                        //sets random direction
                         case "up":
                             enemies.get(e).setTranslateY(enemies.get(e).getTranslateY() + 10);
                             switch (ThreadLocalRandom.current().nextInt(3)) {
@@ -338,9 +337,10 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-
+        //constructor for movement of player in the cave
         psn.moveCave(pneHero, direction, recHero, recItem);
         for (Polygon i : ply) {
+            //checks if player collides with any wall
             if (checkCol(plyHero, i)) {
                 if ((direction.equals("up")) || (direction.equals("u"))) {
                     pneHero.setTranslateY(pneHero.getTranslateY() + 5);
@@ -364,27 +364,12 @@ public class CavePathController implements Initializable {
                     }
                 }
             }
-
-            /*for (int e = 0; e < enemies.size(); e++) {
-                switch (enemies.get(e).getDirection()) {
-                    case "up":
-                        enemies.get(e).setDirection("down");
-                        break;
-                    case "down":
-                        enemies.get(e).setDirection("up");
-                        break;
-                    case "left":
-                        enemies.get(e).setDirection("right");
-                        break;
-                    case "right":
-                        enemies.get(e).setDirection("left");
-                        break;
-                }
-            }*/
+            //eMov is a delay for the slimes to change direction
             eMov++;
             if (eMov == 10) {
                 eMov = 0;
                 for (int em = 0; em < enemies.size(); em++) {
+                    //direction time is for more delay, used for knockback when player attacks
                     if (enemies.get(em).getDirectionTime() > 10) {
                         enemies.get(em).setDirectionTime(enemies.get(em).getDirectionTime() + 1);
                         if (enemies.get(em).getDirectionTime() >= ThreadLocalRandom.current().nextInt(20, 60)) {
@@ -392,7 +377,8 @@ public class CavePathController implements Initializable {
                         }
                     } else if (enemies.get(em).getDirectionTime() == 10) {
                         enemies.get(em).setDirectionTime(0);
-
+                        
+                        //checks how far the slime is from the player then sets the direction to send the slime closer
                         if (ThreadLocalRandom.current().nextBoolean() == true) {
                             if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
                                 enemies.get(em).setDirection("left");
@@ -410,27 +396,14 @@ public class CavePathController implements Initializable {
                         }
                     }
 
-                    /*if ((ThreadLocalRandom.current().nextInt(500) == 0) && (enemies.get(em).getBounce() == 0)) {
-                        switch (ThreadLocalRandom.current().nextInt(4)) {
-                            case 0:
-                                enemies.get(em).setDirection("up");
-                                break;
-                            case 1:
-                                enemies.get(em).setDirection("down");
-                                break;
-                            case 2:
-                                enemies.get(em).setDirection("left");
-                                break;
-                            case 3:
-                                enemies.get(em).setDirection("up");
-                                break;
-                        }
-                    }*/
                     //knockback
                     if ((checkCol(plyHero, enemies.get(em))) && (psn.getHitCooldown() == 0) && (enemies.get(em).isVisible())) {
                         psn.setHitCooldown(1);
+                        //hitCooldown starts the knockback animation
+                        //lowers player health
                         MainApp.currentHealth = MainApp.currentHealth - (enemies.get(em).getStrength() * (1 + (MainApp.currentL / 5)));
                         prgHealth.setProgress((double) MainApp.currentHealth / ((double) MainApp.currentP.getBHealth() * ((double) MainApp.currentP.getLevel() / 5.0 + 1.0)));
+                        //checks if health is empty
                         if (MainApp.currentHealth <= 0) {
                             move.stop();
                             MainApp.caveSong.stop();
@@ -440,11 +413,12 @@ public class CavePathController implements Initializable {
                             alert.setTitle("YOU WERE DEFEATED");
                             alert.setHeaderText("YOU WERE DEFEATED");
                             alert.setContentText("You have fought a courageous battle against the Slimes. \n You lost at floor " + (MainApp.currentL + 1) + ".");
+                            //checks highest floor level
                             if (MainApp.currentL > MainApp.currentP.getHighestLevel()) {
                                 MainApp.currentP.setHighestLevel(MainApp.currentL);
                             }
                             MainApp.currentHealth = MainApp.currentP.getBHealth() * (MainApp.currentP.getLevel() / 5 + 1);
-
+                            //sends you back to the town
                             Platform.runLater(() -> {
                                 alert.showAndWait();
                                 MainApp.caveSong.stop();
@@ -467,14 +441,18 @@ public class CavePathController implements Initializable {
                                 }
                             });
                         }
+                        //changes direction to enemy direction so you are knocked back
                         direction = enemies.get(em).getDirection();
+                        //chekcs if cooldown started
                     } else if (psn.getHitCooldown() >= 1) {
                         psn.setHitCooldown(psn.getHitCooldown() + 1);
+                        //animation for invincible blinking effect
                         if (recHero.isVisible()) {
                             recHero.setVisible(false);
                         } else {
                             recHero.setVisible(true);
                         }
+                        //bounces you back
                         switch (direction) {
                             case "up":
                                 pneHero.setTranslateY(pneHero.getTranslateY() - 5);
@@ -491,6 +469,7 @@ public class CavePathController implements Initializable {
                             default:
                                 break;
                         }
+                        //stops you if cooldown is over
                         if (psn.getHitCooldown() == 10) {
                             switch (direction) {
                                 case "up":
@@ -513,7 +492,7 @@ public class CavePathController implements Initializable {
                             recHero.setVisible(true);
                         }
                     }
-
+                    //sends enemies towards the set direction
                     switch (enemies.get(em).getDirection()) {
                         case "up":
                             enemies.get(em).setTranslateY(enemies.get(em).getTranslateY() - 5);
@@ -533,12 +512,13 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-
+        //checks if chest is visible
         if (checkCol(plyHero, plyChest) && recChest.isVisible()) {
             MainApp.currentP.setXP(MainApp.currentP.getXP() + (((100 * MainApp.currentL) / 10) * (enemies.size() * 100) / 10));
 
             chestOpen = true;
             Platform.runLater(() -> {
+                //level up and XP
                 if (MainApp.currentP.getXP() >= (MainApp.currentP.getLevel() * 100)) {
                     MainApp.currentP.setLevel(MainApp.currentP.getLevel() + 1);
                     alert.setTitle("Level Up");
@@ -570,7 +550,6 @@ public class CavePathController implements Initializable {
         }
 
 //arrow stuff
-//if (MainApp.arrows.isEmpty()){return;}
         ArrayList<Arrow> removeArrow = new ArrayList();//cant remove from arralylist of enhanced loop after loop it will remove all arrows in this arraylist from the actual arrow arraylists
         for (Arrow a : MainApp.arrows) {
 
@@ -650,7 +629,9 @@ public class CavePathController implements Initializable {
 //        }
     }
 
+
     private void askIfWantToExit() {//method to ask if they would like to exit and reminds them that unsaved data will be lost
+
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Are you sure you want to exit?");
         a.setHeaderText("Any unsaved data will be lost");
@@ -685,7 +666,7 @@ public class CavePathController implements Initializable {
 
 //
     }
-
+    //collision boolean
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
@@ -703,7 +684,11 @@ public class CavePathController implements Initializable {
         if (MainApp.currentI == null) {
             return;
         }
+
+        //checks if held item is a weapon
         if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {//sword
+            //rotates and moves sword for animation
+
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             if ((direction.equals("up")) || (direction.equals("u"))) {
@@ -726,10 +711,12 @@ public class CavePathController implements Initializable {
 
             for (int e = 0; e < enemies.size(); e++) {
                 if ((checkCol(recItem, enemies.get(e))) && (enemies.get(e).isVisible())) {
+                    //checks if sword collided with the slime
                     enemies.get(e).setHealth(enemies.get(e).getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 2 + 1))); //Shawn, add to this. 35 is a placeholder number for testing.
                     slime = new MediaPlayer((new Media(getClass().getResource("/Blood Squirt.mp3").toString())));
                     slime.play();
                     enemies.get(e).setDirectionTime(11);
+                    //sends slimes opposite direction
                     switch (direction) {
                         case "u":
                             enemies.get(e).setDirection("up");
@@ -748,6 +735,7 @@ public class CavePathController implements Initializable {
                             break;
                     }
                     if (enemies.get(e).getHealth() <= 0) {
+                        //checks if you slayed every slime
                         enemies.get(e).setVisible(false);
                         if (!enemies.get(e).isVisible()) {
                             deadEnemies++;
@@ -756,7 +744,6 @@ public class CavePathController implements Initializable {
                                 mouseReleased(event);
                                 recChest.setFill(winChest.getImageP());
                                 recChest.setVisible(true);
-                                direction = "r";
                                 Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                                 al.setTitle("You completed the level!");
                                 al.setHeaderText("Go collect the chest to save your game and continue");
@@ -775,6 +762,7 @@ public class CavePathController implements Initializable {
         if (MainApp.currentI == null) {
             return;
         }
+        //rotates sword to normal position
         if ((MainApp.currentI.isWeapon()) && (!recItem.getTransforms().isEmpty()) && (MainApp.currentI.getSymbol() == "s".charAt(0))) {
             rotate.setPivotX(0);
             rotate.setPivotY(50);
@@ -801,7 +789,7 @@ public class CavePathController implements Initializable {
 
         recHero.setFill(MainApp.currentP.getImageP());
         MainApp.currentA = ancCavePath;
-
+        //setting arrays
         ply[0] = plyWall1;
         ply[1] = plyWall2;
         ply[2] = plyWall3;
@@ -819,6 +807,7 @@ public class CavePathController implements Initializable {
             enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
             enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
             enemies.get(ii).setHealth(multiplier * 50);
+            plyHero.setVisible(true);
             for (Polygon ply1 : ply) {
                 while ((checkCol(enemies.get(ii), ply1)) || (checkCol(enemies.get(ii), plyHero))) {
                     enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(100, 800));
@@ -826,7 +815,6 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-        plyHero.setVisible(true);
 
         ancCavePath.getChildren().addAll(enemies);
 

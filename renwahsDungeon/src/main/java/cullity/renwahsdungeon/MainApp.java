@@ -1,3 +1,6 @@
+//made by: Shawn and Conner
+//made on: 12/4/18
+//made to: Be an RPG Where the player goes into a dungeon and fights slimes
 package cullity.renwahsdungeon;
 
 import java.util.ArrayList;
@@ -12,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 //make inv when they push play//put delete items and show items in all scenes

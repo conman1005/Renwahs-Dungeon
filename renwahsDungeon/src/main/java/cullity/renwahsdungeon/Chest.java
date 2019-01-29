@@ -1,7 +1,7 @@
 /*
  * Made By: Shawn Benedict
  * Date: Dec 17, 2018
- * Made to
+ * Made for the chest
  */
 package cullity.renwahsdungeon;
 
