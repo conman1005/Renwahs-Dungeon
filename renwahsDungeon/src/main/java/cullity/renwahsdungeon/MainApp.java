@@ -1,3 +1,6 @@
+//made by: Shawn and Conner
+//made on: 12/4/18
+//made to: Be an RPG Where the player goes into a dungeon and fights slimes
 package cullity.renwahsdungeon;
 
 import java.util.ArrayList;
