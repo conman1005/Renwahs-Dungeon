@@ -803,6 +803,7 @@ public class CavePathController implements Initializable {
             enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(50, 850));
             enemies.get(ii).setTranslateY(ThreadLocalRandom.current().nextInt(50, 550));
             enemies.get(ii).setHealth(multiplier * 50);
+            plyHero.setVisible(true);
             for (Polygon ply1 : ply) {
                 while ((checkCol(enemies.get(ii), ply1)) || (checkCol(enemies.get(ii), plyHero))) {
                     enemies.get(ii).setTranslateX(ThreadLocalRandom.current().nextInt(100, 800));
@@ -810,7 +811,6 @@ public class CavePathController implements Initializable {
                 }
             }
         }
-        plyHero.setVisible(true);
 
         ancCavePath.getChildren().addAll(enemies);
 

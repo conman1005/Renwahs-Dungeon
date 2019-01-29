@@ -24,6 +24,11 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Label fx:id="lblLevel" layoutY="30.0" text="Level: ">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
       <Rectangle fx:id="recT2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="115.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recT4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="305.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
       <Rectangle fx:id="recT5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="400.0" layoutY="511.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
