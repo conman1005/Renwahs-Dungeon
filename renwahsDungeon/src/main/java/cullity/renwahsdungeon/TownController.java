@@ -293,7 +293,8 @@ public class TownController implements Initializable {
         return true;
 
     }
-
+    
+    //for collision with Shapes
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
         return intersect.getBoundsInParent().getWidth() > 0;
