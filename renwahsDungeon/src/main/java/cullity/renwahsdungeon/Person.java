@@ -6,7 +6,7 @@
 package cullity.renwahsdungeon;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;  
+import java.io.RandomAccessFile;
 import java.util.Comparator;
 import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
@@ -44,27 +44,29 @@ public class Person {
     //type = 2
     //coins = 4
     //highestLevel = 4
-    
-    private final int SIZE =56 ;
+//xp=4
+    private final int SIZE = 60;
     private String inventory;
     private String name;
     private int level;
     private int coins;
     private int highestLevel;
-    private double itemStatMultiplier;
+    // private double itemStatMultiplier;
     private int hitCooldown = 0;
-    
+
+    private int xp = 0;
+
     //person stuff
     public Person() {
         StringBuffer tempN = new StringBuffer("bob");
         tempN.setLength(15);
         name = tempN.toString();
 
-        StringBuffer tempI = new StringBuffer("!!!!!!");
+        StringBuffer tempI = new StringBuffer("s!!!!!");
         tempI.setLength(6);
         inventory = tempI.toString();//! is nothing
         level = 1;
-        bStrength = 10;
+        bStrength = 30;
         bHealth = 30;
         bDefense = 10;
         StringBuffer tempT = new StringBuffer("w");
@@ -73,7 +75,8 @@ public class Person {
         coins = 0;
         imageP = new ImagePattern(new Image(getClass().getResource("/sprites/heroFront.png").toString()));//image of the person
         highestLevel = 1;//furthest level travelled in the dungeon
-        itemStatMultiplier = 1;
+        xp = 0;
+//        itemStatMultiplier = 1;
     }
 
     public Person(String n, int l, double s, double h, double d, char t, String i, int c, String im, int hl, double ism) {
@@ -93,7 +96,8 @@ public class Person {
         coins = c;
         imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
         highestLevel = hl;
-        itemStatMultiplier = ism;
+        xp = 0;
+//        itemStatMultiplier = ism;
     }
 
     public int getHighestLevel() {
@@ -104,14 +108,13 @@ public class Person {
         highestLevel = hL;
     }
 
-    public void setItemStatMultiplier(int ism) {
-        itemStatMultiplier = ism;
-    }
-
-    public double getItemStatMultiplier() {
-        return itemStatMultiplier;
-    }
-
+//    public void setItemStatMultiplier(int ism) {
+//        itemStatMultiplier = ism;
+//    }
+//
+//    public double getItemStatMultiplier() {
+//        return itemStatMultiplier;
+//    }
     public ImagePattern getImageP() {
         return imageP;
     }
@@ -146,6 +149,14 @@ public class Person {
 
     public void setBDefense(double d) {
         bDefense = d;
+    }
+
+    public void setXP(int x) {
+        xp = x;
+    }
+
+    public int getXP() {
+        return xp;
     }
 
     public void setType(String t) {
@@ -200,6 +211,7 @@ public class Person {
             save.writeInt(level);
             save.writeInt(coins);
             save.writeInt(highestLevel);
+            save.writeInt(xp);
             save.close();
         } catch (IOException io) {
 
@@ -224,7 +236,7 @@ public class Person {
             level = opn.readInt();
             coins = opn.readInt();
             highestLevel = opn.readInt();
-            
+            xp = opn.readInt();
             opn.close();
         } catch (IOException io) {
 
@@ -270,6 +282,7 @@ public class Person {
     public void moveTown(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":
+                //checks direction and moves player
                 recItem.setRotationAxis(new Point3D(0, 90, 1));
                 recItem.setRotate(0);
                 recItem.setTranslateX(0);
@@ -283,6 +296,7 @@ public class Person {
                 } catch (NullPointerException e) {
                 }
                 wAnimation++;
+                //walking animation
                 switch (wAnimation) {
                     case 0:
                         recHero.setFill(new ImagePattern(new Image(getClass().getResource("/sprites/heroBackLeft.png").toString())));
@@ -420,7 +434,7 @@ public class Person {
                 break;
         }
     }
-
+    //similar to town movement
     public void moveCave(Pane pne, String direction, Rectangle recHero, Rectangle recItem) {
         switch (direction) {
             case "up":
@@ -553,7 +567,7 @@ public class Person {
         tempN.setLength(15);
         name = tempN.toString();
 
-        StringBuffer tempI = new StringBuffer("!!!!!!");
+        StringBuffer tempI = new StringBuffer("s!!!!!");
         tempI.setLength(6);
         inventory = tempI.toString();//! is nothing
         level = 1;
