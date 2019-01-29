@@ -218,7 +218,7 @@ public class CavePathController implements Initializable {
 
             try {
                 if ((event.getCode() == KeyCode.LEFT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.RIGHT && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) | (event.getCode() == KeyCode.UP && MainApp.currentI.getItemName().equalsIgnoreCase("Bow")) || (event.getCode() == KeyCode.DOWN && MainApp.currentI.getItemName().equalsIgnoreCase("Bow"))) {
-                    if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {
+                    if (MainApp.currentA.toString().equalsIgnoreCase("ancTown")) {//cant use bow in town
                         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
                         al.setTitle("Input not allowed");
                         al.setHeaderText("shooting arrtows in this town is against the law");
@@ -553,7 +553,7 @@ public class CavePathController implements Initializable {
         ArrayList<Arrow> removeArrow = new ArrayList();//cant remove from arralylist of enhanced loop after loop it will remove all arrows in this arraylist from the actual arrow arraylists
         for (Arrow a : MainApp.arrows) {
 
-            for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete yourself
+            for (Polygon p : ply) {//ply is walls and rocks,plyExit is the door//if hit those then delete arrow
                 if (checkCol(a, p) || checkCol(a, plyExit)) {
                     MainApp.currentA.getChildren().remove(a);
                     removeArrow.add(a);
@@ -562,7 +562,7 @@ public class CavePathController implements Initializable {
                 }
             }
             for (Enemy e : enemies) {
-                if (checkCol(a, e) && (e.isVisible())) {
+                if (checkCol(a, e) && (e.isVisible())) {//if hit enemy, do damage and then get rid of arraow and check if they beat level
                     //damage enemy //note not done yet
                     e.setHealth(e.getHealth() - (MainApp.currentP.getBStrength() /* MainApp.currentP.getItemStatMultiplier()*/ * (MainApp.currentP.getLevel() / 5 + 1)));
                     // System.out.println(MainApp.currentP.getBStrength());
@@ -589,7 +589,7 @@ public class CavePathController implements Initializable {
                         deadEnemies = 0;
 
                     }
-                    // System.out.println("hit with arrow");//testing
+                    
                     //then delete arrow
                     MainApp.currentA.getChildren().remove(a);
                     removeArrow.add(a);
@@ -598,6 +598,7 @@ public class CavePathController implements Initializable {
 //                    a.setD(0);
                 }
             }
+            //movement of arrows
             int x = 0;
             int y = 0;
             if (a.getD() == 1) {
@@ -620,7 +621,7 @@ public class CavePathController implements Initializable {
             a.setTranslateX(a.getTranslateX() + x);
             a.setTranslateY(a.getTranslateY() - y);
         }
-        MainApp.arrows.removeAll(removeArrow);
+        MainApp.arrows.removeAll(removeArrow);//deletes all the arrows that were put in this arraylist from the primary list
 //        for (int i = 0; i < MainApp.arrows.size(); i++) {
 //            if (MainApp.arrows.get(i).getD() == 0) {
 //                MainApp.arrows.remove(i);
@@ -628,8 +629,9 @@ public class CavePathController implements Initializable {
 //        }
     }
 
-    private void askIfWantToExit() {
-        //checks if you actually want to exit
+
+    private void askIfWantToExit() {//method to ask if they would like to exit and reminds them that unsaved data will be lost
+
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Are you sure you want to exit?");
         a.setHeaderText("Any unsaved data will be lost");
@@ -682,9 +684,11 @@ public class CavePathController implements Initializable {
         if (MainApp.currentI == null) {
             return;
         }
+
         //checks if held item is a weapon
-        if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {
+        if (MainApp.currentI.isWeapon() && MainApp.currentI.getSymbol() == "s".charAt(0)) {//sword
             //rotates and moves sword for animation
+
             rotate.setPivotX(0);
             rotate.setPivotY(50);
             if ((direction.equals("up")) || (direction.equals("u"))) {

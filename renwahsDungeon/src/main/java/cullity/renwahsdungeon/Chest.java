@@ -29,9 +29,9 @@ public class Chest {
     ArrayList<Item> gains = new ArrayList();//arraylist of items they win//gained items
     int rand;//random between 1 and 3//used for size of arraylist and which items get added
     int extraCoins;
-    Item itm1 = null;
-    Item itm2 = null;
-    Item itm3 = null;
+//    Item itm1 = null;
+//    Item itm2 = null;
+//    Item itm3 = null;
     ImagePattern imageP;//picture of chest
 
     public Chest() {
@@ -46,13 +46,14 @@ public class Chest {
                 gains.add(new Bow());
             }
         }
-        itm1 = gains.get(0);
-
-        try {//if size is one then there wont be a second and third item
-            itm2 = gains.get(1);
-            itm3 = gains.get(2);
-        } catch (Exception e) {
-        }
+//        itm1 = gains.get(0);
+//        
+//
+//        try {//if size is one then there wont be a second and third item
+//            itm2 = gains.get(1);
+//            itm3 = gains.get(2);
+//        } catch (Exception e) {
+//        }
         extraCoins = ThreadLocalRandom.current().nextInt((100 * MainApp.currentP.getLevel()) / 5, (100 * MainApp.currentP.getLevel()) / 4);//extra coins
         imageP = new ImagePattern(new Image(getClass().getResource("/" + "chest" + ".png").toString()));
     }
@@ -69,13 +70,13 @@ public class Chest {
                 gains.add(new Bow());
             }
         }
-        itm1 = gains.get(0);
-
-        try {//if size is one then there wont be a second and third item
-            itm2 = gains.get(1);
-            itm3 = gains.get(2);
-        } catch (Exception e) {
-        }
+//        itm1 = gains.get(0);
+//
+//        try {//if size is one then there wont be a second and third item
+//            itm2 = gains.get(1);
+//            itm3 = gains.get(2);
+//        } catch (Exception e) {
+//        }
         extraCoins = c;//extra coins
         imageP = new ImagePattern(new Image(getClass().getResource("/" + im + ".png").toString()));
     }
@@ -100,7 +101,7 @@ public class Chest {
             nextNum++;
         }
         String newIn = "";
-        if (choices.size() > 6) {
+        if (choices.size() > 6) {//if they have more items in their invenotry and gains than 6 (max)
             TextInputDialog dialog = new TextInputDialog("123456");
             dialog.setTitle("Choose Which Items to Keep ");
             dialog.setHeaderText("Type in the corresponding number to the item(s) \n you would like in your inventory (maximum of six)\n (Be sure to put in the correct values or you might not get the items you wanted) \n *No spaces \n for example typing in 143 will give you the first, fourth and third item listed");//might need to make easier to understand
@@ -173,7 +174,7 @@ public class Chest {
                         }
                     }
 
-                    for (int j = 0; j < chosen.length(); j++) {
+                    for (int j = 0; j < chosen.length(); j++) {//if they chose same number twice
                         for (int n = 0; n < chosen.length(); n++) {
                             if (Integer.parseInt(chosen.substring(j, j + 1)) == Integer.parseInt(chosen.substring(n, n + 1)) && (j != n)) {
                                 Alert al = new Alert(Alert.AlertType.CONFIRMATION);
@@ -196,7 +197,7 @@ public class Chest {
                 try {
 //put next line in presentation
                     newIn += ((Item) choices.get((Integer.parseInt(chosen.substring(i, i + 1))) - 1)).getSymbol();//putting together all the new items they chose
-                    //Gson gson=new Gson();
+//Gson gson=new Gson();
                     //  c = ((Item) choices.get((Integer.parseInt(chosen.substring(i, i+1))) - 1));//gets the symbol of the class of the element in the array they selected with the dialog at the given substring
 //
 //                if ("s".charAt(0) == c) {
@@ -209,7 +210,7 @@ public class Chest {
 
                 }
             }
-        } else {
+        } else {//if less than 7 items total
 
 //loop for string newIn
             for (Item i : choices) {
@@ -277,50 +278,56 @@ public class Chest {
         extraCoins = c;
     }
 
-    public Item getItm1() {
-        return itm1;
+    public ArrayList getGains() {
+        return gains;
     }
 
-    public void setItm1(Item iOne) {
-        itm1 = iOne;
-        try {
-            gains.set(0, itm2);
-        } catch (IndexOutOfBoundsException e) {
-        }
+    public void setGains(ArrayList g) {
+        gains.clear();
+        gains.addAll(g);
     }
 
-    public Item getItm2() {
-        return itm2;
-    }
-
-    public void setItm2(Item iTwo) {
-        itm2 = iTwo;
-        try {
-            gains.set(1, itm2);
-        } catch (IndexOutOfBoundsException e) {
-        }
-    }
-
-    public Item getItm3() {
-        return itm3;
-    }
-
-    public void setItm3(Item iThree) {
-        itm3 = iThree;
-        try {
-            gains.set(2, itm3);
-        } catch (IndexOutOfBoundsException e) {
-        }
-    }
-
+//    public Item getItm1() {
+//        return itm1;
+//    }
+//
+//    public void setItm1(Item iOne) {
+//        itm1 = iOne;
+//        try {
+//            gains.set(0, itm2);
+//        } catch (IndexOutOfBoundsException e) {
+//        }
+//    }
+//
+//    public Item getItm2() {
+//        return itm2;
+//    }
+//    public void setItm2(Item iTwo) {
+//        itm2 = iTwo;
+//        try {
+//            gains.set(1, itm2);
+//        } catch (IndexOutOfBoundsException e) {
+//        }
+//    }
+//
+//    public Item getItm3() {
+//        return itm3;
+//    }
+//    public void setItm3(Item iThree) {
+//        itm3 = iThree;
+//        try {
+//            gains.set(2, itm3);
+//        } catch (IndexOutOfBoundsException e) {
+//        }
+//    }
     public int getSize() {//return size of arraylist
         return gains.size();
     }
 
-    public void clear() {//clear Arraylist
-        gains.clear();
-        itm1 = null;
-        itm2 = null;
-        itm3 = null;
-    }
+//    public void clear() {//clear Arraylist
+//        gains.clear();
+//        itm1 = null;
+//        itm2 = null;
+//        itm3 = null;
+//    }
 }
