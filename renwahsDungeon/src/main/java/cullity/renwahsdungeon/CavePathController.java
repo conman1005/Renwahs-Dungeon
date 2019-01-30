@@ -487,6 +487,8 @@ public class CavePathController implements Initializable {
                                 default:
                                     break;
                             }
+                            MainApp.currentP.setHitCooldown(0);
+                            move.play();
                         } else if (psn.getHitCooldown() == 50) {
                             psn.setHitCooldown(0);
                             recHero.setVisible(true);
@@ -515,7 +517,8 @@ public class CavePathController implements Initializable {
         //checks if chest is visible
         if (checkCol(plyHero, plyChest) && recChest.isVisible()) {
             MainApp.currentP.setXP(MainApp.currentP.getXP() + (((100 * MainApp.currentL) / 10) * (enemies.size() * 100) / 10));
-
+            direction = "d";
+            MainApp.currentP.setHitCooldown(0);
             chestOpen = true;
             Platform.runLater(() -> {
                 //level up and XP
@@ -543,7 +546,7 @@ public class CavePathController implements Initializable {
         }
         if (checkCol(plyHero, plyExit)) {
             move.stop();
-            pneHero.setTranslateY(pneHero.getTranslateY() - 15);
+            pneHero.setTranslateY(pneHero.getTranslateY() - 5);
             direction = "u";
             Platform.runLater(() -> askIfWantToExit());
             return;
@@ -757,6 +760,22 @@ public class CavePathController implements Initializable {
                             deadEnemies++;
                             if (deadEnemies == enemies.size()) {
                                 //mouseReleased called to finish sword animation, otherwise, the sword would be stuck in the 'swung' position
+                                switch (direction) {
+                                    case "up":
+                                        direction = "u";
+                                        break;
+                                    case "left":
+                                        direction = "l";
+                                        break;
+                                    case "down":
+                                        direction = "d";
+                                        break;
+                                    case "right":
+                                        direction = "r";
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 mouseReleased(event);
                                 recChest.setFill(winChest.getImageP());
                                 recChest.setVisible(true);
@@ -765,6 +784,7 @@ public class CavePathController implements Initializable {
                                 al.setHeaderText("Go collect the chest to save your game and continue");
                                 al.setContentText(null);
                                 Platform.runLater(al::showAndWait);
+                                return;
                             }
                         }
                     }
