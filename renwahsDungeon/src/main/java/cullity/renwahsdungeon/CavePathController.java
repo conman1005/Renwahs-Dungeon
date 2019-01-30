@@ -377,7 +377,7 @@ public class CavePathController implements Initializable {
                         }
                     } else if (enemies.get(em).getDirectionTime() == 10) {
                         enemies.get(em).setDirectionTime(0);
-                        
+
                         //checks how far the slime is from the player then sets the direction to send the slime closer
                         if (ThreadLocalRandom.current().nextBoolean() == true) {
                             if (enemies.get(em).getTranslateX() > pneHero.getTranslateX() + 450) {
@@ -525,7 +525,7 @@ public class CavePathController implements Initializable {
                     alert.setHeaderText("Level Up");
                     alert.setContentText("You are now level " + MainApp.currentP.getLevel());
                     alert.showAndWait();
-                    
+
                     MainApp.currentP.setXP(0);
                 }
 
@@ -574,6 +574,22 @@ public class CavePathController implements Initializable {
                             if (!enemies.get(ee).isVisible()) {
                                 deadEnemies++;
                                 if (deadEnemies == enemies.size()) {
+                                    switch (direction) {
+                                        case "up":
+                                            direction = "u";
+                                            break;
+                                        case "left":
+                                            direction = "l";
+                                            break;
+                                        case "down":
+                                            direction = "d";
+                                            break;
+                                        case "right":
+                                            direction = "r";
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                     recChest.setFill(winChest.getImageP());
                                     recChest.setVisible(true);
                                     direction = "r";
@@ -589,7 +605,7 @@ public class CavePathController implements Initializable {
                         deadEnemies = 0;
 
                     }
-                    
+
                     //then delete arrow
                     MainApp.currentA.getChildren().remove(a);
                     removeArrow.add(a);
@@ -629,7 +645,6 @@ public class CavePathController implements Initializable {
 //        }
     }
 
-
     private void askIfWantToExit() {//method to ask if they would like to exit and reminds them that unsaved data will be lost
 
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -666,6 +681,7 @@ public class CavePathController implements Initializable {
 
 //
     }
+
     //collision boolean
     private boolean checkCol(Shape obj1, Shape obj2) {
         Shape intersect = Shape.intersect(obj1, obj2);
