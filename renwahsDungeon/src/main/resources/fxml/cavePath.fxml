@@ -16,7 +16,7 @@
       <Polygon fx:id="plyWall5" fill="#2197ff00" layoutX="438.0" layoutY="373.0" points="-31.0, -27.0, 71.0, -27.0, 71.0, -43.0, -31.0, -43.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Polygon fx:id="plyWall6" fill="#2197ff00" layoutX="348.0" layoutY="258.0" points="-10.0, -17.0, 21.0, -17.0, 2.0, -41.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Polygon fx:id="plyWall7" fill="#2197ff00" layoutX="569.0" layoutY="258.0" points="-13.0, -19.0, 24.0, -19.0, -1.0, -43.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <Polygon fx:id="plyExit" fill="#2197ff00" layoutX="384.0" layoutY="565.0" points="-94.0, 60.0, 205.0, 60.0, 205.0, 41.0, -94.0, 41.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Polygon fx:id="plyExit" fill="#2197ff00" layoutX="384.0" layoutY="565.0" points="-94.0, 60.0, 205.0, 60.0, 205.0, 29.0, -94.0, 29.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Polygon fx:id="plyChest" fill="#2197ff00" layoutX="451.0" layoutY="258.0" points="-9.0, 34.0, 25.0, 34.0, 25.0, 2.0, -9.0, 2.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Rectangle fx:id="recC1" arcHeight="5.0" arcWidth="5.0" fill="#383a52" height="50.0" layoutX="26.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <Rectangle fx:id="recC2" arcHeight="5.0" arcWidth="5.0" fill="#393b53" height="50.0" layoutX="106.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
