@@ -515,6 +515,7 @@ public class CavePathController implements Initializable {
         //checks if chest is visible
         if (checkCol(plyHero, plyChest) && recChest.isVisible()) {
             MainApp.currentP.setXP(MainApp.currentP.getXP() + (((100 * MainApp.currentL) / 10) * (enemies.size() * 100) / 10));
+            direction = "d";
 
             chestOpen = true;
             Platform.runLater(() -> {
